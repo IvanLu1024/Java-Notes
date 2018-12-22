@@ -1,6 +1,6 @@
 package code_07_dp;
 
-import com.southeast.code_05_binaryTree.TreeNode;
+import code_05_binaryTree.TreeNode;
 
 /**
  * 337. House Robber III
