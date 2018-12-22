@@ -1,4 +1,4 @@
-package code_05_setAndMap;
+package code_05_setAndMap.set;
 
 import code_02_linkedlist.Node;
 

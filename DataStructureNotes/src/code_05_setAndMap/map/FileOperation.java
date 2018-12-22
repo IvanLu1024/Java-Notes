@@ -1,4 +1,4 @@
-package code_05_setAndMap;
+package code_05_setAndMap.map;
 
 import java.io.BufferedInputStream;
 import java.io.File;
