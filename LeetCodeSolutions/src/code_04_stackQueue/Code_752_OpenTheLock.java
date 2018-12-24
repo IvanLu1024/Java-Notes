@@ -43,7 +43,10 @@ import java.util.Set;
  */
 public class Code_752_OpenTheLock {
     /**
-     * 思路一：暴力求解，但是超时了
+     * 思路：
+     * 将每次得到的锁都看成节点，
+     * 锁1到锁2的路径就是从当前锁转动后得到的新的锁的值。
+     * 一直进行BFS即可。
      */
     public int openLock(String[] deadends, String target) {
         Set<String> deadSet=new HashSet<>();
@@ -77,15 +80,6 @@ public class Code_752_OpenTheLock {
         return -1;
     }
 
-    private class Pair{
-        String s;
-        int turn;
-        Pair(String s,int turn){
-            this.s=s;
-            this.turn=turn;
-        }
-    }
-
     //锁的密码是s时，获取下一个有可能的锁密码
     private Set<String> getNextLock(String s,Set<String> deadends){
         Set<String> res=new HashSet<>();
@@ -101,7 +95,6 @@ public class Code_752_OpenTheLock {
             d=num-1;
             if(d < 0) d = 9;
             t=s.substring(0,i)+((char) (d+'0'))+s.substring(i+1,4);
-            System.out.println(t);
             if(!deadends.contains(t)){
                 res.add(t);
             }
@@ -109,15 +102,19 @@ public class Code_752_OpenTheLock {
         return res;
     }
 
+    private class Pair{
+        String s;
+        int turn;
+        Pair(String s,int turn){
+            this.s=s;
+            this.turn=turn;
+        }
+    }
+
     @Test
     public void test(){
         String[] arr={"0201","0101","0102","1212","2002"};
         String target="0202";
         System.out.println(openLock(arr,target));
-
-        String s="0000";
-        int d=1;
-        String t=s.substring(0,0)+((char) (d+'0'))+s.substring(1,4);
-        System.out.println(t);
     }
 }
