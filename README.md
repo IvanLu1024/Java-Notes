@@ -6,13 +6,22 @@
 | 章节 | 内容 | 代码 |
 | :--: | :--: | :--: |
 | **第一章 数据结构** |  |  |
-| 第一节 数组 | [第一节 数组](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/%E6%95%B0%E7%BB%84.md) | [第一节 数组相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_00_array) | 
-| 第二节 栈和队列 | [第二节 栈和队列](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97.md) | [第二节 栈和队列相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_01_stackAndQueue) | 
-| 第三节 链表 | [第三节 链表](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/%E9%93%BE%E8%A1%A8.md) | [第三节 链表相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_02_linkedlist) | 
-| 第四节 链表和递归 | [第四节 链表和递归](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/%E9%93%BE%E8%A1%A8%E5%92%8C%E9%80%92%E5%BD%92.md) | [第四节 链表和递归相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_03_linkedlistAndRecursion) | 
-| 第五节 二叉搜索树 | [第五节 二叉搜索树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.md) | [第五节 二叉搜索树相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_04_bst) | 
-| 第六节 集合和映射 | [第六节 集合和映射](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/%E9%9B%86%E5%90%88%E5%92%8C%E6%98%A0%E5%B0%84.md) | [第六节 集合和映射相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_05_setAndMap) | 
-| 第七节 优先队列和堆 | [第七节 优先队列和堆](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E5%92%8C%E5%A0%86.md) | [第七节 优先队列和堆相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_06_heapAndPriorityQueue) | 
+| 第一节 数组 | [第一节 数组](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/00%E6%95%B0%E7%BB%84.md) | [第一节 数组相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_00_array) | 
+| 第二节 栈和队列 | [第二节 栈和队列](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/01%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97.md) | [第二节 栈和队列相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_01_stackAndQueue) | 
+| 第三节 链表 | [第三节 链表](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/02%E9%93%BE%E8%A1%A8.md) | [第三节 链表相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_02_linkedlist) | 
+| 第四节 链表和递归 | [第四节 链表和递归](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/03%E9%93%BE%E8%A1%A8%E5%92%8C%E9%80%92%E5%BD%92.md) | [第四节 链表和递归相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_03_linkedlistAndRecursion) | 
+| 第五节 二叉搜索树 | [第五节 二叉搜索树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/04%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.md) | [第五节 二叉搜索树相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_04_bst) | 
+| 第六节 集合和映射 | [第六节 集合和映射](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/05%E9%9B%86%E5%90%88%E5%92%8C%E6%98%A0%E5%B0%84.md) | [第六节 集合和映射相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_05_setAndMap) | 
+| 第七节 优先队列和堆 | [第七节 优先队列和堆](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/06%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E5%92%8C%E5%A0%86.md) | [第七节 优先队列和堆相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_06_heapAndPriorityQueue) | 
+| 第八节 线段树 | [第八节 线段树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/08%E7%BA%BF%E6%AE%B5%E6%A0%91.md) | 第八节 线段树 |
+| 第九节 Trie | [第九节 Trie](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/09Trie.md) | 第九节 Trie |
+| 第十节 并查集 | [第十节 并查集](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/10%E5%B9%B6%E6%9F%A5%E9%9B%86.md) | 第十节 并查集 |
+| 第十一节 AVL | [第十一节 AVL](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/11AVL.md)| 第十一节 AVL |
+| 第十二节 红黑树 | [第十二节 红黑树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/12%E7%BA%A2%E9%BB%91%E6%A0%91.md) | 第十二节 红黑树 |
+| 第十三节 哈希表| [第十三节 哈希表](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/13%E5%93%88%E5%B8%8C%E8%A1%A8.md) | 第十三节 哈希表 |
+| 第十四节 图 | [第十四节 图](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/14%E5%9B%BE.md) | 第十四节 图 |
+| 第十五节 最小生成树 | [第十五节 最小生成树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/15%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91.md) | 第十五节 最小生成树 |
+| 第十六节 最短路径 | [第十六节 最短路径](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/16%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84.md) | 第十六节 最短路径 |
 | **第二章 算法思想** |  |  |
 | **第三章 LeetCode题解** |  |  | 
 | 第一节 数组问题 | [第一节 数组问题](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/01%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98.md) | [第一节 数组问题相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_01_array) |
