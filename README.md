@@ -1,11 +1,10 @@
 # 说明
-本仓库对Java学习中的一些问题进行了整理、分类。主要分成6个模块。
+本仓库对学习中的一些数据结构问题和基本算法问题进行了整理、分类。分成3个模块。
 
 ## :coffee: 模块一 算法和数据结构
 
 | 章节 | 内容 | 代码 |
 | :--: | :--: | :--: |
-| **第一章 数据结构** |  |  |
 | 第一节 数组 | [第一节 数组](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/00%E6%95%B0%E7%BB%84.md) | [第一节 数组相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_00_array) | 
 | 第二节 栈和队列 | [第二节 栈和队列](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/01%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97.md) | [第二节 栈和队列相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_01_stackAndQueue) | 
 | 第三节 链表 | [第三节 链表](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/02%E9%93%BE%E8%A1%A8.md) | [第三节 链表相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_02_linkedlist) | 
@@ -22,8 +21,20 @@
 | 第十四节 图 | [第十四节 图](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/14%E5%9B%BE.md) | 第十四节 图 |
 | 第十五节 最小生成树 | [第十五节 最小生成树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/15%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91.md) | 第十五节 最小生成树 |
 | 第十六节 最短路径 | [第十六节 最短路径](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/16%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84.md) | 第十六节 最短路径 |
-| **第二章 算法思想** |  |  |
-| **第三章 LeetCode题解** |  |  | 
+
+## :computer: 模块二 算法思想
+
+| 章节 | 内容 | 代码 |
+| :--: | :--: | :--: |
+| 第一节 排序基础 | [第一节 排序基础](https://github.com/DuHouAn/Java-Notes/blob/master/BasicAlgorithm/notes/00%E6%8E%92%E5%BA%8F%E5%9F%BA%E7%A1%80.md) | 第一节 排序基础 |
+| 第二节 高级排序问题 | [第二节 高级排序问题](https://github.com/DuHouAn/Java-Notes/blob/master/BasicAlgorithm/notes/01%E9%AB%98%E7%BA%A7%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98.md) | 第二节 高级排序问题 |
+| 第三节 堆排序 |  [第三节 堆排序](https://github.com/DuHouAn/Java-Notes/blob/master/BasicAlgorithm/notes/02%E5%A0%86%E6%8E%92%E5%BA%8F.md) |  第三节 堆排序 |
+
+
+## :hammer: 模块三  LeetCode题解
+
+| 章节 | 内容 | 代码 |
+| :--: | :--: | :--: |
 | 第一节 数组问题 | [第一节 数组问题](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/01%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98.md) | [第一节 数组问题相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_01_array) |
 | 第二节 查找表问题 | [第二节 查找表问题](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/02%E6%9F%A5%E6%89%BE%E9%97%AE%E9%A2%98.md) | [第二节 查找表问题相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_02_find) |
 | 第三节 链表问题 | [第三节 链表问题](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/03%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98.md) | [第三节 链表问题相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_03_list) |
