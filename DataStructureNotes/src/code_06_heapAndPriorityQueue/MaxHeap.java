@@ -2,6 +2,7 @@ package code_06_heapAndPriorityQueue;
 
 import code_00_array.Array;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 /**
@@ -18,6 +19,18 @@ public class MaxHeap<E extends Comparable<E>> {
 
     public MaxHeap(){
         this(10);
+    }
+
+    //heapify：将任意数组整理成堆的形状
+    public MaxHeap(E[] arr){
+        data=(E[])new Comparable[arr.length];
+        for(int i=0;i<arr.length;i++){
+            data[i]=arr[i];
+        }
+        size=arr.length;
+        for(int i=parent(arr.length-1);i>=0;i--){
+            sink(i);
+        }
     }
 
     //返回堆中元素个数
@@ -115,5 +128,13 @@ public class MaxHeap<E extends Comparable<E>> {
             swap(k,j);
             k=j;
         }
+    }
+
+    //replace：取出最大元素后，放入新元素
+    public E replace(E e){
+        E ret=data[0];
+        data[0]=e;
+        sink(0);
+        return ret;
     }
 }
