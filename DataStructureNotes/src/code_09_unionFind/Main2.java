@@ -37,10 +37,13 @@ public class Main2 {
         //基于rank对UionFind3进行改进
         UnionFind4 uf4 = new UnionFind4(size);
         System.out.println("UnionFind4 : " + testUF(uf4, m) + " s");
-        /**
-         * 输出结果：
-         UnionFind3 : 6.095589744 s
-         UnionFind4 : 4.930825026 s
-         */
+
+        //路径压缩I，对UionFind4进行改进
+        UnionFind5 uf5 = new UnionFind5(size);
+        System.out.println("UnionFind5 : " + testUF(uf5, m) + " s");
+
+        //路径压缩II，对UionFind4进行改进
+        UnionFind6 uf6 = new UnionFind6(size);
+        System.out.println("UnionFind6 : " + testUF(uf6, m) + " s");
     }
 }
