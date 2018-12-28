@@ -12,8 +12,8 @@
 | 第五节 二叉搜索树 | [第五节 二叉搜索树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/04%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.md) | [第五节 二叉搜索树相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_04_bst) | 
 | 第六节 集合和映射 | [第六节 集合和映射](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/05%E9%9B%86%E5%90%88%E5%92%8C%E6%98%A0%E5%B0%84.md) | [第六节 集合和映射相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_05_setAndMap) | 
 | 第七节 优先队列和堆 | [第七节 优先队列和堆](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/06%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E5%92%8C%E5%A0%86.md) | [第七节 优先队列和堆相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_06_heapAndPriorityQueue) | 
-| 第八节 线段树 | [第八节 线段树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/08%E7%BA%BF%E6%AE%B5%E6%A0%91.md) | 第八节 线段树 |
-| 第九节 Trie | [第九节 Trie](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/09Trie.md) | 第九节 Trie |
+| 第八节 线段树 | [第八节 线段树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/08%E7%BA%BF%E6%AE%B5%E6%A0%91.md) | [第八节 线段树相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_07_segmentTree) |
+| 第九节 Trie字典树 | [第九节 Trie字典树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/09Trie.md) | [第九节 Trie字典树相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_08_trie) |
 | 第十节 并查集 | [第十节 并查集](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/10%E5%B9%B6%E6%9F%A5%E9%9B%86.md) | 第十节 并查集 |
 | 第十一节 AVL | [第十一节 AVL](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/11AVL.md)| 第十一节 AVL |
 | 第十二节 红黑树 | [第十二节 红黑树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/12%E7%BA%A2%E9%BB%91%E6%A0%91.md) | 第十二节 红黑树 |
