@@ -1,24 +1,8 @@
-<!-- GFM-TOC -->
-* [并查集](#并查集)
-    * [什么是并查集](#什么是并查集)
-    * [Quick Find](#Quick-Find)
-<!-- GFM-TOC -->
-# 并查集
-## 什么是并查集
+package code_09_unionFind;
 
-<div align="center"><img src="pics//unionFind//unionFind_1.png" width="600"/></div>
-
-并查集接口：
-```java
-public interface UF {
-    int getSize();
-    boolean isConnected(int p,int q);
-    void unionElements(int p,int q);
-}
-```
-
-## Quick Find
-```java
+/**
+ * Created by 18351 on 2018/12/28.
+ */
 public class UnionFind1 implements UF{
     //存储相应元素的集合编号
     private int[] id;
@@ -64,5 +48,4 @@ public class UnionFind1 implements UF{
         }
     }
 }
-```
-<div align="center"><img src="pics//unionFind//unionFind_2.png" width="600"/></div>
+
