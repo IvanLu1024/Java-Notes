@@ -15,5 +15,13 @@ public class Main {
         //使用Lamda表达式
         SegmentTree<Integer> segmentTree=new SegmentTree<>(nums,(a, b) -> a+b);
         System.out.println(segmentTree);
+
+        System.out.println(segmentTree.query(0,1));
+        System.out.println(segmentTree.query(1,4));
+        System.out.println(segmentTree.query(0,6));
+        System.out.println(segmentTree.query(0,7));
+
+        segmentTree.set(0,10);
+        System.out.println(segmentTree);
     }
 }

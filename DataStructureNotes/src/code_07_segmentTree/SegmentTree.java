@@ -32,6 +32,57 @@ public class SegmentTree<E> {
         tree[treeIndex]=merger.meger(tree[leftTreeIndex],tree[rightTreeIndex]);
     }
 
+    //查询区间[queryL,queryR]的值
+    public E query(int queryL,int queryR){
+        if(queryL<0 || queryL>=data.length
+                || queryR<0 || queryR>=data.length || queryL>queryR){
+            throw new IllegalArgumentException("Index is illegal");
+        }
+        return query(0,0,data.length-1,queryL,queryR);
+    }
+
+    private E query(int treeIndex,int l,int r,int queryL,int queryR){
+        if(l==queryL && r==queryR){
+            return tree[treeIndex];
+        }
+        int mid=l+(r-l)/2;
+        int leftChildIndex=leftChild(treeIndex);
+        int rightChildIndex=rightChild(treeIndex);
+        if(queryL>=mid+1){
+            //只要在右子树中查找
+            return query(rightChildIndex,mid+1,r,queryL,queryR);
+        }else if(queryR<=mid){
+            //只要在左子树中查找
+            return query(leftChildIndex,l,mid,queryL,queryR);
+        }
+        E leftResult=query(leftChildIndex,l,mid,queryL,mid);
+        E rightResult=query(rightChildIndex,mid+1,r,mid+1,queryR);
+        return merger.meger(leftResult,rightResult);
+    }
+
+    public void set(int index,E e){
+        if(index<0 || index>=data.length){
+            throw new IllegalArgumentException("Index is illegal");
+        }
+        set(0,0,data.length-1,index,e);
+    }
+
+    private void set(int treeIndex,int l,int r,int index, E e){
+        if(l==r){
+            tree[treeIndex]=e;
+            return;
+        }
+        int mid=l+(r-l)/2;
+        int leftChildIndex=leftChild(treeIndex);
+        int rightChildIndex=rightChild(treeIndex);
+        if(index>=mid+1){
+            set(rightChildIndex,mid+1,r,index,e);
+        }else{
+            set(leftChildIndex,l,mid,index,e);
+        }
+        tree[treeIndex]=merger.meger(tree[leftChildIndex],tree[rightChildIndex]);
+    }
+
     public int getSize(){
         return data.length;
     }
