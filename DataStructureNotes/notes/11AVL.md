@@ -4,6 +4,9 @@
    * [计算节点的高度和平衡因子](#计算节点的高度和平衡因子)
    * [检查二分搜索树和平衡树](#检查二分搜索树和平衡树)
    * [AVL树的左旋转和右旋转](#AVL树的左旋转和右旋转)
+   * [LR和RL](#LR和RL)
+   * [删除元素](#删除元素)
+   * [基于AVL树的集合和映射](#基于AVL树的集合和映射)
 <!-- GFM-TOC -->
 # AVL树
 
@@ -149,7 +152,167 @@ private boolean isBalancedTree(Node node){
 - 右旋转操作II:**y.left=T3**
 <div align="center"><img src="pics//avl//avl_8.png" width="600"/></div>
 
-- 有旋转之后，就是平衡的BST：假设z节点的高度是(h+1),可以验证以x为根节点的BST树是平衡树
+- 右旋转之后，就是平衡的BST：假设z节点的高度是(h+1),可以验证以x为根节点的BST树是平衡树
 
 <div align="center"><img src="pics//avl//avl_9.png" width="600"/></div>
 
+- 代码实现：
+```java
+// 对节点y进行向右旋转操作，返回旋转后新的根节点x
+//        y                              x
+//       / \                           /   \
+//      x   T4     向右旋转 (y)        z     y
+//     / \       - - - - - - - ->    / \   / \
+//    z   T3                       T1  T2 T3 T4
+//   / \
+// T1   T2
+private Node rightRotate(Node y){
+    Node x=y.left;
+    Node T3=x.right;
+
+    //向右旋转
+    x.right=y;
+    y.left=T3;
+
+    //维护树的高度
+    y.height=1 + Math.max(getNodeHeight(y.left),getNodeHeight(y.right));
+    x.height=1 + Math.max(getNodeHeight(x.left),getNodeHeight(x.right));
+
+    return x;
+}
+
+private Node add(Node node,K key,V value){
+    if(node==null){
+        size++;
+        return new Node(key,value);
+    }
+    if(key.compareTo(node.key)<0){
+        node.left=add(node.left,key,value);
+    }else if(key.compareTo(node.key)>0){
+        node.right=add(node.right,key,value);
+    }else{
+        node.value=value;
+    }
+    //更新height
+    node.height=1+Math.max(getNodeHeight(node.left),getNodeHeight(node.right));
+    //计算平衡因子
+    int balancedFactor=getBalancedFactor(node);
+    if(Math.abs(balancedFactor)>1){
+        System.out.println("unblance:"+balancedFactor);
+    }
+
+    //平衡维护-->右旋转
+    if(balancedFactor>1 && getBalancedFactor(node.left)>=0){
+        return rightRotate(node);
+    }
+    
+    return node;
+}
+```
+
+- AVL的左旋转
+
+```java
+// 对节点y进行向左旋转操作，返回旋转后新的根节点x
+//    y                             x
+//  /  \                          /   \
+// T1   x      向左旋转 (y)       y     z
+//     / \   - - - - - - - ->   / \   / \
+//   T2  z                     T1 T2 T3 T4
+//      / \
+//     T3 T4
+private Node leftRotate(Node y){
+    Node x=y.right;
+    Node T2=x.left;
+
+    //向左旋转
+    x.left=y;
+    y.right=T2;
+
+    //维护高度
+    y.height=1+Math.max(getNodeHeight(y.left),getNodeHeight(y.right));
+    x.height=1+Math.max(getNodeHeight(x.left),getNodeHeight(x.right));
+
+    return x;
+}
+
+private Node add(Node node,K key,V value){
+    if(node==null){
+        size++;
+        return new Node(key,value);
+    }
+    if(key.compareTo(node.key)<0){
+        node.left=add(node.left,key,value);
+    }else if(key.compareTo(node.key)>0){
+        node.right=add(node.right,key,value);
+    }else{
+        node.value=value;
+    }
+    //更新height
+    node.height=1+Math.max(getNodeHeight(node.left),getNodeHeight(node.right));
+    //计算平衡因子
+    int balancedFactor=getBalancedFactor(node);
+    if(Math.abs(balancedFactor)>1){
+        System.out.println("unblance:"+balancedFactor);
+    }
+
+    //平衡维护-->右旋转
+    if(balancedFactor>1 && getBalancedFactor(node.left)>=0){
+        return rightRotate(node);
+    }
+    if(balancedFactor<-1 && getBalancedFactor(node.right)<=0){
+        return leftRotate(node);
+    }
+    return node;
+}
+```
+
+## LR和RL
+- LR
+<div align="center"><img src="pics//avl//avl_10.png" width="600"/></div>
+
+<div align="center"><img src="pics//avl//avl_11.png" width="600"/></div>
+
+<div align="center"><img src="pics//avl//avl_12.png" width="600"/></div>
+
+- RL
+<div align="center"><img src="pics//avl//avl_13.png" width="600"/></div>
+
+<div align="center"><img src="pics//avl//avl_14.png" width="600"/></div>
+
+<div align="center"><img src="pics//avl//avl_15.png" width="600"/></div>
+
+```java
+//计算平衡因子
+int balancedFactor=getBalancedFactor(node);
+/*if(Math.abs(balancedFactor)>1){
+    System.out.println("unblance:"+balancedFactor);
+}*/
+
+//平衡维护
+//LL
+if(balancedFactor>1 && getBalancedFactor(node.left)>=0){
+    return rightRotate(node);
+}
+//RR
+if(balancedFactor<-1 && getBalancedFactor(node.right)<=0){
+    return leftRotate(node);
+}
+//LR
+if(balancedFactor>1 && getBalancedFactor(node.left)<0){
+    Node x=node.left;
+    node.left=leftRotate(x);
+    //LL
+    return rightRotate(node);
+}
+//RL
+if(balancedFactor<-1 && getBalancedFactor(node.right)>0){
+    Node x=node.right;
+    node.right=rightRotate(x);
+    //RR
+    return leftRotate(node);
+}
+```
+## 删除元素
+
+## 基于AVL树的集合和映射

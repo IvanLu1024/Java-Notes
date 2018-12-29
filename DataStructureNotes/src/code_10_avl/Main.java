@@ -1,9 +1,12 @@
 package code_10_avl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+/**
+ * Created by 18351 on 2018/12/29.
+ */
 public class Main {
-
     public static void main(String[] args) {
         System.out.println("Pride and Prejudice");
 
@@ -11,23 +14,50 @@ public class Main {
         if(FileOperation.readFile("pride-and-prejudice.txt", words)) {
             System.out.println("Total words: " + words.size());
 
-            AVLTree<String, Integer> map = new AVLTree<>();
+            Collections.sort(words);
+
+            // Test BST
+            long startTime = System.nanoTime();
+
+            BSTMap<String, Integer> bst = new BSTMap<>();
             for (String word : words) {
-                if (map.contains(word)){
-                    map.set(word, map.get(word) + 1);
-                } else{
-                    map.add(word, 1);
+                if (bst.contains(word)){
+                    bst.set(word, bst.get(word) + 1);
+                }else{
+                    bst.add(word, 1);
                 }
             }
 
-            System.out.println("Total different words: " + map.getSize());
-            System.out.println("Frequency of PRIDE: " + map.get("pride"));
-            System.out.println("Frequency of PREJUDICE: " + map.get("prejudice"));
+            for(String word: words){
+                bst.contains(word);
+            }
 
-            System.out.println("is bst:"+map.isBST());
-            System.out.println("is balanced:"+map.isBalancedTree());
+            long endTime = System.nanoTime();
+
+            double time = (endTime - startTime) / 1000000000.0;
+            System.out.println("BST: " + time + " s");
+
+
+            // Test AVL Tree
+            startTime = System.nanoTime();
+
+            AVLTree<String, Integer> avl = new AVLTree<>();
+            for (String word : words) {
+                if (avl.contains(word)){
+                    avl.set(word, avl.get(word) + 1);
+                }else{
+                    avl.add(word, 1);
+                }
+            }
+
+            for(String word: words){
+                avl.contains(word);
+            }
+            endTime = System.nanoTime();
+
+            time = (endTime - startTime) / 1000000000.0;
+            System.out.println("AVL: " + time + " s");
         }
-
         System.out.println();
     }
 }

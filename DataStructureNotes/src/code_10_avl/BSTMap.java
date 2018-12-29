@@ -139,7 +139,7 @@ public class BSTMap<K extends Comparable<K>,V> implements Map<K,V>{
     public void set(K key, V newValue) {
         Node node=getNode(root,key);
         if(node==null){
-            throw new IllegalArgumentException(key+"does not exist");
+            throw new IllegalArgumentException(key+" does not exist");
         }
         node.value=newValue;
     }
