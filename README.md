@@ -45,3 +45,15 @@
 | 第八节 贪心算法 | [第八节 贪心算法](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/08%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95.md) | [第八节 贪心算法相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_08_greedyAlgorithms) |
 | 第九节 字符串 | [第九节 字符串](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/09%E5%AD%97%E7%AC%A6%E4%B8%B2.md) | [第九节 字符串相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_09_string) |
 | 第十节 其他 | [第十节 其他](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/10%E5%85%B6%E4%BB%96.md) | [第十节 其他相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_10_others) |
+
+## :memo: 模块四 操作系统
+
+| 章节 | 内容 |
+| :--: | :--: |
+| **第一章 操作系统** | |
+| 第一节 操作系统概述 | [第一节 操作系统概述](https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/00%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0.md) |
+| 第二节 进程管理 | [第二节 进程管理](https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/01%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86.md) | 
+| 第三节 死锁 | [第三节 死锁](https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/02%E6%AD%BB%E9%94%81.md) |
+| 第四节 内存管理 | [第四节 内存管理](https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/03%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.md) |
+| 第五节 设备管理 | [第五节 设备管理](https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/04%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86.md) |
+| 第六节 链接 | [第六节 链接](https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/05%E9%93%BE%E6%8E%A5.md) |
