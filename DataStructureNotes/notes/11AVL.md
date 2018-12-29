@@ -269,14 +269,14 @@ private Node add(Node node,K key,V value){
 
 ## LR和RL
 - LR
-<div align="center"><img src="pics//avl//avl_10.png" width="600"/></div>
+<div align="center"><img src="pics//avl//avl_10.png" width="400"/></div>
 
 <div align="center"><img src="pics//avl//avl_11.png" width="600"/></div>
 
 <div align="center"><img src="pics//avl//avl_12.png" width="600"/></div>
 
 - RL
-<div align="center"><img src="pics//avl//avl_13.png" width="600"/></div>
+<div align="center"><img src="pics//avl//avl_13.png" width="400"/></div>
 
 <div align="center"><img src="pics//avl//avl_14.png" width="600"/></div>
 
