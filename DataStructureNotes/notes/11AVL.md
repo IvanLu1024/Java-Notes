@@ -1,0 +1,155 @@
+<!-- GFM-TOC -->
+* [AVL树](#AVL树)
+   * [平衡二叉树](#平衡二叉树)
+   * [计算节点的高度和平衡因子](#计算节点的高度和平衡因子)
+   * [检查二分搜索树和平衡树](#检查二分搜索树和平衡树)
+   * [AVL树的左旋转和右旋转](#AVL树的左旋转和右旋转)
+<!-- GFM-TOC -->
+# AVL树
+
+<div align="center"><img src="pics//avl//avl_1.png" width="600"/></div>
+
+## 平衡二叉树
+
+平衡二叉树特点：对于任意一个节点，左子树和右子树的高度差不能超过1
+
+下图就是一棵平衡二叉树：
+
+<div align="center"><img src="pics//avl//avl_2.png" width="600"/></div>
+
+- 标注节点的高度：(叶子节点的高度为1)
+
+<div align="center"><img src="pics//avl//avl_3.png" width="600"/></div>
+
+- 计算平衡因子:(这里是根据左子树高度减去右子树高度进行计算)：
+
+<div align="center"><img src="pics//avl//avl_4.png" width="600"/></div>
+
+## 计算节点的高度和平衡因子
+```java
+public class AVLTree<K extends Comparable<K>,V>{
+    private class Node{
+        public K key;
+        public V value;
+        public Node left,right;
+        public int height;
+        public Node(K key,V value){
+            this.key=key;
+            this.value=value;
+            this.left=null;
+            this.right=null;
+            //叶子节点的高度是1
+            height=1;
+        }
+    }
+
+    private Node root;
+    private int size;
+
+    public void add(K key, V value) {
+        root=add(root,key,value);
+    }
+
+    //计算节点的高度
+    private int getNodeHeight(Node node){
+        if(node==null){
+            return 0;
+        }
+        return node.height;
+    }
+
+    //获取节点的平衡因子，左子树高度-右子树高度
+    private int getBalancedFactor(Node node){
+        if(node==null){
+            return 0;
+        }
+        return getNodeHeight(node.left)-getNodeHeight(node.right);
+    }
+
+    private Node add(Node node,K key,V value){
+        if(node==null){
+            size++;
+            return new Node(key,value);
+        }
+        if(key.compareTo(node.key)<0){
+            node.left=add(node.left,key,value);
+        }else if(key.compareTo(node.key)>0){
+            node.right=add(node.right,key,value);
+        }else{
+            node.value=value;
+        }
+        //更新height
+        node.height=1+Math.max(getNodeHeight(node.left),getNodeHeight(node.right));
+        //计算平衡因子
+        int balancedFactor=getBalancedFactor(node);
+        if(Math.abs(balancedFactor)>1){
+            System.out.println("unblance:"+balancedFactor);
+        }
+        return node;
+    }
+}
+```
+
+## 检查二分搜索树和平衡树
+- 利用BST中序遍历性质，判断是否是BST
+```java
+//检查该树是否是平衡二叉树
+public boolean isBST(){
+    List<K> keys=new ArrayList<>();
+    inOrder(root,keys);
+    for(int i=1;i<keys.size();i++){
+        if(keys.get(i-1).compareTo(keys.get(i))>0){
+            return false;
+        }
+    }
+    return true;
+}
+
+private void inOrder(Node node, List<K> keys){
+    if(node==null){
+        return;
+    }
+    inOrder(node.left,keys);
+    keys.add(node.key);
+    inOrder(node.right,keys);
+}
+```
+
+- 判断该树是否是平衡树
+```java
+//判断该二叉树是否是一棵平衡二叉树
+public boolean isBalancedTree(){
+    return isBalancedTree(root);
+}
+
+private boolean isBalancedTree(Node node){
+    if(node==null){
+        return true;
+    }
+    int balancedFactor=getBalancedFactor(node);
+    if(Math.abs(balancedFactor)>1){
+        return false;
+    }
+    return isBalancedTree(node.left) && isBalancedTree(node.right);
+}
+```
+
+## AVL树的左旋转和右旋转
+- AVL树的右旋转：插入的元素在不平衡的节点的左侧的左侧
+
+<div align="center"><img src="pics//avl//avl_5.png" width="600"/></div>
+
+- 右旋转针对的情况：以x、z为根节点的子树是平衡的BST树,添加一个元素以y为根节点的子树就不是平衡二叉树了
+
+<div align="center"><img src="pics//avl//avl_6.png" width="600"/></div>
+
+- 右旋转操作I:**x.right=y**
+<div align="center"><img src="pics//avl//avl_7.png" width="600"/></div>
+
+- 右旋转操作II:**y.left=T3**
+<div align="center"><img src="pics//avl//avl_8.png" width="600"/></div>
+
+- 有旋转之后，就是平衡的BST：假设z节点的高度是(h+1),可以验证以x为根节点的BST树是平衡树
+
+<div align="center"><img src="pics//avl//avl_9.png" width="600"/></div>
+
