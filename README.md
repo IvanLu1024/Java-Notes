@@ -1,11 +1,21 @@
 # 说明
-本仓库对学习中的一些数据结构问题和基本算法问题进行了整理、分类。分成3个模块。
+本仓库对Java学习中的一些问题进行了整理、分类。分成8个模块。
+
+主要参考了郑永川的笔记，仅作学习交流用。若想要了解更多，请参考郑氏笔记(https://github.com/CyC2018/CS-Notes)
+
+## :coffee: 模块一 Java
 
 | 模块 | 内容 |
 | :--: | :--: |
-| 一 Java基础 | [一 Java基础](https://github.com/DuHouAn/Java#computer-%E6%A8%A1%E5%9D%97%E4%B8%80-Java%E5%9F%BA%E7%A1%80)|
+| 第一部分 Java基础 | [第一部分 Java基础](https://github.com/DuHouAn/Java#computer-%E6%A8%A1%E5%9D%97%E4%B8%80-Java%E5%9F%BA%E7%A1%80)|
+| 第二部分 Java虚拟机 | [第二部分 Java虚拟机](https://github.com/DuHouAn/Java#art-%E6%A8%A1%E5%9D%97%E4%BA%8C-Java%E8%99%9A%E6%8B%9F%E6%9C%BA) |
+| 第三部分 Java并发 | [第三部分 Java并发](https://github.com/DuHouAn/Java#coffee-%E6%A8%A1%E5%9D%97%E4%B8%89-Java%E5%B9%B6%E5%8F%91) |
+| 第四部分 Java容器 | [第四部分 Java容器](https://github.com/DuHouAn/Java#hammer-%E6%A8%A1%E5%9D%97%E5%9B%9B-Java%E5%AE%B9%E5%99%A8) |
+| 第五部分 JavaIO | [第五部分 JavaIO](https://github.com/DuHouAn/Java#bulb-%E6%A8%A1%E5%9D%97%E4%BA%94-JavaIO) |
+| 第六部分 JavaWeb | [第六部分 JavaWeb](https://github.com/DuHouAn/Java#memo-%E6%A8%A1%E5%9D%97%E5%85%AD-JavaWeb) |
+| 第七部分 面向对象 | [第七部分 面向对象](https://github.com/DuHouAn/Java#couple-%E6%A8%A1%E5%9D%97%E4%B8%83-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1) |
 
-## :coffee: 模块一 算法和数据结构
+## :art: 模块二 算法和数据结构
 
 | 章节 | 内容 | 代码 |
 | :--: | :--: | :--: |
@@ -26,7 +36,7 @@
 | 第十五节 最小生成树 | [第十五节 最小生成树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/15%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91.md) | 第十五节 最小生成树 |
 | 第十六节 最短路径 | [第十六节 最短路径](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/16%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84.md) | 第十六节 最短路径 |
 
-## :computer: 模块二 算法思想
+## :computer: 模块三 算法思想
 
 | 章节 | 内容 | 代码 |
 | :--: | :--: | :--: |
@@ -35,7 +45,7 @@
 | 第三节 堆排序 |  [第三节 堆排序](https://github.com/DuHouAn/Java-Notes/blob/master/BasicAlgorithm/notes/02%E5%A0%86%E6%8E%92%E5%BA%8F.md) |  第三节 堆排序 |
 
 
-## :hammer: 模块三  LeetCode题解
+## :hammer: 模块四  LeetCode题解
 
 | 章节 | 内容 | 代码 |
 | :--: | :--: | :--: |
@@ -50,7 +60,7 @@
 | 第九节 字符串 | [第九节 字符串](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/09%E5%AD%97%E7%AC%A6%E4%B8%B2.md) | [第九节 字符串相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_09_string) |
 | 第十节 其他 | [第十节 其他](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/10%E5%85%B6%E4%BB%96.md) | [第十节 其他相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_10_others) |
 
-## :memo: 模块四 操作系统
+## :memo: 模块五 操作系统
 
 | 章节 | 内容 |
 | :--: | :--: |
@@ -73,7 +83,7 @@
 | 第九节 正则表达式 | [第九节 正则表达式](https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/14%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.md) |
 | 第十节 进程管理 | [第十节 进程管理](https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/15%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86.md) |
 
-## :cloud: 模块四 网络
+## :cloud: 模块六 网络
 
 | 章节 | 内容 |
 | :--: | :--: |
@@ -97,7 +107,7 @@
 | 第一节 I/O模型 | [第一节 I/O模型](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/14I_O%E6%A8%A1%E5%9E%8B.md) | 
 | 第二节 I/O复用 | [第二节 I/O复用](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/15I_O%E5%A4%8D%E7%94%A8.md) | 
 
-## :floppy_disk: 模块五 数据库
+## :floppy_disk: 模块七 数据库
 
 | 章节 | 内容 |
 | :--: | :--: |
@@ -127,4 +137,4 @@
 | 第五节 Redis与 Memcached | [第五节 Redis与 Memcached](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/20Redis%20%E4%B8%8E%20Memcached.md) |
 | 第六节 其他 | [第六节 其他](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/21%E5%85%B6%E4%BB%96.md) |
 
-## :speak_no_evil: 模块六 Spring
+## :speak_no_evil: 模块八 Spring
