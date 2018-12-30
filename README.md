@@ -106,5 +106,21 @@
 | 第六节 Next-Key Locks | [第六节 Next-Key Locks](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/05Next-Key%20Locks.md) |
 | 第七节 关系型数据库设计理论 | [第七节 关系型数据库设计理论](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/06%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%90%86%E8%AE%BA.md) |
 | 第八节 ER图 | [第八节 ER图](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/07ER%20%E5%9B%BE.md) |
+| **第二章 SQL** | [第二章 SQL](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/08SQL.md) |
+| **第三章 Leetcode-Database 题解**| [第三章 Leetcode-Database 题解](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/09Leetcode-Database%20%E9%A2%98%E8%A7%A3.md) |
+| **第四章 MySQL**|  |
+| 第一节 索引 | [第一节 索引](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/10%E7%B4%A2%E5%BC%95.md) |
+| 第二节 查询性能优化 | [第二节 查询性能优化](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/11%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.md) |
+| 第三节 存储引擎 | [第三节 存储引擎](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/12%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.md) |
+| 第四节 数据类型 | [第四节 数据类型](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/13%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md) |
+| 第五节 切分 | [ 第五节 切分](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/14%E5%88%87%E5%88%86.md) |
+| 第六节 复制 | [第六节 复制](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/15%E5%A4%8D%E5%88%B6.md) |
+| **第五章 Redis** | |
+| 第一节 Redis概述 | [第一节 Redis概述](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/16Redis%E6%A6%82%E8%BF%B0.md) |
+| 第二节 数据类型 | [第二节 数据类型](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/17%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md) |
+| 第三节 数据结构 | [第三节 数据结构](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/18%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.md) |
+| 第四节 Redis使用场景 | [第四节 Redis使用场景](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/19Redis%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF.md) |
+| 第五节 Redis与 Memcached | [第五节 Redis与 Memcached](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/20Redis%20%E4%B8%8E%20Memcached.md) |
+| 第六节 其他 | [第六节 其他](https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/21%E5%85%B6%E4%BB%96.md) |
 
 ## :speak_no_evil: 模块六 Spring
