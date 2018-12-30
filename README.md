@@ -79,6 +79,15 @@
 | 第四节 网络层 | [第四节 网络层](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/03%E7%BD%91%E7%BB%9C%E5%B1%82.md) |
 | 第五节 运输层 | [第五节 运输层](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/04%E8%BF%90%E8%BE%93%E5%B1%82.md) |
 | 第六节 应用层 | [第六节 应用层](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/05%E5%BA%94%E7%94%A8%E5%B1%82.md) |
+| **第二章 HTTP** |  |
+| 第一节 基础概念 | [第一节 基础概念](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/06%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.md) |
+| 第二节 HTTP 方法 | [第二节 HTTP 方法](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/07HTTP%20%E6%96%B9%E6%B3%95.md) |
+| 第三节 HTTP 状态码 | [第三节 HTTP 状态码](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/08HTTP%20%E7%8A%B6%E6%80%81%E7%A0%81.md) |
+| 第四节 HTTP 首部 | [第四节 HTTP 首部](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/09HTTP%20%E9%A6%96%E9%83%A8.md) |
+| 第五节 具体应用 | [第五节 具体应用](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/10%E5%85%B7%E4%BD%93%E5%BA%94%E7%94%A8.md) |
+| 第六节 HTTPs | [第六节 HTTPs](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/11HTTPs.md)|
+| 第七节 HTTP/2.0和HTTP/1.1新特性 | [第七节 HTTP/2.0和HTTP/1.1新特性](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/12HTTP20.md) |
+| 第八节 get和post比较 | [第八节 get和post比较](https://github.com/DuHouAn/Java-Notes/blob/master/NetWork/13get%E5%92%8Cpost%E6%AF%94%E8%BE%83.md) |
 
 ## :floppy_disk: 模块五 数据库
 
