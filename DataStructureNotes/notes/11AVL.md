@@ -315,4 +315,201 @@ if(balancedFactor<-1 && getBalancedFactor(node.right)>0){
 ```
 ## 删除元素
 
+```java
+//从AVL中删除值为key的元素
+public V remove(K key) {
+    Node node=getNode(root,key);
+    if(node!=null){
+        root=del(root,key);
+        size--;
+    }
+    return null;
+}
+
+//获取Map中的最小的key
+private Node min(Node node){
+    if(node.left==null){
+        return node;
+    }
+    return min(node.left);
+}
+
+//删除以node为根结点的Map中的key最小的元素
+private Node delMin(Node node){
+    if(node.left==null){
+        Node nodeRight=node.right;
+        node.right=null;
+        size--;
+        return nodeRight;
+    }
+    node.left=delMin(node.left);
+
+    //更新height
+    node.height=1+Math.max(getNodeHeight(node.left),getNodeHeight(node.right));
+
+    //维护平衡
+    return keepBalance(node);
+}
+
+////删除以node为根结点的Map中的键值为key的元素
+private Node del(Node node, K key){
+    if(node==null){
+        return null;
+    }
+    //记录删除元素后，该BST的新的根节点
+    Node retNode=null;
+    if(key.compareTo(node.key)<0){
+        node.left=del(node.left,key);
+        retNode=node;
+    }else if(key.compareTo(node.key)>0){
+        node.right=del(node.right,key);
+        retNode=node;
+    }else{
+        //节点node就是要删除的节点
+        //该节点只右有子树
+        if(node.left==null){
+            Node rightNode=node.right;
+            node.right=null;
+            size--;
+            retNode=rightNode;
+        }else if(node.right==null){ //该节点只有左子树
+            Node leftNode=node.left;
+            node.left=null;
+            size--;
+            retNode=leftNode;
+        }else{
+            //删除既有左子树又有右子树的节点
+            Node s=min(node.right);
+            s.right=delMin(node.right);
+            s.left=node.left;
+
+            //删除node
+            node.left=node.right=null;
+            retNode=s;
+        }
+    }
+    if(retNode==null){
+        return retNode;
+    }
+    //更新height
+    retNode.height=1+Math.max(getNodeHeight(retNode.left),getNodeHeight(retNode.right));
+
+    //保持平衡
+    return keepBalance(retNode);
+}
+
+//维护以node为根节点的二叉树是平衡二叉树
+private Node keepBalance(Node node){
+    //计算平衡因子
+    int balancedFactor=getBalancedFactor(node);
+
+    //平衡维护
+    //LL
+    if(balancedFactor>1 && getBalancedFactor(node.left)>=0){
+        return rightRotate(node);
+    }
+    //RR
+    if(balancedFactor<-1 && getBalancedFactor(node.right)<=0){
+        return leftRotate(node);
+    }
+    //LR
+    if(balancedFactor>1 && getBalancedFactor(node.left)<0){
+        Node x=node.left;
+        node.left=leftRotate(x);
+        //LL
+        return rightRotate(node);
+    }
+    //RL
+    if(balancedFactor<-1 && getBalancedFactor(node.right)>0){
+        Node x=node.right;
+        node.right=rightRotate(x);
+        //RR
+        return leftRotate(node);
+    }
+    return node;
+}
+```
+
 ## 基于AVL树的集合和映射
+- AVLMap
+
+```java
+public class AVLMap<K extends Comparable<K>,V> implements Map<K,V> {
+    private AVLTree<K,V> avlTree;
+
+    public AVLMap(){
+        avlTree=new AVLTree<>();
+    }
+
+    @Override
+    public void add(K key, V value) {
+        avlTree.add(key,value);
+    }
+
+    @Override
+    public V remove(K key) {
+        return avlTree.remove(key);
+    }
+
+    @Override
+    public boolean contains(K key) {
+        return avlTree.contains(key);
+    }
+
+    @Override
+    public V get(K key) {
+        return avlTree.get(key);
+    }
+
+    @Override
+    public void set(K key, V newValue) {
+        avlTree.set(key,newValue);
+    }
+
+    @Override
+    public int getSize() {
+        return avlTree.getSize();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return avlTree.isEmpty();
+    }
+}
+```
+- AVLSet
+
+```java
+public class AVLSet<K extends Comparable<K>> implements Set<K>{
+    private AVLTree<K,Object> avlTree;
+
+    public AVLSet(){
+        avlTree=new AVLTree<>();
+    }
+
+    @Override
+    public void add(K k) {
+        avlTree.add(k,null);
+    }
+
+    @Override
+    public void remove(K k) {
+        avlTree.remove(k);
+    }
+
+    @Override
+    public boolean contains(K k) {
+        return avlTree.contains(k);
+    }
+
+    @Override
+    public int getSize() {
+        return avlTree.getSize();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return avlTree.isEmpty();
+    }
+}
+```

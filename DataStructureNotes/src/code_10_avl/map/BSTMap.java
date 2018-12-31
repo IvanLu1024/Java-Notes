@@ -1,6 +1,4 @@
-package code_10_avl;
-
-import code_05_setAndMap.map.Map;
+package code_10_avl.map;
 
 /**
  * Created by 18351 on 2018/12/22.
@@ -93,9 +91,11 @@ public class BSTMap<K extends Comparable<K>,V> implements Map<K,V>{
             return null;
         }
         if(key.compareTo(node.key)<0){
-            return del(node.left,key);
+            node.left=del(node.left,key);
+            return node;
         }else if(key.compareTo(node.key)>0){
-            return del(node.right,key);
+            node.right=del(node.right,key);
+            return node;
         }else{
             //节点node就是要删除的节点
             //该节点只右有子树

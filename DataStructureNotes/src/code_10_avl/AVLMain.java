@@ -26,6 +26,13 @@ public class AVLMain {
 
             System.out.println("is bst:"+map.isBST());
             System.out.println("is balanced:"+map.isBalancedTree());
+
+            for(String word:words){
+                map.remove(word);
+                if(!map.isBST() || !map.isBalancedTree()){
+                    throw new IllegalArgumentException("Error");
+                }
+            }
         }
 
         System.out.println();
