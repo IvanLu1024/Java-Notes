@@ -342,9 +342,11 @@ public class BST<E extends Comparable<E>> {
             return null;
         }
         if(e.compareTo(node.e)<0){
-            return del(node.left,e);
+            node.left=del(node.left,e);
+            return node;
         }else if(e.compareTo(node.e)>0){
-            return del(node.right,e);
+            node.right=del(node.right,e);
+            return node;
         }else{
             //节点node就是要删除的节点
             //该节点只右有子树

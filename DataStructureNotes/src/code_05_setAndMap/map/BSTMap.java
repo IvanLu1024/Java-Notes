@@ -87,15 +87,17 @@ public class BSTMap<K extends Comparable<K>,V> implements Map<K,V>{
         return node;
     }
 
-    ////删除以node为根结点的Map中的键值为key的元素
+    //删除以node为根结点的Map中的键值为key的元素
     private Node del(Node node, K key){
         if(node==null){
             return null;
         }
         if(key.compareTo(node.key)<0){
-            return del(node.left,key);
+            node.left=del(node.left,key);
+            return node;
         }else if(key.compareTo(node.key)>0){
-            return del(node.right,key);
+            node.right= del(node.right,key);
+            return node;
         }else{
             //节点node就是要删除的节点
             //该节点只右有子树
