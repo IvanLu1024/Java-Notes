@@ -29,12 +29,12 @@
 | 第八节 线段树 | [第八节 线段树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/08%E7%BA%BF%E6%AE%B5%E6%A0%91.md) | [第八节 线段树相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_07_segmentTree) |
 | 第九节 Trie字典树 | [第九节 Trie字典树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/09Trie.md) | [第九节 Trie字典树相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_08_trie) |
 | 第十节 并查集 | [第十节 并查集](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/10%E5%B9%B6%E6%9F%A5%E9%9B%86.md) | [第十节 并查集相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_09_unionFind) |
-| 第十一节 AVL | [第十一节 AVL](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/11AVL.md)| 第十一节 AVL |
-| 第十二节 红黑树 | [第十二节 红黑树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/12%E7%BA%A2%E9%BB%91%E6%A0%91.md) | 第十二节 红黑树 |
-| 第十三节 哈希表| [第十三节 哈希表](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/13%E5%93%88%E5%B8%8C%E8%A1%A8.md) | 第十三节 哈希表 |
-| 第十四节 图 | [第十四节 图](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/14%E5%9B%BE.md) | 第十四节 图 |
-| 第十五节 最小生成树 | [第十五节 最小生成树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/15%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91.md) | 第十五节 最小生成树 |
-| 第十六节 最短路径 | [第十六节 最短路径](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/16%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84.md) | 第十六节 最短路径 |
+| 第十一节 AVL | [第十一节 AVL](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/11AVL.md)| [第十一节 AVL相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/DataStructureNotes/src/code_10_avl) |
+| 第十二节 红黑树 | [第十二节 红黑树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/12%E7%BA%A2%E9%BB%91%E6%A0%91.md) | 第十二节 红黑树相关代码 |
+| 第十三节 哈希表| [第十三节 哈希表](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/13%E5%93%88%E5%B8%8C%E8%A1%A8.md) | 第十三节 哈希表相关代码 |
+| 第十四节 图 | [第十四节 图](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/14%E5%9B%BE.md) | 第十四节 图相关代码 |
+| 第十五节 最小生成树 | [第十五节 最小生成树](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/15%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91.md) | 第十五节 最小生成树相关代码 |
+| 第十六节 最短路径 | [第十六节 最短路径](https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/16%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84.md) | 第十六节 最短路径相关代码 |
 
 ## :computer: 模块三 算法思想
 
