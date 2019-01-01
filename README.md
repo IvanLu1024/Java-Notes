@@ -3,16 +3,16 @@
 
 主要参考了郑永川的笔记，仅作学习交流用。若想要了解更多，请参考[郑氏笔记](https://github.com/CyC2018/CS-Notes)
 
-| 模块 | 内容 |
-| :--: | :--: |
-| :coffee: **模块一 Java** | |
-| 第一部分 Java基础 | [第一部分 Java基础](https://github.com/DuHouAn/Java#computer-%E6%A8%A1%E5%9D%97%E4%B8%80-Java%E5%9F%BA%E7%A1%80)|
-| 第二部分 Java虚拟机 | [第二部分 Java虚拟机](https://github.com/DuHouAn/Java#art-%E6%A8%A1%E5%9D%97%E4%BA%8C-Java%E8%99%9A%E6%8B%9F%E6%9C%BA) |
-| 第三部分 Java并发 | [第三部分 Java并发](https://github.com/DuHouAn/Java#coffee-%E6%A8%A1%E5%9D%97%E4%B8%89-Java%E5%B9%B6%E5%8F%91) |
-| 第四部分 Java容器 | [第四部分 Java容器](https://github.com/DuHouAn/Java#hammer-%E6%A8%A1%E5%9D%97%E5%9B%9B-Java%E5%AE%B9%E5%99%A8) |
-| 第五部分 JavaIO | [第五部分 JavaIO](https://github.com/DuHouAn/Java#bulb-%E6%A8%A1%E5%9D%97%E4%BA%94-JavaIO) |
-| 第六部分 JavaWeb | [第六部分 JavaWeb](https://github.com/DuHouAn/Java#memo-%E6%A8%A1%E5%9D%97%E5%85%AD-JavaWeb) |
-| 第七部分 面向对象 | [第七部分 面向对象](https://github.com/DuHouAn/Java#couple-%E6%A8%A1%E5%9D%97%E4%B8%83-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1) |
+| 模块 | 内容 | 代码 |
+| :--: | :--: | :--: |
+| <h1>:coffee: 模块一 Java</h1> | | |
+| 第一部分 Java基础 | [第一部分 Java基础](https://github.com/DuHouAn/Java#computer-%E6%A8%A1%E5%9D%97%E4%B8%80-Java%E5%9F%BA%E7%A1%80)| |
+| 第二部分 Java虚拟机 | [第二部分 Java虚拟机](https://github.com/DuHouAn/Java#art-%E6%A8%A1%E5%9D%97%E4%BA%8C-Java%E8%99%9A%E6%8B%9F%E6%9C%BA) | |
+| 第三部分 Java并发 | [第三部分 Java并发](https://github.com/DuHouAn/Java#coffee-%E6%A8%A1%E5%9D%97%E4%B8%89-Java%E5%B9%B6%E5%8F%91) | |
+| 第四部分 Java容器 | [第四部分 Java容器](https://github.com/DuHouAn/Java#hammer-%E6%A8%A1%E5%9D%97%E5%9B%9B-Java%E5%AE%B9%E5%99%A8) | |
+| 第五部分 JavaIO | [第五部分 JavaIO](https://github.com/DuHouAn/Java#bulb-%E6%A8%A1%E5%9D%97%E4%BA%94-JavaIO) | |
+| 第六部分 JavaWeb | [第六部分 JavaWeb](https://github.com/DuHouAn/Java#memo-%E6%A8%A1%E5%9D%97%E5%85%AD-JavaWeb) | |
+| 第七部分 面向对象 | [第七部分 面向对象](https://github.com/DuHouAn/Java#couple-%E6%A8%A1%E5%9D%97%E4%B8%83-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1) | |
 
 ## :art: 模块二 算法和数据结构
 
