@@ -1,5 +1,7 @@
 package code_11_redBlackTree;
 
+import java.io.BufferedReader;
+
 /**
  * Created by 18351 on 2018/12/31.
  */
@@ -24,22 +26,64 @@ public class RBTree<K extends Comparable<K>,V>{
     private Node root;
     private int size;
 
-    //返回以node为根节点的二分搜索树中，key所在的节点
-    private Node getNode(Node node,K key){
+    //判断节点是否是红色
+    private boolean isRed(Node node){
         if(node==null){
-            return null;
+            return BLACK;
         }
-        if(key.compareTo(node.key)<0){
-            return getNode(node.left,key);
-        }else if(key.compareTo(node.key)>0){
-            return getNode(node.right,key);
-        }else{ //key.compareTo(node.key)==0
-            return node;
-        }
+        return node.color;
+    }
+
+    //左旋转
+    //   node                     x
+    //  /   \     左旋转         /  \
+    // T1   x   --------->   node   T3
+    //     / \              /   \
+    //    T2 T3            T1   T2
+    private Node leftRotate(Node node){
+        Node x=node.right;
+
+        //左旋转
+        node.right=x.left;
+        x.left=node;
+
+        //改变节点颜色
+        x.color=node.color;
+        node.color=RED;
+
+        return x;
+    }
+
+    //右旋转
+    //     node                   x
+    //    /   \     右旋转       /  \
+    //   x    T2   ------->   y   node
+    //  / \                       /  \
+    // y  T1                     T1  T2
+    private Node rightRotate(Node node) {
+        Node x=node.left;
+
+        //右旋转
+        node.left=x.right;
+        x.right=node;
+
+        x.color=node.color;
+        node.color=RED;
+
+        return x;
+    }
+
+    //颜色翻转
+    private void flipColors(Node node){
+        node.color=RED;
+        node.left.color=BLACK;
+        node.right.color=BLACK;
     }
 
     public void add(K key, V value) {
         root=add(root,key,value);
+        //红黑树性质： 2.根节点是黑色的
+        root.color=BLACK;
     }
 
     private Node add(Node node,K key,V value){
@@ -54,6 +98,34 @@ public class RBTree<K extends Comparable<K>,V>{
         }else{
             node.value=value;
         }
+
+        //    黑
+        //    /
+        //   红
+        //    \
+        //    红
+        //左旋转
+        if(isRed(node.right) && !isRed(node.left)){
+            node=leftRotate(node);
+        }
+
+        //    黑
+        //    /
+        //   红
+        //   /
+        // 红
+        //右旋转
+        if(isRed(node.left) && isRed(node.left.left)){
+            node=rightRotate(node);
+        }
+
+        //     黑
+        //    /  \
+        //   红   红
+        // 颜色翻转
+        if(isRed(node.left) && isRed(node.right)){
+            flipColors(node);
+        }
         return node;
     }
 
@@ -64,6 +136,20 @@ public class RBTree<K extends Comparable<K>,V>{
             size--;
         }
         return null;
+    }
+
+    //返回以node为根节点的二分搜索树中，key所在的节点
+    private Node getNode(Node node,K key){
+        if(node==null){
+            return null;
+        }
+        if(key.compareTo(node.key)<0){
+            return getNode(node.left,key);
+        }else if(key.compareTo(node.key)>0){
+            return getNode(node.right,key);
+        }else{ //key.compareTo(node.key)==0
+            return node;
+        }
     }
 
     //获取Map中的最小的key
