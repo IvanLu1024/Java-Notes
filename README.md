@@ -3,8 +3,7 @@
 
 主要参考了郑永川的笔记，仅作学习交流用。若想要了解更多，请参考[郑氏笔记](https://github.com/CyC2018/CS-Notes)
 
-## :coffee: 模块一 Java
-
+| ## :coffee: 模块一 Java | |
 | 模块 | 内容 |
 | :--: | :--: |
 | 第一部分 Java基础 | [第一部分 Java基础](https://github.com/DuHouAn/Java#computer-%E6%A8%A1%E5%9D%97%E4%B8%80-Java%E5%9F%BA%E7%A1%80)|
