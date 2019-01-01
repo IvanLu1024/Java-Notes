@@ -5,7 +5,7 @@
 
 | 模块 | 内容 |
 | :--: | :--: |
-| ## :coffee: 模块一 Java | |
+| :coffee: **模块一 Java** | |
 | 第一部分 Java基础 | [第一部分 Java基础](https://github.com/DuHouAn/Java#computer-%E6%A8%A1%E5%9D%97%E4%B8%80-Java%E5%9F%BA%E7%A1%80)|
 | 第二部分 Java虚拟机 | [第二部分 Java虚拟机](https://github.com/DuHouAn/Java#art-%E6%A8%A1%E5%9D%97%E4%BA%8C-Java%E8%99%9A%E6%8B%9F%E6%9C%BA) |
 | 第三部分 Java并发 | [第三部分 Java并发](https://github.com/DuHouAn/Java#coffee-%E6%A8%A1%E5%9D%97%E4%B8%89-Java%E5%B9%B6%E5%8F%91) |
