@@ -5,7 +5,7 @@ import java.util.Vector;
 /**
  * 稀疏图 - 邻接表
  */
-public class SparseGraph {
+public class SparseGraph implements Graph{
 
     private int n;  // 节点数
     private int m;  // 边数
@@ -25,10 +25,14 @@ public class SparseGraph {
         }
     }
 
+    @Override
     public int V(){ return n;} // 返回节点个数
+
+    @Override
     public int E(){ return m;} // 返回边的个数
 
     // 向图中添加一个边
+    @Override
     public void addEdge( int v, int w ){
 
         assert v >= 0 && v < n ;
@@ -42,7 +46,8 @@ public class SparseGraph {
     }
 
     // 验证图中是否有从v到w的边 -->时间复杂度：O(n)
-    boolean hasEdge( int v , int w ){
+    @Override
+    public boolean hasEdge(int v, int w){
 
         assert v >= 0 && v < n ;
         assert w >= 0 && w < n ;
@@ -53,6 +58,21 @@ public class SparseGraph {
             }
         }
         return false;
+    }
+
+    @Override
+    public void show() {
+        for(int i=0;i<n;i++){
+            System.out.println(i+":"+g[i]);
+        }
+    }
+
+    // 返回图中一个顶点的所有邻边
+    // 由于java使用引用机制，返回一个Vector不会带来额外开销
+    @Override
+    public Iterable<Integer> adj(int v){
+        assert v>=0 && v<n;
+        return g[v];
     }
 }
 
