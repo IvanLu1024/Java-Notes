@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 默认情况下使用的就是无参数的构造方法 -->
+    <bean id="bean1" class="service2.Bean1"></bean>
+
+    <!-- 第二种使用静态工厂实例化 -->
+    <bean id="bean2" class="service2.Bean2Factory" factory-method="getBean2"></bean>
+
+    <!-- 第三种使用实例工厂实例化 -->
+    <bean id="bean3" factory-bean="bean3Factory" factory-method="getBean3"></bean>
+    <bean id="bean3Factory" class="service2.Bean3Factory"/>
+
+</beans>

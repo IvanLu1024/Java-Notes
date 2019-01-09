@@ -134,5 +134,3 @@ public class SpringTest {
 IOC(控制反转)：对象的创建权,由Spring管理。
 
 DI(依赖注入)：在Spring创建对象的过程中,把**对象依赖的属性**注入到类中。
-
-<div align="center"><img src="pics\\6666.jpg" width="600"/></div>
