@@ -34,8 +34,9 @@
 | 第一节 排序基础 | [第一节 排序基础](https://github.com/DuHouAn/Java-Notes/blob/master/BasicAlgorithm/notes/00%E6%8E%92%E5%BA%8F%E5%9F%BA%E7%A1%80.md) | [第一节 排序基础相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/BasicAlgorithm/src/code_00_basicSort) |
 | 第二节 简单排序问题 | [第二节 简单排序问题](https://github.com/DuHouAn/Java-Notes/blob/master/BasicAlgorithm/notes/01%E7%AE%80%E5%8D%95%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98.md) | [第二节 简单排序问题相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/BasicAlgorithm/src/code_00_basicSort) |
 | 第三节 高级排序问题 | [第三节 高级排序问题](https://github.com/DuHouAn/Java-Notes/blob/master/BasicAlgorithm/notes/02%E9%AB%98%E7%BA%A7%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98.md) | [第三节 高级排序问题相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/BasicAlgorithm/src/code_01_advancedSort) |
-| 第四节 堆排序 |  [第四节 堆排序](https://github.com/DuHouAn/Java-Notes/blob/master/BasicAlgorithm/notes/03%E5%A0%86%E6%8E%92%E5%BA%8F.md) |  [第四节 堆排序相关代码] |
-| 第五节 排序算法小结 |  [第五节 排序算法小结](https://github.com/DuHouAn/Java-Notes/blob/master/BasicAlgorithm/notes/04%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%B0%8F%E7%BB%93.md) | [无] |
+| 第四节 堆排序 |  [第四节 堆排序](https://github.com/DuHouAn/Java-Notes/blob/master/BasicAlgorithm/notes/03%E5%A0%86%E6%8E%92%E5%BA%8F.md) |  [第四节 堆排序相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/BasicAlgorithm/src/code_02_heapSort) |
+| 第五节 排序算法的补充 | [第五节 排序算法的补充](https://github.com/DuHouAn/Java-Notes/blob/master/BasicAlgorithm/notes/04%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E8%A1%A5%E5%85%85.md) | [第五节 排序算法的补充相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/BasicAlgorithm/src/code_03_othersSort) |
+| 第六节 排序算法小结 |  [第六节 排序算法小结](https://github.com/DuHouAn/Java-Notes/blob/master/BasicAlgorithm/notes/05%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%B0%8F%E7%BB%93.md) | [无] |
 | <h3>:hammer: 模块四  LeetCode题解</h3> | | |
 | 第一节 数组问题 | [第一节 数组问题](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/01%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98.md) | [第一节 数组问题相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_01_array) |
 | 第二节 查找表问题 | [第二节 查找表问题](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/02%E6%9F%A5%E6%89%BE%E9%97%AE%E9%A2%98.md) | [第二节 查找表问题相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_02_find) |
