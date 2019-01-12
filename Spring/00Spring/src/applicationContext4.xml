@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--集合属性的注入-->
+    <bean id="collectionBean" class="service4.CollectionBean">
+        <!-- 注入List集合 -->
+        <property name="list">
+            <list>
+                <value>童童</value>
+                <value>小凤</value>
+            </list>
+        </property>
+
+        <!-- 注入set集合 -->
+        <property name="set">
+            <set>
+                <value>杜宏</value>
+                <value>如花</value>
+            </set>
+        </property>
+
+        <!-- 注入map集合 -->
+        <property name="map">
+            <map>
+                <entry key="刚刚" value="111"/>
+                <entry key="娇娇" value="333"/>
+            </map>
+        </property>
+
+        <property name="properties">
+            <props>
+                <prop key="username">root</prop>
+                <prop key="password">123</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

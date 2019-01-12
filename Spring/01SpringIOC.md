@@ -1,0 +1,479 @@
+<!-- GFM-TOC -->
+* [SpringIOC](#SpringIOC)
+    * [IOC装配Bean](#IOC装配Bean)
+    * [IOC装配Bean(注解方式)](#IOC装配Bean(注解方式))
+    * [SpringIOC原理](#SpringIOC原理)
+    * [SpringIOC源码分析](#SpringIOC源码分析)
+<!-- GFM-TOC -->
+
+# SpringIOC
+
+# IOC装配Bean
+## Spring框架Bean实例化的方式
+提供了三种方式实例化Bean:
+
+- 构造方法实例化(默认无参数)
+- 静态工厂实例化
+- 实例工厂实例化
+
+### 1.无参数构造方法的实例化
+
+```html
+<!-- 默认情况下使用的就是无参数的构造方法 -->
+ <bean id="bean1" class="service2.Bean1"></bean>
+```
+
+### 2.静态工厂实例化
+```html
+<!-- 第二种使用静态工厂实例化 -->
+<bean id="bean2" class="service2.Bean2Factory" factory-method="getBean2"></bean>
+```
+
+### 3.实例工厂实例化
+```html
+<!-- 第三种使用实例工厂实例化 -->
+<bean id="bean3" factory-bean="bean3Factory" factory-method="getBean3"></bean>
+<bean id="bean3Factory" class="service2.Bean3Factory"/>
+```
+
+```java
+/**
+ * 使用无参数的构造方法实例化
+ */
+public class Bean1 {
+    public Bean1(){
+
+    }
+}
+```
+
+```java
+/**
+ * 使用静态工厂的方式实例化
+ *
+ */
+public class Bean2 {
+
+}
+```
+
+```java
+/**
+ * Bean2的静态工厂
+ */
+public class Bean2Factory {
+	public static Bean2 getBean2(){
+		System.out.println("静态工厂的获得Bean2的方法...");
+		return new Bean2();
+	}
+}
+```
+
+```java
+/**
+ * 使用实例工厂实例化
+ *
+ */
+public class Bean3 {
+
+}
+```
+
+```java
+/**
+ * 实例工厂
+ */
+public class Bean3Factory {
+	public Bean3 getBean3(){
+		System.out.println("Bean3实例工厂的getBean3方法...");
+		return new Bean3();
+	}
+}
+```
+- 测试三种实例化Bean的方式：
+````java
+public class SpringTest {
+    @Test
+    // 无参数的构造方法的实例化
+    public void demo1() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                "applicationContext2.xml");
+        Bean1 bean1 = (Bean1) applicationContext.getBean("bean1");
+        System.out.println(bean1);
+    }
+
+    @Test
+    // 静态工厂实例化
+    public void demo2() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                "applicationContext2.xml");
+        Bean2 bean2 = (Bean2) applicationContext.getBean("bean2");
+        System.out.println(bean2);
+    }
+
+    @Test
+    // 实例工厂实例化
+    public void demo3() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                "applicationContext2.xml");
+        Bean3 bean3 = (Bean3) applicationContext.getBean("bean3");
+        System.out.println(bean3);
+    }
+}
+````
+
+## Bean的其他配置
+### 1.id和name的区别
+
+id遵守XML约束的id的约束。id约束保证这个**属性的值是唯一的**,而且必须以字母开始，
+可以使用字母、数字、连字符、下划线、句话、冒号。name没有这些要。
+
+### 2.类的作用范围
+scope属性 :
+
+| 属性 | 解释 |
+| :--: | :--: |
+| singleton | 单例的(默认的值) |
+| prototype | 多例的 |
+| request |	web开发中.创建了一个对象,将这个对象存入request范围,request.setAttribute() |
+| session | web开发中.创建了一个对象,将这个对象存入session范围,session.setAttribute() |
+| globalSession	| 一般用于Porlet应用环境。指的是分布式开发。不是porlet环境,globalSession等同于session |
+
+注意：实际开发中主要使用**singleton**,**prototype**
+
+### 3.Bean的生命周期:
+配置初始化和销毁的方法:
+```html
+init-method=”setup”
+destroy-method=”teardown”
+```
+执行销毁的时候,必须手动关闭工厂,而且只对scope=”singleton”有效.
+
+Bean的生命周期的11个步骤:
+- 1.instantiate bean对象实例化
+- 2.populate properties 封装属性
+- 3.如果Bean实现BeanNameAware 执行 setBeanName
+- 4.如果Bean实现BeanFactoryAware 或者 ApplicationContextAware 设置工厂 setBeanFactory 或者上下文对象 setApplicationContext
+- 5.如果存在类实现 BeanPostProcessor（后处理Bean） ，执行postProcessBeforeInitialization
+- 6.如果Bean实现InitializingBean 执行 afterPropertiesSet 
+- 7.调用<bean init-method="init"> 指定初始化方法 init
+- 8.如果存在类实现 BeanPostProcessor（处理Bean） ，执行postProcessAfterInitialization
+- 9.执行业务处理
+- 10.如果Bean实现 DisposableBean 执行 destroy
+- 11.调用<bean destroy-method="customerDestroy"> 指定销毁方法 customerDestroy
+
+
+## Bean中属性注入
+Spring支持两种属性注入方法：
+
+- 构造方法注入
+- setter方法注入
+
+### 1.构造器注入
+```html
+ <!--构造器注入-->
+<bean id="car" class="service3.Car">
+    <!-- <constructor-arg name="name" value="宝马"/>
+    <constructor-arg name="price" value="1000000"/> -->
+    <constructor-arg index="0" type="java.lang.String" value="奔驰"/>
+    <constructor-arg index="1" type="java.lang.Double" value="2000000"/>
+</bean>
+```
+
+### 2.setter方法注入
+```html
+<!--setter方法注入-->
+<bean id="car2" class="service3.Car2">
+    <!-- <property>标签中name就是属性名称,value是普通属性的值,ref:引用其他的对象 -->
+    <property name="name" value="保时捷"/>
+    <property name="price" value="5000000"/>
+</bean>
+```
+
+```html
+<!--方法注入对象属性-->
+<bean id="person" class="service3.Person">
+    <property name="name" value="李四"/>
+    <property name="car2" ref="car2"/>
+</bean>
+```
+
+```java
+/**
+ * 构造方法注入
+ */
+public class Car {
+	private String name;
+	private Double price;
+	
+	public Car() {
+		super();
+	}
+
+	public Car(String name, Double price) {
+		super();
+		this.name = name;
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Car [name=" + name + ", price=" + price + "]";
+	}
+}
+```
+
+```java
+/**
+ * setter方法注入
+ */
+public class Car2 {
+	private String name;
+	private Double price;
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	@Override
+	public String toString() {
+		return "Car2 [name=" + name + ", price=" + price + "]";
+	}
+}
+```
+
+```java
+public class Person {
+	private String name;
+	private Car2 car2;
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setCar2(Car2 car2) {
+		this.car2 = car2;
+	}
+	@Override
+	public String toString() {
+		return "Person [name=" + name + ", car2=" + car2 + "]";
+	}
+}
+```
+- 测试属性注入：
+```java
+public class SpringTest {
+    @Test
+    public void demo1(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                "applicationContext3.xml");
+        Car car = (Car) applicationContext.getBean("car");
+        System.out.println(car);
+    }
+
+    @Test
+    public void demo2(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                "applicationContext3.xml");
+        Car2 car2 = (Car2) applicationContext.getBean("car2");
+        System.out.println(car2);
+    }
+
+    @Test
+    public void demo3(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                "applicationContext3.xml");
+        Person person = (Person) applicationContext.getBean("person");
+        System.out.println(person);
+    }
+}
+```
+
+## 集合属性的注入
+```html
+<!--集合属性的注入-->
+<bean id="collectionBean" class="service4.CollectionBean">
+    <!-- 注入List集合 -->
+    <property name="list">
+        <list>
+            <value>童童</value>
+            <value>小凤</value>
+        </list>
+    </property>
+
+    <!-- 注入set集合 -->
+    <property name="set">
+        <set>
+            <value>杜宏</value>
+            <value>如花</value>
+        </set>
+    </property>
+
+    <!-- 注入map集合 -->
+    <property name="map">
+        <map>
+            <entry key="刚刚" value="111"/>
+            <entry key="娇娇" value="333"/>
+        </map>
+    </property>
+
+    <property name="properties">
+        <props>
+            <prop key="username">root</prop>
+            <prop key="password">123</prop>
+        </props>
+    </property>
+</bean>
+```
+
+```java
+public class CollectionBean {
+	private List<String> list;
+	private Set<String> set;
+	private Map<String,Integer> map;
+	private Properties properties;
+	
+	public void setSet(Set<String> set) {
+		this.set = set;
+	}
+
+	public void setList(List<String> list) {
+		this.list = list;
+	}
+
+	public void setMap(Map<String, Integer> map) {
+		this.map = map;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
+
+	@Override
+	public String toString() {
+		return "CollectionBean [list=" + list + ", set=" + set + ", map=" + map
+				+ ", properties=" + properties + "]";
+	}
+}
+```
+- 测试集合属性的注入
+```java
+public class SpringTest {
+    @Test
+    public void demo1(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                "applicationContext4.xml");
+        CollectionBean collectionBean = (CollectionBean) applicationContext.getBean("collectionBean");
+        System.out.println(collectionBean);
+    }
+}
+```
+
+# IOC装配Bean(注解方式)
+## Spring的注解装配Bean
+Spring2.5 引入使用注解去定义Bean
+
+- @Component：描述Spring框架中Bean 
+
+Spring的框架中提供了与@Component注解等效的三个注解:
+
+- @Repository 用于对DAO实现类进行标注
+- @Service 用于对Service实现类进行标注
+- @Controller 用于对Controller实现类进行标注
+
+**普通属性**;
+```java
+@Value(value="itcast")
+private String info;
+```
+
+**对象属性**:@Autowired--自动装配默认使用类型注入
+
+```java
+@Autowired
+@Qualifier("userDao")
+//按名称进行注入.
+```
+
+```java
+@Autowired
+@Qualifier("userDao")		
+private UserDao userDao;
+```
+等价于
+```java
+@Resource(name="userDao")
+private UserDao userDao;
+```
+
+配置Bean初始化方法和销毁方法:
+```java
+@PostConstruct 初始化
+@PreDestroy  销毁
+```
+```java
+@Repository("userDao")
+public class UserDao {
+	
+}
+```
+
+```java
+/**
+ * 注解的方式装配Bean
+ */
+// 在Spring配置文件中<bean id="userService" class="cn.itcast.demo1.UserService">
+// @Component("userService")
+@Service(value="userService")
+@Scope
+public class UserService {
+	@Value(value="itcast")
+	private String info;
+	
+    @Autowired(required=true)
+    @Qualifier("userDao")
+	private UserDao userDao;
+
+    //等价于
+	//@Resource(name="userDao")
+	//private UserDao userDao;
+	
+	public void sayHello(){
+		System.out.println("Hello Spring Annotation..."+info);
+	}
+
+	@PostConstruct
+	public void setup(){
+		System.out.println("初始化...");
+	}
+	
+	@PreDestroy
+	public void teardown(){
+		System.out.println("销毁...");
+	}
+}
+```
+
+```java
+public class SpringTest {
+    @Test
+    public void test(){
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                "applicationContext5.xml");
+
+        UserService userService = (UserService) applicationContext.getBean("userService");
+        userService.sayHello();
+        System.out.println(userService);
+
+        UserService userService2 = (UserService) applicationContext.getBean("userService");
+        userService2.sayHello();
+        System.out.println(userService2);
+
+        applicationContext.close();
+    }
+}
+```
+
+# SpringIOC原理
+
+# SpringIOC源码分析

@@ -20,5 +20,21 @@ public class Main2 {
             System.out.println(e);
         }
         System.out.println("The mst weight is:"+lazyPrimMST.result());
+
+        PrimMST<Double> primMST=new PrimMST<>(g1);
+        Vector<Edge<Double>> mst2=primMST.mstEdges();
+        for(Edge<Double> e:mst2){
+            System.out.println(e);
+        }
+        System.out.println("The mst weight is:"+primMST.result());
+
+
+        KruskalMST<Double> kruskalMST=new KruskalMST<>(g1);
+        Vector<Edge<Double>> mst3=kruskalMST.mstEdges();
+        for(Edge<Double> e:mst3){
+            System.out.println(e);
+        }
+        System.out.println("The mst weight is:"+kruskalMST.result());
+
     }
 }
