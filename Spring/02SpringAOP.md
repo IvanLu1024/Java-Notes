@@ -38,7 +38,7 @@ AOP底层原理就是**代理机制**。
 | Proxy（代理）| 一个类被AOP织入增强后，就产生一个结果代理类 | 
 | Aspect(切面) | 是切入点和通知（引介）的结合 | 
 
-<div align="center"><img src="pics\\02_1.bmp" width="800"/></div>
+<div align="center"><img src="pics\\02_1.bmp"/></div>
 
 ## AOP的底层实现
 ### JDK动态代理
