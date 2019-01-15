@@ -2,10 +2,14 @@ package code_09_string;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 792. Number of Matching Subsequences
+ * Given string S and a dictionary of words words,
+ * find the number of words[i] that is a subsequence of S.
+ *
  * Example :
  Input:
  S = "abcde"
@@ -16,94 +20,60 @@ import java.util.List;
  */
 public class Code_792_NumberOfMatchingSubsequences {
     /**
-     * 基本思路是对words中的每一个word检查是否为S的一个子序列。
-     * 但是如果每次检查都要扫描一遍S的话时间复杂度太高。
+     * 思路：
+     * 对words中的每一个word检查是否为S的一个子序列。
+     * 但是如果每次检查都要扫描一遍S的话时间复杂度太高，所以就想到把S中字母的位置存储起来提高效率。
      *
-     * 记录下来S中每个字符的出现次数。
-     * 然后依次对于每个单词，在存储S中字符的有序数组中二分查找，每次找到之后，就从下一个位置上开始再找下一个字符。
-     * 这样在处理每个words[i]的时候，我们是跳着走的，而不是顺序走的，
-     * 就将原来判断一个word是不是S的子序列的时间复杂度从O(m)降低到了O(logm)这个量级。
+     * 扫描一遍字符串S并建立一个字典，
+     * 记录每一个字母出现的位置并按照升序排列。
+     * 对每一个word，遍历word并查找字典中当前字母的出现位置并保持其相对位置不变。
      */
-    private class Pair{
-        String word;
-        int pos;
-        Pair(String word,int pos){
-            this.word=word;
-            this.pos=pos;
-        }
-    }
     public int numMatchingSubseq(String S, String[] words) {
-        Pair[] table=new Pair[26];
-        for(String word:words){
-            table[word.charAt(0)-'a']=new Pair(word,0);
+        //建立字典-->将S中字母的位置存储起来提高效率
+        List<Integer>[] pos=new ArrayList[26];
+        for(int i=0;i<26;i++){
+            pos[i]=new ArrayList<>();
         }
-        int res=0;
+
+        //扫描一遍字符串S并建立一个字典，记录每一个字母出现的位置并按照升序排列。
         for(int i=0;i<S.length();i++){
             char c=S.charAt(i);
-            Pair[] oldTable=new Pair[26];
-            for(int j=0;j<26;j++){
-                oldTable[i]=table[i];
-            }
-            table[c-'a']=null;
-            for(Pair p:oldTable) {
-                if(p!=null){
-                    p.pos++;
-                    if (p.pos == p.word.length()) {
-                        res++;
-                    } else {
-                        table[p.word.charAt(p.pos) - 'a']= p;
+            pos[c-'a'].add(i);
+        }
+
+        int res=0;
+        for(int i=0;i<words.length;i++){
+            // 对每一个word，遍历word并查找字典中当前字母的出现位置并保持其相对位置不变。
+            String word=words[i];
+            //j是在具体的s中字母下标
+            int j=0;
+            //当前字母位置
+            int cur=-1;
+            while(j<word.length()){
+                int k = 0;
+                while (k != pos[word.charAt(j) - 'a'].size()) {
+                    // keep the relative positions by greedy
+                    if (pos[word.charAt(j) - 'a'].get(k) > cur) {
+                        cur = pos[word.charAt(j) - 'a'].get(k);
+                        break;
                     }
+                    k++;
                 }
+                // when there is no match, break to prune
+                if (k == pos[word.charAt(j) - 'a'].size()) {
+                    break;
+                }
+                j++;
+            }
+            if(j==word.length()){
+                res++;
             }
         }
         return res;
     }
 
-   /* int upper_bound(int *array, int size, int key)
-    {
-        int first = 0, len = size-1;
-        int half, middle;
-
-        while(len > 0){
-            half = len >> 1;
-            middle = first + half;
-            if(array[middle] > key)     //中位数大于key,在包含last的左半边序列中查找。
-                len = half;
-            else{
-                first = middle + 1;    //中位数小于等于key,在右半边序列中查找。
-                len = len - half - 1;
-            }
-        }
-        return first;
-    }*/
-
-   //算法返回一个非递减序列中第一个大于val的位置。
-    private int upperBound(List<Integer> list,int val){
-        int first = 0, len = list.size()-1;
-        int half, middle;
-
-        while(len > 0){
-            half = len >> 1;
-            middle = first + half;
-            if(list.get(middle) > val)     //中位数大于key,在包含last的左半边序列中查找。
-                len = half;
-            else{
-                first = middle + 1;    //中位数小于等于key,在右半边序列中查找。
-                len = len - half - 1;
-            }
-        }
-        return first;
-    }
-
     @Test
     public void test(){
-        //String S="aaaabbb";
-        /*int[] res=charFrequency(word);
-        for(int i=0;i<res.length;i++){
-            System.out.print((char)(i+'a'));
-            System.out.println(" "+res[i]);
-        }*/
-
         String S = "abcde";
         String[] words = {"a", "bb", "acd", "ace"};
         System.out.println(numMatchingSubseq(S,words));
