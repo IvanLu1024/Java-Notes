@@ -32,6 +32,61 @@ public class Code_722_RemoveComments {
     public List<String> removeComments(String[] source) {
         List<String> res=new ArrayList<>();
 
+        //判断是否是块注释
+        boolean isBlock=false;
+        StringBuilder builder=new StringBuilder();
+
+        for(String s:source){
+            int i=0;
+            while(i<s.length()){
+                if(isBlock==false){
+                    //不是块注释的情况
+                    if(i==s.length()-1){
+                        builder.append(s.charAt(i++));
+                    }else{
+                        //i<=s.length()-2的情况
+                        //每次获取两个字符 s[i],s[i+1],则 i+1<=s.length()-1 --> i<=s.length()-2
+                        String m=s.substring(i,i+2);
+                        if("/*".equals(m)){
+                            isBlock=true;
+                            //是块注释忽略 /* 两个字符
+                            i+=2;
+                        }else if("//".equals(m)){
+                            // 行注释，就忽略 //后面的所有字符
+                            break;
+                        }else{
+                            builder.append(s.charAt(i++));
+                        }
+                    }
+                }else{
+                    //是块注释的情况
+                    if(i==s.length()-1){
+                        i++;
+                    }else{
+                        String m=s.substring(i,i+2);
+                        if("*/".equals(m)){
+                            isBlock=false;
+                            i+=2;
+                        }else{
+                            i++;
+                        }
+                    }
+                }
+            }
+            if(builder.length()>0 && isBlock==false){
+                res.add(builder.toString());
+                builder=new StringBuilder();
+            }
+        }
+        return res;
+    }
+
+    /**
+     * 思路二：未能全部通过
+     */
+    public List<String> removeComments1(String[] source) {
+        List<String> res=new ArrayList<>();
+
         StringBuilder builder=new StringBuilder();
         for(String s:source){
             builder.append(s+"\n");
