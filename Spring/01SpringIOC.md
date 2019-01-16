@@ -1,35 +1,35 @@
 <!-- GFM-TOC -->
 * [SpringIOC](#SpringIOC)
     * [IOC装配Bean](#IOC装配Bean)
-    * [IOC装配Bean(注解方式)](#IOC装配Bean(注解方式))
+    * [IOC使用注解方式装配Bean](#IOC使用注解方式装配Bean)
     * [SpringIOC原理](#SpringIOC原理)
     * [SpringIOC源码分析](#SpringIOC源码分析)
 <!-- GFM-TOC -->
 
 # SpringIOC
 
-# IOC装配Bean
-## Spring框架Bean实例化的方式
+## IOC装配Bean
+### Spring框架Bean实例化的方式
 提供了三种方式实例化Bean:
 
 - 构造方法实例化(默认无参数)
 - 静态工厂实例化
 - 实例工厂实例化
 
-### 1.无参数构造方法的实例化
+#### 1.无参数构造方法的实例化
 
 ```html
 <!-- 默认情况下使用的就是无参数的构造方法 -->
  <bean id="bean1" class="service2.Bean1"></bean>
 ```
 
-### 2.静态工厂实例化
+#### 2.静态工厂实例化
 ```html
 <!-- 第二种使用静态工厂实例化 -->
 <bean id="bean2" class="service2.Bean2Factory" factory-method="getBean2"></bean>
 ```
 
-### 3.实例工厂实例化
+#### 3.实例工厂实例化
 ```html
 <!-- 第三种使用实例工厂实例化 -->
 <bean id="bean3" factory-bean="bean3Factory" factory-method="getBean3"></bean>
@@ -122,13 +122,13 @@ public class SpringTest {
 }
 ````
 
-## Bean的其他配置
-### 1.id和name的区别
+### Bean的其他配置
+#### 1.id和name的区别
 
 id遵守XML约束的id的约束。id约束保证这个**属性的值是唯一的**,而且必须以字母开始，
 可以使用字母、数字、连字符、下划线、句话、冒号。name没有这些要。
 
-### 2.类的作用范围
+#### 2.类的作用范围
 scope属性 :
 
 | 属性 | 解释 |
@@ -141,7 +141,7 @@ scope属性 :
 
 注意：实际开发中主要使用**singleton**,**prototype**
 
-### 3.Bean的生命周期:
+#### 3.Bean的生命周期:
 配置初始化和销毁的方法:
 ```html
 init-method=”setup”
@@ -163,13 +163,13 @@ Bean的生命周期的11个步骤:
 - 11.调用<bean destroy-method="customerDestroy"> 指定销毁方法 customerDestroy
 
 
-## Bean中属性注入
+### Bean中属性注入
 Spring支持两种属性注入方法：
 
 - 构造方法注入
 - setter方法注入
 
-### 1.构造器注入
+#### 1.构造器注入
 ```html
  <!--构造器注入-->
 <bean id="car" class="service3.Car">
@@ -180,7 +180,7 @@ Spring支持两种属性注入方法：
 </bean>
 ```
 
-### 2.setter方法注入
+#### 2.setter方法注入
 ```html
 <!--setter方法注入-->
 <bean id="car2" class="service3.Car2">
@@ -289,7 +289,7 @@ public class SpringTest {
 }
 ```
 
-## 集合属性的注入
+### 集合属性的注入
 ```html
 <!--集合属性的注入-->
 <bean id="collectionBean" class="service4.CollectionBean">
@@ -369,8 +369,8 @@ public class SpringTest {
 }
 ```
 
-# IOC装配Bean(注解方式)
-## Spring的注解装配Bean
+## IOC使用注解方式装配Bean
+### Spring的注解装配Bean
 Spring2.5 引入使用注解去定义Bean
 
 - @Component：描述Spring框架中Bean 
@@ -474,6 +474,44 @@ public class SpringTest {
 }
 ```
 
-# SpringIOC原理
+## SpringIOC原理
+### IoC与DI
+Ioc是Spring的核心，贯穿始终。
 
-# SpringIOC源码分析
+所谓IoC，对于Spring框架来说，就是由Spring来负责控制对象的生命周期和对象间的关系。
+
+传统的程序开发中，在一个对象中，如果要使用另外的对象，就必须得到它（自己new一个，或者从JNDI中查询一个），
+使用完之后还要将对象销毁（比如Connection等），对象始终会和其他的接口或类**藕合**起来。
+
+所有的类都会在Spring容器中登记，告诉Spring你是个什么，你需要什么，
+然后Spring会在系统运行到适当的时候，把你要的东西主动给你，同时也把你交给其他需要你的东西。
+**所有的类的创建、销毁都由 spring来控制**，也就是说控制对象生存周期的不再是引用它的对象，而是Spring。
+对于某个具体的对象而言，以前是它控制其他对象，现在是所有对象都被spring控制，所以这叫控制反转。
+
+IoC的一个重点是在系统运行中，**动态的向某个对象提供它所需要的其他对象**。
+这一点是通过DI(Dependency Injection，依赖注入)来实现的。
+比如对象A需要操作数据库，以前我们总是要在A中自己编写代码来获得一个Connection对象，
+有了Spring我们就只需要告诉Spring，A中需要一个Connection，
+至于这个Connection怎么构造，何时构造，A不需要知道。
+在系统运行时，Spring会在适当的时候制造一个Connection，然后像打针一样，
+注射到A当中，这样就完成了对各个对象之间关系的控制。
+A需要依赖 Connection才能正常运行，而这个Connection是由Spring注入到A中的，依赖注入的名字就这么来的。
+
+那么DI是如何实现的呢？ Java 1.3之后一个重要特征是反射(reflection)，
+它允许程序在运行的时候动态的生成对象、执行对象的方法、改变对象的属性，
+**Spring就是通过反射来实现注入的**。
+
+## SpringIOC源码分析
+### 初始化
+Spring IOC的初始化过程，整个脉络很庞大，初始化的过程主要就是**读取XML资源**，并**解析**，
+最终**注册到Bean Factory中**。
+
+<div align="center"><img src="pics\\01_1.png"/></div>
+
+### 注入依赖
+当完成初始化IOC容器后，如果Bean没有设置lazy-init(延迟加载)属性，那么Bean的实例就会在初始化IOC完成之后，及时地进行**初始化**。
+初始化时会**创建实例**，然后根据配置利用反射对实例进行进一步操作，具体流程如下所示：
+
+<div align="center"><img src="pics\\01_2.png"/></div>
+
+### [Spring核心源码学习](https://yikun.github.io/2015/05/29/Spring-IOC%E6%A0%B8%E5%BF%83%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/)
