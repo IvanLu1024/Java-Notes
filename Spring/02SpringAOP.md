@@ -736,7 +736,7 @@ public class MyAspect{
     private void myPointcut(){}
 }
 ```
-
+> 配置applicationContext.xml
 ```html
 <!-- 自动生成代理  底层就是AnnotationAwareAspectJAutoProxyCreator -->
 <aop:aspectj-autoproxy />
