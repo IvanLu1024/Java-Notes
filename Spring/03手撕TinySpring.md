@@ -323,9 +323,564 @@ log task start
 Hello
 ```
 
-### [TinySpring-版本1 相关代码]()
+到目前为止，IOC和AOP只是独立的模块。
+
+### [TinySpring-版本1 相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/Spring/TinySpring)
 
 ## TinySpring-版本2
+
+### 实现 IOC
+#### 1. BeanFactory 的生命流程
+
+- 1. BeanFactory 加载 Bean 配置文件，将读到的 Bean 配置封装成 BeanDefinition 对象
+- 2. 将封装好的 BeanDefinition 对象注册到 BeanDefinition 容器中
+- 3. 注册 BeanPostProcessor 相关实现类到 BeanPostProcessor 容器中
+- 4. BeanFactory 进入就绪状态
+- 5. 外部调用 BeanFactory 的 getBean(String name) 方法，BeanFactory 着手实例化相应的 Bean
+- 6. 重复步骤 3 和 4，直至程序退出，BeanFactory 被销毁
+
+上面简单罗列了 BeanFactory 的生命流程，也就是 IOC 容器的生命流程。
+
+#### 2. 实现IOC所用到的辅助类
+> BeanDefinition
+
+BeanDefinition，从字面意思上翻译成中文就是 “Bean 的定义”。
+从翻译结果中就可以猜出这个类的用途，即根据 Bean 配置信息生成相应的 Bean 详情对象。
+举个例子，**如果把 Bean 比作是电脑，那么 BeanDefinition 就是这台电脑的配置清单**。
+我们从外观上无法看出这台电脑里面都有哪些配置，也看不出电脑的性能咋样。
+但是通过配置清单，我们就可了解这台电脑的详细配置。
+我们可以知道这台电脑是不是用了牙膏厂的 CPU，BOOM 厂的固态硬盘等。
+透过配置清单，我们也就可大致评估出这台电脑的性能。
+
+<div align="center"><img src="pics\\03_1.png" width="400"/></div>
+
+具体实现中，BeanDefinition 和 xml 有如下对应：
+
+<div align="center"><img src="pics\\03_2.png" width="600"/></div>
+
+```java
+/**
+ * Bean的内容及元数据，保存在BeanFactory中，
+ * 包装Bean的实体
+ */
+public class BeanDefinition {
+    private Object bean;
+
+    private Class beanClass;
+
+    private String beanClassName;
+
+    private PropertyValues propertyValues = new PropertyValues();
+
+    public Object getBean() {
+        return bean;
+    }
+
+    public void setBean(Object bean) {
+        this.bean = bean;
+    }
+
+    public Class getBeanClass() {
+        return beanClass;
+    }
+
+    public void setBeanClass(Class beanClass) {
+        this.beanClass = beanClass;
+    }
+
+    public String getBeanClassName() {
+        return beanClassName;
+    }
+
+    public void setBeanClassName(String beanClassName) {
+        this.beanClassName = beanClassName;
+    }
+
+    public PropertyValues getPropertyValues() {
+        return propertyValues;
+    }
+
+    public void setPropertyValues(PropertyValues propertyValues) {
+        this.propertyValues = propertyValues;
+    }
+}
+```
+
+> BeanReference
+
+上图中可以看出，BeanReference 对象**保存的是 bean 配置中 ref 属性对应的值**，
+在后续 BeanFactory 实例化 Bean 时，会根据 BeanReference 保存的值去实例化 Bean 所依赖的其他 Bean。
+
+```java
+public class BeanReference {
+    private String name;
+    private Object bean;
+
+    public BeanReference(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Object getBean() {
+        return bean;
+    }
+
+    public void setBean(Object bean) {
+        this.bean = bean;
+    }
+}
+```
+
+> PropertyValue
+
+PropertyValue 中有两个字段 name 和 value，用于**记录 bean 配置中的标签的属性值**。
+
+```java
+public class PropertyValue {
+    //name和value都是常量。与bean配置中的标签属性对应
+    private final String name;
+    private final Object value;
+
+    public PropertyValue(String name, Object value) {
+        this.name = name;
+        this.value = value;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+}
+```
+
+> PropertyValues
+
+PropertyValue 的复数形式，在功能上等同于 List。
+那么为什么 Spring 不直接使用 List，而自己定义一个新类呢？
+答案是要获得一定的控制权，这样就可以封装一些操作，
+代码和注释如下：
+
+```java
+/**
+ * 包装一个对象所有的PropertyValue
+ * 为什么封装而不是直接用List?因为可以封装一些操作。
+ */
+public class PropertyValues {
+	private final List<PropertyValue> propertyValueList = new ArrayList<PropertyValue>();
+
+	public PropertyValues() {
+	}
+
+	public void addPropertyValue(PropertyValue pv) {
+        //TODO:这里可以对于重复propertyName进行判断，直接用list没法做到
+		this.propertyValueList.add(pv);
+	}
+
+	public List<PropertyValue> getPropertyValues() {
+		return this.propertyValueList;
+	}
+}
+```
+
+#### 3. 解析配置文件
+
+BeanDefinitionReader 的实现类 XmlBeanDefinitionReader负责加载和解析配置文件。
+
+XmlBeanDefinitionReader 做了如下几件事情：
+
+1. 将 xml 配置文件加载到内存中
+
+2. 获取根标签下所有的标签
+
+3. 遍历获取到的标签列表，并从标签中读取 id，class 属性
+
+4. 创建 BeanDefinition 对象，并将刚刚读取到的 id，class 属性值保存到对象中
+
+5. 遍历标签下的标签，从中读取属性值，并保持在 BeanDefinition 对象中
+
+6. 将 <id, BeanDefinition> 键值对缓存在 Map 中，留作后用
+
+7. 重复3、4、5、6步，直至解析结束
+
+- BeanDefinitionReader 接口：
+
+```java
+public interface BeanDefinitionReader {
+    void loadBeanDefinitions(String location) throws Exception;
+}
+```
+- XmlBeanDefinitionReader 实现类：
+
+```java
+public class XmlBeanDefinitionReader implements BeanDefinitionReader {
+    private Map<String,BeanDefinition> registry;
+
+    public XmlBeanDefinitionReader(){
+        this.registry = new HashMap<>();
+    }
+
+    //1. 将 xml 配置文件加载到内存中
+    @Override
+    public void loadBeanDefinitions(String location) throws Exception {
+        InputStream inputStream = new FileInputStream(location);
+        doLoadBeanDefinitions(inputStream);
+    }
+
+    //将Stream转化成 BeanDefinition
+    private void doLoadBeanDefinitions(InputStream inputStream) throws Exception {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = factory.newDocumentBuilder();
+        Document doc = docBuilder.parse(inputStream);
+        registerBeanDefinitions(doc);
+        inputStream.close();
+    }
+
+    public void registerBeanDefinitions(Document doc) {
+        Element root = doc.getDocumentElement();
+
+        parseBeanDefinitions(root);
+    }
+
+    //2. 获取根标签下所有的标签
+    private void parseBeanDefinitions(Element root) {
+        NodeList nl = root.getChildNodes();
+        //3. 遍历获取到的标签列表，并从标签中读取 id，class 属性
+        for (int i = 0; i < nl.getLength(); i++) {
+            Node node = nl.item(i);
+            if (node instanceof Element) {
+                Element ele = (Element) node;
+                processBeanDefinition(ele);
+            }
+        }
+    }
+
+    //标签中读取 id，class 属性
+    private void processBeanDefinition(Element ele) {
+        String name = ele.getAttribute("id");
+        String className = ele.getAttribute("class");
+        //4. 创建 BeanDefinition 对象，并将刚刚读取到的 id，class 属性值保存到对象中
+        BeanDefinition beanDefinition = new BeanDefinition();
+
+        //5. 遍历标签下的标签，从中读取属性值，并保持在 BeanDefinition 对象中
+        processProperty(ele, beanDefinition);
+        beanDefinition.setBeanClassName(className);
+        //6. 将 <id, BeanDefinition> 键值对缓存在 Map 中，留作后用
+        getRegistry().put(name, beanDefinition);
+    }
+
+    private void processProperty(Element ele, BeanDefinition beanDefinition) {
+        NodeList propertyNode = ele.getElementsByTagName("property");
+        for (int i = 0; i < propertyNode.getLength(); i++) {
+            Node node = propertyNode.item(i);
+            if (node instanceof Element) {
+                Element propertyEle = (Element) node;
+                String name = propertyEle.getAttribute("name");
+                String value = propertyEle.getAttribute("value");
+                if (value != null && value.length() > 0) {
+                    beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, value));
+                } else {
+                    String ref = propertyEle.getAttribute("ref");
+                    if (ref == null || ref.length() == 0) {
+                        throw new IllegalArgumentException("Configuration problem: <property> element for property '"
+                                + name + "' must specify a ref or value");
+                    }
+                    BeanReference beanReference = new BeanReference(ref);
+                    beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, beanReference));
+                }
+            }
+        }
+    }
+
+
+    public Map<String, BeanDefinition> getRegistry() {
+        return registry;
+    }
+}
+```
+
+#### 4. 注册 BeanPostProcessor
+BeanPostProcessor 接口是 **Spring 对外拓展的接口**之一，
+其主要用途提供一个机会，让开发人员能够控制 Bean 的实例化过程。
+**通过实现这个接口，我们就可在 Bean 实例化时，对 Bean 进行一些处理**。
+比如，我们所熟悉的 AOP 就是在这里将切面逻辑织入相关 Bean 中的。
+正是因为有了 BeanPostProcessor 接口作为桥梁，才使得 AOP 可以和 IOC 容器产生联系。
+
+```java
+/**
+ * BeanPostProcessor 接口是Spring 对外拓展的接口之一，
+ * 其主要用途提供一个机会，让开发人员能够控制 bean 的实例化过程。
+ **通过实现这个接口，我们就可在 Bean 实例化时，对 Bean 进行一些处理。
+ */
+public interface BeanPostProcessor {
+    Object postProcessBeforeInitialization(Object bean, String beanName) throws Exception;
+    Object postProcessAfterInitialization(Object bean, String beanName) throws Exception;
+}
+```
+
+BeanFactory 是怎么注册 BeanPostProcessor 相关实现类的？
+
+XmlBeanDefinitionReader 在完成解析工作后，
+BeanFactory 会将它解析得到的 <id, BeanDefinition> 键值对注册到自己的 beanDefinitionMap 中。
+BeanFactory 注册好 BeanDefinition 后，就立即开始注册 BeanPostProcessor 相关实现类。
+这个过程比较简单：
+
+1. 根据 BeanDefinition 记录的信息，寻找所有实现了 BeanPostProcessor 接口的类。
+
+2. 实例化 BeanPostProcessor 接口的实现类
+
+3. 将实例化好的对象放入 List中
+
+4. 重复2、3步，直至所有的实现类完成注册
+
+
+```java
+/**
+ * Bean的容器
+ *
+ * XmlBeanDefinitionReader 在完成解析工作后，
+ * BeanFactory 会将它解析得到的 <id, BeanDefinition>
+ * 键值对注册到自己的 beanDefinitionMap 中。
+ * BeanFactory 注册好 BeanDefinition 后，就立即开始注册 BeanPostProcessor 相关实现类。
+ */
+public interface BeanFactory {
+    Object getBean(String name) throws Exception;
+}
+```
+
+```java
+public class XmlBeanFactory implements BeanFactory{
+    private Map<String, BeanDefinition> beanDefinitionMap = new HashMap<>();
+    private List<String> beanDefinitionNames = new ArrayList<>();
+
+    // 用来存储注册的BeanPostProcessor
+    private List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
+
+    private XmlBeanDefinitionReader beanDefinitionReader;
+
+    //初始化的时候，自动装配属性
+    public XmlBeanFactory(String location) throws Exception {
+        beanDefinitionReader = new XmlBeanDefinitionReader();
+        loadBeanDefinitions(location);
+    }
+
+    private void loadBeanDefinitions(String location) throws Exception {
+        beanDefinitionReader.loadBeanDefinitions(location);
+        registerBeanDefinition();
+        registerBeanPostProcessor();
+    }
+
+    /**
+     * 注册BeanDefinition
+     */
+    private void registerBeanDefinition() {
+        //获取从xml文件中读取到的信息
+        Map<String, BeanDefinition> map=beanDefinitionReader.getRegistry();
+        for(String name:map.keySet()){
+            BeanDefinition beanDefinition=map.get(name);
+            beanDefinitionMap.put(name,beanDefinition);
+            beanDefinitionNames.add(name);
+        }
+    }
+
+    /**
+     * 注册BeanPostProcessor
+     */
+    public void registerBeanPostProcessor() throws Exception {
+        List beans = getBeansForType(BeanPostProcessor.class);
+        for (Object bean : beans) {
+            addBeanPostProcessor((BeanPostProcessor) bean);
+        }
+    }
+
+    /**
+     *  注册BeanPostProcessor
+     *  1. 根据 BeanDefinition 记录的信息，寻找所有实现了 BeanPostProcessor 接口的类。
+     *  2. 实例化 BeanPostProcessor 接口的实现类
+     *  3. 将实例化好的对象放入 List中
+     */
+    private List getBeansForType(Class type) throws Exception {
+        List beans = new ArrayList<>();
+        for (String beanDefinitionName : beanDefinitionNames) {
+            if (type.isAssignableFrom(beanDefinitionMap.get(beanDefinitionName).getBeanClass())) {
+                beans.add(getBean(beanDefinitionName));
+            }
+        }
+        return beans;
+    }
+
+    //将beanPostProcessor放入容器中
+    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
+        beanPostProcessors.add(beanPostProcessor);
+    }
+    
+    @Override
+    public Object getBean(String name) throws Exception {
+        //...
+    }
+}
+```
+
+#### 5. BeanFactory中 getBean 过程解析
+
+在完成了 xml 的解析、BeanDefinition 的注册以及 BeanPostProcessor 的注册过程后。
+BeanFactory 初始化的工作算是结束了，此时 BeanFactory 处于就绪状态，等待外部程序的调用。
+
+外部程序一般都是通过调用 BeanFactory 的 getBean(String name) 方法来获取容器中的 Bean。
+BeanFactory 具有**延迟实例化 Bean 的特性**，也就是等外部程序需要的时候，才实例化相关的 Bean。
+这样做的好处是比较显而易见的，
+**第一是提高了 BeanFactory 的初始化速度**，
+**第二是节省了内存资源**。
+
+Spring中Bean的实例化过程：
+
+<div align="center"><img src="pics\\03_3.png" width="600"/></div>
+
+我们这里进行了简化：
+
+<div align="center"><img src="pics\\03_4.png" width="300"/></div>
+
+简化后的实例化流程如下：
+
+1. 实例化 Bean 对象
+
+2. 将配置文件中配置的属性注入到新创建的 Bean 对象中
+
+3. 检查 Bean 对象是否实现了 Aware 一类的接口，如果实现了则把相应的依赖设置到 Bean 对象中。
+
+4. 调用 BeanPostProcessor 前置处理方法，
+即 postProcessBeforeInitialization(Object bean, String beanName)
+
+5. 调用 BeanPostProcessor 后置处理方法，
+即 postProcessAfterInitialization(Object bean, String beanName)
+
+6. Bean 对象处于就绪状态，可以使用了
+
+```java
+/**
+ * getBean 简化方案
+ */
+@Override
+public Object getBean(String name) throws Exception {
+    BeanDefinition beanDefinition = beanDefinitionMap.get(name);
+    if (beanDefinition == null) {
+        throw new IllegalArgumentException("no this bean with name " + name);
+    }
+
+    //根据beanDefiniton获取Bean
+    Object bean = beanDefinition.getBean();
+    if (bean == null) {
+        //1. 实例化 Bean 对象
+        //2.将配置文件中配置的属性注入到新创建的 Bean 对象中
+        //3 .检查 Bean 对象是否实现了 Aware 一类的接口，如果实现了则把相应的依赖设置到 Bean 对象中。
+        bean = createBean(beanDefinition);
+
+        //4. 调用 BeanPostProcessor 前置处理方法，
+        // 即 postProcessBeforeInitialization(Object bean, String beanName)
+        //5. 调用 BeanPostProcessor 后置处理方法，
+        // 即 postProcessAfterInitialization(Object bean, String beanName)
+        bean = initializeBean(bean, name);
+        beanDefinition.setBean(bean);
+    }
+    return bean;
+}
+
+private Object createBean(BeanDefinition bd) throws Exception {
+    //1. 实例化 Bean 对象
+    Object bean = bd.getBeanClass().newInstance();
+    // 2. 将配置文件中配置的属性注入到新创建的 Bean 对象中
+    applyPropertyValues(bean, bd);
+
+    return bean;
+}
+
+private void applyPropertyValues(Object bean, BeanDefinition bd) throws Exception {
+    //3 .检查 Bean 对象是否实现了 Aware 一类的接口，如果实现了则把相应的依赖设置到 Bean 对象中。
+    if (bean instanceof BeanFactoryAware) {
+        ((BeanFactoryAware) bean).setBeanFactory(this);
+    }
+    PropertyValues propertyValues=bd.getPropertyValues();
+    for (PropertyValue propertyValue : propertyValues.getPropertyValues()) {
+        Object value = propertyValue.getValue();
+        if (value instanceof BeanReference) {
+            BeanReference beanReference = (BeanReference) value;
+            value = getBean(beanReference.getName());
+        }
+
+        //保证了使用 set方法为对象注入属性
+        try {
+            Method declaredMethod = bean.getClass().getDeclaredMethod(
+                    "set" + propertyValue.getName().substring(0, 1).toUpperCase()
+                            + propertyValue.getName().substring(1), value.getClass());
+            declaredMethod.setAccessible(true);
+            //执行 setter方法
+            declaredMethod.invoke(bean, value);
+        } catch (NoSuchMethodException e) {
+            Field declaredField = bean.getClass().getDeclaredField(propertyValue.getName());
+            declaredField.setAccessible(true);
+            //创建 setter
+            declaredField.set(bean, value);
+        }
+    }
+}
+
+private Object initializeBean(Object bean, String name) throws Exception {
+    //4. 调用 BeanPostProcessor 前置处理方法，
+    // 即 postProcessBeforeInitialization(Object bean, String beanName)
+    for (BeanPostProcessor beanPostProcessor : beanPostProcessors) {
+        bean = beanPostProcessor.postProcessBeforeInitialization(bean, name);
+    }
+
+    //5. 调用 BeanPostProcessor 后置处理方法，
+    // 即 postProcessAfterInitialization(Object bean, String beanName)
+    for (BeanPostProcessor beanPostProcessor : beanPostProcessors) {
+        bean = beanPostProcessor.postProcessAfterInitialization(bean, name);
+    }
+    return bean;
+}
+```
+
+### 实现 AOP
+
+AOP 是基于**动态代理模式**实现的，具体实现上可以基于 JDK 动态代理或者Cglib 动态代理（代理类实现）。
+其中 JDK 动态代理只能代理实现了接口的对象，而 Cglib 动态代理则无此限制。
+所以在为没有实现接口的对象生成代理时，只能使用 Cglib。
+在本项目中，暂时只实现了基于 JDK 动态代理的代理对象生成器。
+
+1. AOP 逻辑介入 BeanFactory 实例化 Bean 的过程
+
+2. 根据 Pointcut 定义的匹配规则，判断当前正在实例化的 Bean 是否符合规则
+
+3. 如果符合，代理生成器将通知 Advice 织入 Bean 相关方法中，并为目标 Bean 生成代理对象
+
+4. 将生成的 Bean 的代理对象返回给 BeanFactory 容器，到此，AOP 逻辑执行结束
+
+
+####  1. AOP的术语
+
+| 术语 | 描述 |
+| :--: | :--: |
+| Joinpoint(连接点) | 所谓连接点是指那些被拦截到的点。在Spring中,这些点指的是**方法**,因为Spring只支持**方法类型的连接点**。 | 
+| Pointcut(切入点) | 所谓切入点是指我们要**对哪些Joinpoint进行拦截**的定义。 | 
+| Advice(通知/增强) | 所谓通知是指拦截到Joinpoint之后所要做的事情就是**通知**。通知分为前置通知,后置通知,异常通知,最终通知,环绕通知(切面要完成的功能) | 
+| Introduction(引介) | 引介是一种**特殊的通知**在不修改类代码的前提下, Introduction可以在运行期为类动态地添加一些方法或Field | 
+| Target(目标对象) | 代理的目标对象 | 
+| Weaving(织入) | 是指把增强应用到目标对象来创建新的代理对象的过程。 Spring采用**动态代理织入**，而AspectJ采用**编译期织入**和**类装载期织入** | 
+| Proxy（代理）| 一个类被AOP织入增强后，就产生一个结果代理类 | 
+| Aspect(切面) | 是切入点和通知（/引介）的结合 | 
+
+#### 2. 基于 JDK 动态代理的 AOP 实现
+
+
 
 
 ### [TinySpring-版本2 相关代码]()
