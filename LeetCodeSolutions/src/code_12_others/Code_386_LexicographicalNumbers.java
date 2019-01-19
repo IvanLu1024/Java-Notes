@@ -1,9 +1,8 @@
-package code_10_others;
+package code_12_others;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

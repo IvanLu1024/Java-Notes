@@ -1,4 +1,4 @@
-package code_10_others;
+package code_12_others;
 
 /**
  * 877. Stone Game
