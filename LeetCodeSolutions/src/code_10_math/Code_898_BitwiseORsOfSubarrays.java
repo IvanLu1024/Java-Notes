@@ -1,4 +1,4 @@
-package code_12_others;
+package code_10_math;
 
 import java.util.HashSet;
 import java.util.Set;

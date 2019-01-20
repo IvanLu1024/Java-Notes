@@ -1,4 +1,6 @@
-package code_12_others;
+package code_11_logic;
+
+import code_11_logic.ListNode;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package code_11_logic;
+package code_10_math;
 
 import java.util.Random;
 

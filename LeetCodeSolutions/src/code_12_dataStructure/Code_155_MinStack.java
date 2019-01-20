@@ -1,4 +1,4 @@
-package code_12_others;
+package code_12_dataStructure;
 
 import java.util.Stack;
 
