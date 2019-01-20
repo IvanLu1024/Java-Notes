@@ -22,7 +22,7 @@ public class XmlBeanFactory implements BeanFactory{
     private List<String> beanDefinitionNames = new ArrayList<>();
 
     // 用来存储注册的BeanPostProcessor
-    private List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
+    private List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
 
     private XmlBeanDefinitionReader beanDefinitionReader;
 
@@ -67,7 +67,7 @@ public class XmlBeanFactory implements BeanFactory{
      *  2. 实例化 BeanPostProcessor 接口的实现类
      *  3. 将实例化好的对象放入 List中
      */
-    private List getBeansForType(Class type) throws Exception {
+    public List getBeansForType(Class type) throws Exception {
         List beans = new ArrayList<>();
         for (String beanDefinitionName : beanDefinitionNames) {
             if (type.isAssignableFrom(beanDefinitionMap.get(beanDefinitionName).getBeanClass())) {

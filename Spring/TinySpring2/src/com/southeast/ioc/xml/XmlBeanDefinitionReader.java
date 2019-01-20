@@ -71,7 +71,7 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
         processProperty(ele, beanDefinition);
         beanDefinition.setBeanClassName(className);
         //6. 将 <id, BeanDefinition> 键值对缓存在 Map 中，留作后用
-        getRegistry().put(name, beanDefinition);
+        registry.put(name, beanDefinition);
     }
 
     private void processProperty(Element ele, BeanDefinition beanDefinition) {

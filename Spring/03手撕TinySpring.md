@@ -26,7 +26,7 @@
 
 4. 将 Bean 注册到 Bean 容器中
 
-#### 1.容器实现类
+#### 1. 容器实现类
 ```java
 /**
  * 容器实现类，完成上述4步
@@ -127,7 +127,7 @@ public class BeanFactory {
 }
 ```
 
-#### 2.Bean
+#### 2. Bean
 ```java
 public class Car {
     private String name;
@@ -747,7 +747,7 @@ Spring中Bean的实例化过程：
 
 我们这里进行了简化：
 
-<div align="center"><img src="pics\\03_4.png" width="300"/></div>
+<div align="center"><img src="pics\\03_4.png" width="200"/></div>
 
 简化后的实例化流程如下：
 
@@ -879,8 +879,539 @@ AOP 是基于**动态代理模式**实现的，具体实现上可以基于 JDK �
 | Aspect(切面) | 是切入点和通知（/引介）的结合 | 
 
 #### 2. 基于 JDK 动态代理的 AOP 实现
+- 辅助类及接口
+
+> TargetSource : 封装被代理的对象的类的相关信息
+```java
+public class TargetSource {
+    private Class<?> targetClass;
+
+    private Class<?>[] interfaces;
+
+    private Object target;
+
+    public TargetSource(IUserDao userDao, Object target, Class<?> targetClass, Class<?>... interfaces) {
+        this.target = target;
+        this.targetClass = targetClass;
+        this.interfaces = interfaces;
+    }
+
+    public Class<?> getTargetClass() {
+        return targetClass;
+    }
+
+    public Object getTarget() {
+        return target;
+    }
+
+    public Class<?>[] getInterfaces() {
+        return interfaces;
+    }
+}
+```
+
+> MethodMatcher : 方法匹配器,用于判断对哪些方法进行拦截
+
+```java
+public interface MethodMatcher {
+  /**
+   * 匹配该方法是否是要拦截的方法
+   */
+  boolean matches(Method method, Class targetClass);
+}
+```
+
+> AdvisedSupport : AdvisedSupport封装了TargetSource、MethodInterceptor、MethodMatcher
+
+```java
+/**
+ * AdvisedSupport封装了
+ * TargetSource 要代理的目标对象
+ * MethodInterceptor 方法拦截器
+ * MethodMatcher  方法匹配器
+ */
+public class AdvisedSupport {
+    // 要拦截的对象
+    private TargetSource targetSource;
+
+     //方法拦截器
+     //Spring的AOP只支持方法级别的调用，所以其实在AopProxy里，我们只需要将MethodInterceptor放入对象的方法调用
+    private MethodInterceptor methodInterceptor;
+
+    // 方法匹配器，判断是否是需要拦截的方法
+    private MethodMatcher methodMatcher;
+
+    public TargetSource getTargetSource() {
+        return targetSource;
+    }
+
+    public void setTargetSource(TargetSource targetSource) {
+        this.targetSource = targetSource;
+    }
+
+    public MethodInterceptor getMethodInterceptor() {
+        return methodInterceptor;
+    }
+
+    public void setMethodInterceptor(MethodInterceptor methodInterceptor) {
+        this.methodInterceptor = methodInterceptor;
+    }
+
+    public MethodMatcher getMethodMatcher() {
+        return methodMatcher;
+    }
+
+    public void setMethodMatcher(MethodMatcher methodMatcher) {
+        this.methodMatcher = methodMatcher;
+    }
+}
+```
+
+> ReflectiveMethodInvocation : 反射型拦截器，在方法调用的时候对方法进行拦截
+
+```java
+public class ReflectiveMethodInvocation implements MethodInvocation {
+    protected Object target;
+
+    protected Method method;
+
+    protected Object[] arguments;
+
+    public ReflectiveMethodInvocation(Object target, Method method, Object[] arguments) {
+        this.target = target;
+        this.method = method;
+        this.arguments = arguments;
+    }
+
+    @Override
+    public Method getMethod() {
+        return method;
+    }
+
+    @Override
+    public Object[] getArguments() {
+        return arguments;
+    }
+
+    /**
+     * proceed()
+     * 方法是调用原始对象的方法 method.invoke(object,args)。
+     */
+    @Override
+    public Object proceed() throws Throwable {
+        return method.invoke(target, arguments);
+    }
+
+    @Override
+    public Object getThis() {
+        return target;
+    }
+
+    @Override
+    public AccessibleObject getStaticPart() {
+        return method;
+    }
+}
+```
+
+- 代理类及接口：
+
+> AopProxy : 代理对象生成器接口
+```java
+public interface AopProxy {
+    /**
+     * 为目标 Bean 生成代理对象
+     * */
+    Object getProxy();
+}
+```
+
+> AbstractAopProxy
+```java
+public abstract class AbstractAopProxy implements AopProxy{
+   // AdvisedSupport封装了TargetSource 、MethodInterceptor、MethodMatcher
+    protected AdvisedSupport advised;
+
+    public AbstractAopProxy(AdvisedSupport advised) {
+        this.advised = advised;
+    }
+}
+```
+
+> JDKDynamicAopProxy : 基于 JDK 动态代理的代理对象生成器
+```java
+public class JDKDynamicAopProxy extends AbstractAopProxy implements InvocationHandler{
+    public JDKDynamicAopProxy(AdvisedSupport advised) {
+        super(advised);
+    }
+
+    @Override
+    public Object getProxy() {
+        return Proxy.newProxyInstance(getClass().getClassLoader(),
+                advised.getTargetSource().getInterfaces(),this);
+    }
+
+    @Override
+    public Object invoke(final Object proxy, Method method, final Object[] args) throws Throwable {
+        Object target=advised.getTargetSource().getTarget();
+        MethodMatcher methodMatcher = advised.getMethodMatcher();
+
+        /**
+         * 1. 使用方法匹配器 methodMatcher 测试 Bean 中原始方法 method 是否符合匹配规则
+         */
+        if (methodMatcher != null && methodMatcher.matches(method, target.getClass())) {
+            // 获取 Advice (通知)。
+            // MethodInterceptor 的父接口继承了 Advice
+            MethodInterceptor methodInterceptor = advised.getMethodInterceptor();
+
+           /**
+            * 2. 将 Bean 的原始方法 method 封装在 MethodInvocation 接口实现类对象中，
+            * 并把生成的对象作为参数传给 Adivce 实现类对象，执行通知逻辑
+            */
+            return methodInterceptor.invoke(
+                    new ReflectiveMethodInvocation(target, method, args));
+        } else {
+            // 2. 当前 method 不符合匹配规则，直接调用 Bean 的原始方法 method
+            return method.invoke(target, args);
+        }
+    }
+}
+```
+
+JDKDynamicAopProxy的getProxy()方法中的执行流程：
+
+<div align="center"><img src="pics\\03_5.png" width="200"/></div>
+
+- 测试：
+
+> IUserDao : 测试接口
+```java
+public interface IUserDao {
+    void add();
+    void delete();
+    void update();
+    void search();
+}
+```
+
+> UserDao : 测试接口的实例类
+
+```java
+public class UserDao implements IUserDao{
+    @Override
+    public void add() {
+        System.out.println("添加功能");
+    }
+
+    @Override
+    public void delete() {
+        System.out.println("删除功能");
+    }
+
+    @Override
+    public void update() {
+        System.out.println("更新功能");
+    }
+
+    @Override
+    public void search() {
+        System.out.println("查找功能");
+    }
+}
+```
+
+>  LogIntercepter : 方法拦截器,用于对方法进行增强
+
+```java
+public class LogInterceptor implements MethodInterceptor {
+
+    @Override
+    public Object invoke(MethodInvocation invocation) throws Throwable {
+        //增强的代码1
+        System.out.println(invocation.getMethod().getName() + " method start");
+        Object obj= invocation.proceed();
+        //增强的代码2
+        System.out.println(invocation.getMethod().getName() + " method end");
+        return obj;
+    }
+}
+```
+
+```java
+public class JDKDynamicAopProxyTest {
+    @Test
+    public void test(){
+        System.out.println("---------- no proxy ----------");
+        IUserDao userDao= new UserDao();
+        userDao.add();
+        userDao.delete();
+
+        System.out.println("\n----------- proxy -----------");
+        AdvisedSupport advised = new AdvisedSupport();
+        TargetSource targetSource = new TargetSource(
+                userDao,UserDao.class,IUserDao.class);
+        advised.setTargetSource(targetSource);
+        advised.setMethodInterceptor(new LogInterceptor());
+
+        //仅仅对add方法进行匹配
+        advised.setMethodMatcher(
+                new MethodMatcher() {
+                    @Override
+                    public boolean matches(Method method, Class targetClass) {
+                        if("add".equals(method.getName())){
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+        );
 
 
+        userDao = (IUserDao)new JDKDynamicAopProxy(advised).getProxy();
+        userDao.add();
+        userDao.delete();
+    }
+}
+```
 
+输出结果：
+```html
+---------- no proxy ----------
+添加功能
+删除功能
 
-### [TinySpring-版本2 相关代码]()
+----------- proxy -----------
+add method start
+添加功能
+add method end
+删除功能
+```
+
+### AOP 和 IOC 的整合
+
+在 TinySpring-版本2 中，AOP 和 IOC 产生联系的具体实现类是
+**AspectJAwareAdvisorAutoProxyCreator**，
+这个类实现了**BeanPostProcessor**和**BeanFactoryAware**接口。
+BeanFactory 在注册 BeanPostProcessor 接口相关实现类的阶段，
+会将其本身注入到 AspectJAwareAdvisorAutoProxyCreator 中，为后面 AOP 给 Bean 生成代理对象做准备。
+BeanFactory 初始化结束后，AOP 与 IOC 桥梁类 AspectJAwareAdvisorAutoProxyCreator 也完成了实例化，
+并被缓存在 BeanFactory 中，静待 BeanFactory 实例化 Bean。
+当外部产生调用，BeanFactory 开始实例化 Bean 时。AspectJAwareAdvisorAutoProxyCreator 就开始悄悄的工作了 ：
+
+1. 从 BeanFactory 查找实现了 PointcutAdvisor 接口的**切面对象**，
+切面对象中包含了实现 Pointcut 和 Advice 接口的对象。
+
+2. 使用 Pointcut 中的表达式对象匹配当前 Bean 对象。如果匹配成功，进行下一步。
+否则终止逻辑，返回 Bean。
+
+3. JDKDynamicAopProxy 对象为匹配到的 Bean 生成代理对象，并将代理对象返回给 BeanFactory。
+
+- Joinpoint(连接点)相关接口和类
+
+> ClassFilter
+
+```java
+public interface ClassFilter {
+    boolean matches(Class beanClass) throws Exception;
+}
+```
+
+> MethodMatcher
+
+```java
+public interface MethodMatcher {
+    /**
+     * 匹配该方法是否是要拦截的方法
+     */
+    boolean matches(Method method, Class targetClass);
+}
+```
+
+- Pointcut(切入点)相关类或接口
+
+> Pointcut
+
+```java
+public interface Pointcut {
+    ClassFilter getClassFilter();
+    MethodMatcher getMethodMatcher();
+}
+```
+
+- Aspect(切面) : 切入点和通知的结合
+
+> Advisor : 代表一般切面，Advice本身就是一个切面，对目标类所有方法进行拦截(不带有切点的切面.针对所有方法进行拦截)
+ 
+```java
+public interface Advisor {
+    Advice getAdvice();
+}
+```
+
+> PointcutAdvisor : 代表具有切点的切面，可以指定拦截目标类哪些方法(带有切点的切面,针对某个方法进行拦截)
+```java
+public interface PointcutAdvisor extends Advisor{
+    /**
+     * 获取切点
+     */
+    Pointcut getPointcut();
+}
+```
+
+> AspectJExpressionPointcut
+
+```java
+/**
+ * 通过AspectJ表达式定义切点的切面类
+ */
+public class AspectJExpressionPointcut implements Pointcut, ClassFilter, MethodMatcher {
+    private PointcutParser pointcutParser;
+
+    private String expression;
+
+    private PointcutExpression pointcutExpression;
+
+    private static final Set<PointcutPrimitive> DEFAULT_SUPPORTED_PRIMITIVES = new HashSet<>();
+
+    static {
+        DEFAULT_SUPPORTED_PRIMITIVES.add(PointcutPrimitive.EXECUTION);
+        DEFAULT_SUPPORTED_PRIMITIVES.add(PointcutPrimitive.ARGS);
+        DEFAULT_SUPPORTED_PRIMITIVES.add(PointcutPrimitive.REFERENCE);
+        DEFAULT_SUPPORTED_PRIMITIVES.add(PointcutPrimitive.THIS);
+        DEFAULT_SUPPORTED_PRIMITIVES.add(PointcutPrimitive.TARGET);
+        DEFAULT_SUPPORTED_PRIMITIVES.add(PointcutPrimitive.WITHIN);
+        DEFAULT_SUPPORTED_PRIMITIVES.add(PointcutPrimitive.AT_ANNOTATION);
+        DEFAULT_SUPPORTED_PRIMITIVES.add(PointcutPrimitive.AT_WITHIN);
+        DEFAULT_SUPPORTED_PRIMITIVES.add(PointcutPrimitive.AT_ARGS);
+        DEFAULT_SUPPORTED_PRIMITIVES.add(PointcutPrimitive.AT_TARGET);
+    }
+
+    public AspectJExpressionPointcut() {
+        this(DEFAULT_SUPPORTED_PRIMITIVES);
+    }
+
+    public AspectJExpressionPointcut(Set<PointcutPrimitive> supportedPrimitives) {
+        pointcutParser = PointcutParser
+                .getPointcutParserSupportingSpecifiedPrimitivesAndUsingContextClassloaderForResolution(supportedPrimitives);
+    }
+
+    /**
+     * 使用 AspectJ Expression 匹配类
+     * @param targetClass
+     * @return成功匹配返回 true，否则返回 false
+     */
+    @Override
+    public boolean matches(Class targetClass) {
+        checkReadyToMatche();
+        return pointcutExpression.couldMatchJoinPointsInType(targetClass);
+    }
+
+    /**
+     * 使用 AspectJ Expression 匹配方法
+     * @param method
+     * @param targetClass
+     * @return 成功匹配返回 true，否则返回 false
+     */
+    @Override
+    public boolean matches(Method method, Class targetClass) {
+        checkReadyToMatche();
+        ShadowMatch shadowMatch = pointcutExpression.matchesMethodExecution(method);
+
+        // Special handling for this, target, @this, @target, @annotation
+        // in Spring - we can optimize since we know we have exactly this class,
+        // and there will never be matching subclass at runtime.
+        // https://github.com/spring-projects/spring-framework/blob/master/spring-aop/src/main/java/org/springframework/aop/aspectj/AspectJExpressionPointcut.java
+        if (shadowMatch.alwaysMatches()) {
+            return true;
+        }
+        else if (shadowMatch.neverMatches()) {
+            return false;
+        }
+
+        return false;
+    }
+
+    private void checkReadyToMatche() {
+        if (getExpression() == null) {
+            throw new IllegalStateException("Must set property 'expression' before attempting to match");
+        }
+        if (pointcutExpression == null) {
+            pointcutExpression = pointcutParser.parsePointcutExpression(expression);
+        }
+    }
+
+    @Override
+    public ClassFilter getClassFilter() {
+        return this;
+    }
+
+    @Override
+    public MethodMatcher getMethodMatcher() {
+        return this;
+    }
+
+    public void setExpression(String expression) {
+        this.expression = expression;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
+}
+```
+> AspectJAwareAdvisorAutoProxyCreator
+
+```java
+public class AspectJAwareAdvisorAutoProxyCreator implements BeanPostProcessor, BeanFactoryAware {
+
+    private XmlBeanFactory xmlBeanFactory;
+
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws Exception {
+        return bean;
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws Exception {
+        /*
+         * 这里两个 if 判断很有必要，如果删除将会使程序进入死循环状态，
+         * 最终导致 StackOverflowError 错误发生
+         */
+        if (bean instanceof AspectJExpressionPointcutAdvisor) {
+            return bean;
+        }
+        if (bean instanceof MethodInterceptor) {
+            return bean;
+        }
+
+        // 1. 从 BeanFactory 查找 AspectJExpressionPointcutAdvisor 类型的对象
+        List<AspectJExpressionPointcutAdvisor> advisors =
+                xmlBeanFactory.getBeansForType(AspectJExpressionPointcutAdvisor.class);
+        for (AspectJExpressionPointcutAdvisor advisor : advisors) {
+
+            // 2. 使用 Pointcut 对象匹配当前 bean 对象
+            if (advisor.getPointcut().getClassFilter().matches(bean.getClass())) {
+                ProxyFactory advisedSupport = new ProxyFactory();
+                advisedSupport.setMethodInterceptor((MethodInterceptor) advisor.getAdvice());
+                advisedSupport.setMethodMatcher(advisor.getPointcut().getMethodMatcher());
+
+                TargetSource targetSource = new TargetSource(bean, bean.getClass(), bean.getClass().getInterfaces());
+                advisedSupport.setTargetSource(targetSource);
+
+                // 3. 生成代理对象，并返回
+                return advisedSupport.getProxy();
+            }
+        }
+
+        // 2. 匹配失败，返回 Bean
+        return bean;
+    }
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws Exception {
+        xmlBeanFactory = (XmlBeanFactory) beanFactory;
+    }
+}
+```
+
+### [TinySpring-版本2 相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/Spring/TinySpring2)
