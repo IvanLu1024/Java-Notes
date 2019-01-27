@@ -48,8 +48,9 @@
 | 第八节 贪心算法 | [第八节 贪心算法](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/08%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95.md) | [第八节 贪心算法相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_08_greedyAlgorithms) |
 | 第九节 字符串 | [第九节 字符串](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/09%E5%AD%97%E7%AC%A6%E4%B8%B2.md) | [第九节 字符串相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_09_string) |
 | 第十节 数学 | [第十节 数学](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/10%E6%95%B0%E5%AD%A6.md) | [第十节 数学相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_10_math) |
-| 第十一节 逻辑 |  [第十一节 逻辑](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/11%E9%80%BB%E8%BE%91.md)| [第十一节 逻辑相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_11_logic) |
-| 第十二节 其他 | [第十二节 其他] | [第十二节 其他相关代码] |
+| 第十一节 逻辑 |  [第十一节 逻辑](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/11%E9%80%BB%E8%BE%91.md)| [第十一节 逻辑相关代码(https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_11_logic) |
+| 第十二节 数据结构 | [第十二节 数据结构](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/12%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.md) | [第十二节 数据结构相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_12_dataStructure) |
+| 第十三节 其他 | [第十三节 其他](https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/13%E5%85%B6%E4%BB%96.md) | [第十三节 其他相关代码](https://github.com/DuHouAn/Java-Notes/tree/master/LeetCodeSolutions/src/code_13_others) |
 | <h3>:memo: 模块五 操作系统</h3> | | |
 | **第一章 操作系统** | | |
 | 第一节 操作系统概述 | [第一节 操作系统概述](https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/00%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0.md) | [无] |
