@@ -8,4 +8,13 @@ public class Interval {
     int end;
     Interval() { start = 0; end = 0; }
     Interval(int s, int e) { start = s; end = e; }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[");
+        builder.append(start+","+end);
+        builder.append("]");
+        return builder.toString();
+    }
 }
