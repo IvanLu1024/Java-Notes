@@ -5,6 +5,19 @@
 
 ## :coffee: 模块一 Java
 
+<details>
+	<summary><strong>Java基础<strong></summary>
+	<ol>
+		<li><a href="https://github.com/DuHouAn/Java#computer-%E6%A8%A1%E5%9D%97%E4%B8%80-Java%E5%9F%BA%E7%A1%80">第一部分 Java基础</a></li>
+		<li><a href="https://github.com/DuHouAn/Java#art-%E6%A8%A1%E5%9D%97%E4%BA%8C-Java%E8%99%9A%E6%8B%9F%E6%9C%BA">第二部分 Java虚拟机</a></li>
+		<li><a href="https://github.com/DuHouAn/Java#coffee-%E6%A8%A1%E5%9D%97%E4%B8%89-Java%E5%B9%B6%E5%8F%91">第三部分 Java并发</a></li>
+		<li><a href="https://github.com/DuHouAn/Java#hammer-%E6%A8%A1%E5%9D%97%E5%9B%9B-Java%E5%AE%B9%E5%99%A8">第四部分 Java容器</a></li>
+		<li><a href="https://github.com/DuHouAn/Java#bulb-%E6%A8%A1%E5%9D%97%E4%BA%94-JavaIO">第五部分 JavaIO</a></li>
+		<li><a href="https://github.com/DuHouAn/Java#memo-%E6%A8%A1%E5%9D%97%E5%85%AD-JavaWeb">第六部分 JavaWeb</a></li>
+		<li><a href="https://github.com/DuHouAn/Java#couple-%E6%A8%A1%E5%9D%97%E4%B8%83-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1">第七部分 面向对象</a></li>
+	</ol>
+</details>
+
 ## :pencil2: 模块二 算法
 
 <details>
