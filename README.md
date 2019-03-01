@@ -174,18 +174,19 @@
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/09Leetcode-Database%20%E9%A2%98%E8%A7%A3.md">Leetcode-Database 题解</a></li>
 	</ul>
 </details>
-
 <details>
 	<summary><strong>第四部分 MySQL<strong></summary>
 	<ul>
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/10%E7%B4%A2%E5%BC%95.md">第一节 索引</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/11%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.md">第二节 查询性能优化</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/12%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.md">第三节 存储引擎</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/13%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md">第四节 数据类型</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/14%E5%88%87%E5%88%86.md">第五节 切分</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/15%E5%A4%8D%E5%88%B6.md">第六节 复制</a></li>
+		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/23Schema%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BC%98%E5%8C%96.md">第二节 Schema与数据类型优化</a></li>
+        <li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/11%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.md">  第三节 查询性能优化</a></li>
+		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/12%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.md">第四节 存储引擎</a></li>
+		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/13%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md">第五节 数据类型</a></li>
+		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/14%E5%88%87%E5%88%86.md">第六节 切分</a></li>
+		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/15%E5%A4%8D%E5%88%B6.md">第七节 复制</a></li>
 	</ul>
 </details>
+
 
 <details>
 	<summary><strong>第五部分 Redis<strong></summary>
