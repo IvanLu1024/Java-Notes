@@ -68,6 +68,7 @@ public class Code_435_NonOverlappingIntervals {
         int res=1;
         int pre=0;
         for(int i=1;i<n;i++){
+            //区间不重复
             if(intervals[i].start>=intervals[pre].end){
                 res++;
                 pre=i;
