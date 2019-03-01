@@ -263,6 +263,12 @@
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/SystemDesign/11%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.md">消息队列</a></li>
 	</ul>
 </details>
+# 参考资料
+
+- [玩儿转算法面试 - 课程官方代码仓](https://github.com/liuyubobobo/Play-with-Algorithm-Interview)
+- [玩儿转数据结构 - 课程官方代码仓(https://github.com/liuyubobobo/Play-with-Data-Structures)
+
+- [CS-Notes](https://github.com/CyC2018/CS-Notes)
 
 # 致谢
 
