@@ -1,7 +1,7 @@
 # 说明
 本仓库对Java学习中的一些问题进行了整理、分类。分成7个模块。
 
-主要参考了郑永川的笔记，仅作学习交流用。若想要了解更多，请参考[郑氏笔记](https://github.com/CyC2018/CS-Notes)
+主要参考了郑永川的笔记，仅作学习交流用。
 
 | Ⅰ | Ⅱ | Ⅲ | Ⅳ | Ⅴ | Ⅵ | Ⅶ |
 | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------:| :-----------: |
@@ -264,17 +264,17 @@
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/SystemDesign/11%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.md">消息队列</a></li>
 	</ul>
 </details>
-# 参考资料
 
-- [玩儿转算法面试 - 课程官方代码仓](https://github.com/liuyubobobo/Play-with-Algorithm-Interview)
-- [玩儿转数据结构 - 课程官方代码仓(https://github.com/liuyubobobo/Play-with-Data-Structures)
-
-- [CS-Notes](https://github.com/CyC2018/CS-Notes)
-
-# 致谢
+# :heart: 致谢
 
 感谢以下人员对本仓库做出的贡献。
 
 <a href="https://github.com/IvanLu1024">
 ​    <img src="https://avatars3.githubusercontent.com/u/32642894?s=400&v=4" width="50px">
 </a> 
+
+# :book: 参考资料
+
+- [玩儿转算法面试 - 课程官方代码仓](https://github.com/liuyubobobo/Play-with-Algorithm-Interview)
+- [玩儿转数据结构 - 课程官方代码仓](https://github.com/liuyubobobo/Play-with-Data-Structures)
+- [CS-Notes](https://github.com/CyC2018/CS-Notes)
