@@ -200,7 +200,7 @@
 	</ul>
 </details>
 
-## :speak_no_evil: 模块六 开发框架
+## :speak_no_evil: 模块六 Spring
 
 <details>
 	<summary><strong> Spring <strong></summary>
@@ -213,10 +213,7 @@
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Spring/05Spring%E4%B8%ADBean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.md">第六节 Spring中Bean的生命周期</a></li>
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Spring/06SpringMVC.md">第七节 SpringMVC</a></li>
 	</ul>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Spring/07常见面试题总结.md">第八节 常见的面试题总结</a></li>
-	</ul>
 </details>
-
 
 ## :bulb: 模块七 系统架构
 
