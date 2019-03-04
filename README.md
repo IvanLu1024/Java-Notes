@@ -255,13 +255,14 @@
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/SystemDesign/10%E7%BC%93%E5%AD%98.md">缓存</a></li>
 	</ul>
 </details>
-
 <details>
 	<summary><strong>第六部分 消息队列<strong></summary>
 	<ul>
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/SystemDesign/11%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.md">消息队列</a></li>
+        <li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/SystemDesign/12Kafka原理分析.md">Kafka原理分析</a></li>
 	</ul>
 </details>
+
 
 # :heart: 致谢
 
