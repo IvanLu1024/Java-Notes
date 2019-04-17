@@ -63,7 +63,7 @@
 <details>
 	<summary><strong>LeetCode题解<strong></summary>
 	<ul>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSulutions/notes/01%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98.md">第一节 数组问题</a></li>
+		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSolutions/notes/01%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98.md">第一节 数组问题</a></li>
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSulutions/notes/02%E6%9F%A5%E6%89%BE%E9%97%AE%E9%A2%98.md">第二节 查找表问题</a></li>
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSulutions/notes/03%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98.md">第三节 链表问题</a></li>
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/LeetCodeSulutions/notes/04%E6%A0%88_%E9%98%9F%E5%88%97_%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97.md">第四节 栈、队列、优先队列</a></li>
