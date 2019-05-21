@@ -164,7 +164,6 @@
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/08SQL.md">SQL</a></li>
 	</ul>
 </details>
-
 <details>
 	<summary><strong>第三部分 Leetcode-Database 题解<strong></summary>
 	<ul>
@@ -192,8 +191,10 @@
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/19Redis%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF.md">第四节 Redis使用场景</a></li>
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/20Redis%20%E4%B8%8E%20Memcached.md">第五节 Redis与 Memcached</a></li>
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/21%E5%85%B6%E4%BB%96.md">第六节 其他</a></li>
+        <li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataBase/24redis.md">补充 常见面试题</a></li>
 	</ul>
 </details>
+
 
 ## :speak_no_evil: 模块六 开发框架
 
@@ -267,7 +268,7 @@
 	</ul>
 </details>
 
-## :computer: 模块八 大数据
+##  :elephant:模块八 大数据
 
 <details>
 	<summary><strong>大数据<strong></summary>
