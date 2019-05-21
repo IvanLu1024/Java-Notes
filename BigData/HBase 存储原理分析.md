@@ -1,12 +1,3 @@
----
-title: HBase 存储原理分析
-date: 2019-05-20 08:52:48
-cover: true
-tags: [HBase]
-categories : [大数据]
-summary: HBase 是一个构建在 HDFS 上的分布式列族存储系统
----
-
 HBase 是一个构建在 HDFS 上的分布式列族存储系统，其内部管理的文件全部存储在 HDFS 中。
 
 HDFS 特点：

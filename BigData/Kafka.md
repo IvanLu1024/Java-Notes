@@ -1,12 +1,3 @@
----
-title: Kafka
-date: 2019-05-19 20:26:48
-cover: true
-tags: [kafka]
-categories : [大数据]
-summary: Kafka 是基于 Zookeeper 协调的分布式发布 / 订阅消息传递系统
----
-
 ## 基础知识
 
 - [消息队列](https://duhouan.github.io/2019/05/15/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/)

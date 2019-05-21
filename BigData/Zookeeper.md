@@ -1,12 +1,3 @@
----
-title: Zookeeper
-date: 2019-05-17 14:37:35
-cover: false
-tags: [Zookeeper]
-categories : [大数据]
-summary : Zookeeper 是分布式的服务框架
----
-
 ## Zookeeper
 
 ### Zookeeper 简介

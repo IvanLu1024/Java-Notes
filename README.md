@@ -1,11 +1,7 @@
 # 说明
-本仓库对Java学习中的一些问题进行了整理、分类。分成7个模块。
+本仓库对Java学习中的一些问题进行了整理、分类。分成 8 个模块。
 
 主要参考了郑永川的笔记，仅作学习交流用。
-
-| Ⅰ | Ⅱ | Ⅲ | Ⅳ | Ⅴ | Ⅵ | Ⅶ |
-| :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------:| :-----------: |
-| 模块一 Java[:coffee:](#coffee-模块一-Java) | 模块二 算法[:pencil2:](#pencil2-模块二-算法) | 模块三 操作系统[:memo:](#memo-模块三-操作系统) | 模块四 网络[:cloud:](#cloud-模块四-网络) | 模块五 数据库[:floppy_disk:](#floppy_disk-模块五-数据库) | 模块六 Spring[:speak_no_evil:](#speak_no_evil-模块六-Spring) | 模块七 系统架构[:bulb:](#bulb-模块七-系统架构) |
 
 <hr/>
 
@@ -268,6 +264,18 @@
 	<ul>
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/SystemDesign/11%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.md">消息队列</a></li>
         <li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/SystemDesign/12Kafka原理分析.md">Kafka原理分析</a></li>
+	</ul>
+</details>
+
+## :computer: 模块八 大数据
+
+<details>
+	<summary><strong>大数据<strong></summary>
+	<ul>
+		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/BigData/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.md">消息队列</a></li>
+		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/BigData/Zookeeper.md">Zookeeper</a></li>
+		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/BigData/HBase%20%E5%AD%98%E5%82%A8%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90.md">HBase</a></li>
+		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/BigData/Kafka.md">Kafka</a></li>
 	</ul>
 </details>
 
