@@ -1,5 +1,5 @@
 # 说明
-本仓库对Java学习中的一些问题进行了整理、分类。分成 8 个模块。
+本仓库对 Java 学习中的一些问题进行了整理、分类。分成 8 个模块。
 
 主要参考了郑永川的笔记，仅作学习交流用。
 
@@ -41,8 +41,11 @@
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/14%E5%9B%BE.md">第十四节 图</a></li>
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/15%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91.md">第十五节 最小生成树</a></li>
 		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/16%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84.md">第十六节 最短路径</a></li>
+        <li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/17拓扑排序.md">第十七节 拓扑排序</a></li>
 	</ul>
 </details>
+
+
 
 <details>
 	<summary><strong>算法思想<strong></summary>
