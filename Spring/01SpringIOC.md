@@ -481,7 +481,7 @@ Ioc是Spring的核心，贯穿始终。
 所谓IoC，对于Spring框架来说，就是由Spring来负责控制对象的生命周期和对象间的关系。
 
 传统的程序开发中，在一个对象中，如果要使用另外的对象，就必须得到它（自己new一个，或者从JNDI中查询一个），
-使用完之后还要将对象销毁（比如Connection等），对象始终会和其他的接口或类**藕合**起来。
+使用完之后还要将对象销毁（比如Connection等），对象始终会和其他的接口或类**耦合**起来。
 
 所有的类都会在Spring容器中登记，告诉Spring你是个什么，你需要什么，
 然后Spring会在系统运行到适当的时候，把你要的东西主动给你，同时也把你交给其他需要你的东西。
@@ -497,11 +497,36 @@ IoC的一个重点是在系统运行中，**动态的向某个对象提供它所
 注射到A当中，这样就完成了对各个对象之间关系的控制。
 A需要依赖 Connection才能正常运行，而这个Connection是由Spring注入到A中的，依赖注入的名字就这么来的。
 
+<div align="center">
+    <img src="https://gitee.com/IvanLu1024/picts/raw/3d251b08c118fec8fbd15c1f87d9fadc9883d895/blog/spring/20190523211034.png"/>
+</div>
+
+
+
 那么DI是如何实现的呢？ Java 1.3之后一个重要特征是反射(reflection)，
 它允许程序在运行的时候动态的生成对象、执行对象的方法、改变对象的属性，
-**Spring就是通过反射来实现注入的**。
+**Spring就是通过[反射](<https://github.com/DuHouAn/Java/blob/master/JavaBasics/notes/反射.md>)来实现注入的**。
+
+## IOC容器的优势
+
+- 避免在各处使用new来创建类，这个容器可以自动对代码进行初始化，并且可以做到统一维护。
+- 创建实例的时候不需要了解其中的细节，这个容器相当于一个工厂。
+
+<div align="center">
+    <img src="https://gitee.com/IvanLu1024/picts/raw/56221a755d760942bfbdd855c53cf5aefaf86d88/blog/spring/20190523212117.png"/>
+</div>
+
+
+
+## BeanFactory与ApplicationContext的比较
+
+- BeanFactory 是 Spring 框架的基础设施，面向Spring
+- ApplicationContext 面向使用 Spring 框架的开发者
+
+> 补充参考资料：<https://www.jianshu.com/p/17b66e6390fd>
 
 ## SpringIOC源码分析
+
 ### 初始化
 Spring IOC的初始化过程，整个脉络很庞大，初始化的过程主要就是**读取XML资源**，并**解析**，
 最终**注册到Bean Factory中**。
@@ -513,5 +538,14 @@ Spring IOC的初始化过程，整个脉络很庞大，初始化的过程主要�
 初始化时会**创建实例**，然后根据配置利用反射对实例进行进一步操作，具体流程如下所示：
 
 <div align="center"><img src="pics\\01_2.png"/></div>
+
+### getBean方法的代码逻辑
+
+- 转换beanName
+- 从缓存中加载实例
+- 实例化Bean
+- 检测partentBeanFactory
+- 初始化依赖的Bean
+- 创建Bean
 
 ### [Spring核心源码学习](https://yikun.github.io/2015/05/29/Spring-IOC%E6%A0%B8%E5%BF%83%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/)
