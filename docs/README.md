@@ -1,4 +1,4 @@
-## :coffee: 模块一 Java
+## ☕️ Java
 
 <details>
 	<summary><strong>Java基础<strong></summary>
@@ -13,7 +13,7 @@
 	</ol>
 </details>
 
-## :pencil2: 模块二 算法
+## ✏️ 算法
 
 <details>
 	<summary><strong>算法和数据结构<strong></summary>
@@ -71,7 +71,7 @@
 	</ul>
 </details>
 
-## :memo: 模块三 操作系统
+## 📝 操作系统
 
 <details>
 	<summary><strong>第一部分 操作系统基础<strong></summary>
@@ -101,7 +101,7 @@
 	</ul>
 </details>
 
-## :cloud: 模块四 网络
+## ☁️ 网络
 
 <details>
 	<summary><strong>第一部分 计算机网路<strong></summary>
@@ -138,7 +138,7 @@
 	</ul>
 </details>
 
-## :floppy_disk: 模块五 数据库
+## 💾 数据库
 
 <details>
 	<summary><strong>第一部分 数据库系统原理<strong></summary>
@@ -192,7 +192,7 @@
 </details>
 
 
-## :speak_no_evil: 模块六 开发框架
+## 🙊 开发框架
 
 <details>
 	<summary><strong> 第一部分 Spring <strong></summary>
@@ -214,7 +214,7 @@
 	</ul>
 </details>
 
-## :bulb: 模块七 系统架构
+## 💡 系统架构
 
 <details>
 	<summary><strong>第一部分 系统设计基础<strong></summary>
@@ -264,7 +264,7 @@
 	</ul>
 </details>
 
-##  :elephant: 模块八 大数据
+## 🐘 大数据
 
 <details>
 	<summary><strong>第一部分 消息队列<strong></summary>
@@ -281,17 +281,4 @@
 	</ul>
 </details>
 
-
-# :heart: 致谢
-
-感谢以下人员对本仓库做出的贡献。
-
-<a href="https://github.com/IvanLu1024">
-​    <img src="https://avatars3.githubusercontent.com/u/32642894?s=400&v=4" width="50px">
-</a> 
-
-# :book: 参考资料
-
-- [玩儿转算法面试 - 课程官方代码仓](https://github.com/liuyubobobo/Play-with-Algorithm-Interview)
-- [玩儿转数据结构 - 课程官方代码仓](https://github.com/liuyubobobo/Play-with-Data-Structures)
-- [CS-Notes](https://github.com/CyC2018/CS-Notes)
+## 🔧 订阅的小专栏
