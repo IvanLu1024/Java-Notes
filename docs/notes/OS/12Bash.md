@@ -84,5 +84,3 @@ $ echo ${array[1]}
 ```bash
 $ find /home -name .bashrc > list 2>&1
 ```
-
-# 八、管道指令
