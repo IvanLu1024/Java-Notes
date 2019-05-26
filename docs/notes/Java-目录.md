@@ -2,17 +2,17 @@
 
 ### Java 基础
 
-- [数据类型](./Java/JavaBasics/00数据类型.md)
-- [String]()
-- [运算]()
-- [Object 通用方法]()
-- [关键字]()
-- [反射]()
-- [异常]()
-- [泛型]()
-- [注解]()
-- [Java 常见对象]()
-- [其他]()
+- [数据类型](notes/Java/JavaBasics/00数据类型.md)
+- [String](notes/Java/JavaBasics/01String.md)
+- [运算](notes/Java/JavaBasics/02运算.md)
+- [Object 通用方法](notes/Java/JavaBasics/03Object通用方法.md)
+- [关键字](notes/Java/JavaBasics/04关键字.md)
+- [反射](notes/Java/JavaBasics/05反射.md)
+- [异常](notes/Java/JavaBasics/06异常.md)
+- [泛型](notes/Java/JavaBasics/07泛型.md)
+- [注解](notes/Java/JavaBasics/08注解.md)
+- [Java 常见对象](notes/Java/JavaBasics/09Java常见对象.md)
+- [其他](notes/Java/JavaBasics/10其他.md)
 
 ### Java 虚拟机
 
