@@ -1,16 +1,10 @@
-<!-- GFM-TOC -->
-* [一、Java容器概览](#一Java容器概览)
-    * [Collection](#collection)
-    * [Map](#map)
-<!-- GFM-TOC -->
-
 # 一、Java容器概览
 
 容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对（两个对象）的映射表。
 
 ## Collection
 
-<div align="center"> <img src="pics//VP6n3i8W48Ptde8NQ9_0eSR5eOD6uqx.png"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/java//VP6n3i8W48Ptde8NQ9_0eSR5eOD6uqx.png"/> </div>
 
 ### 1. Set
 
@@ -39,7 +33,7 @@
 
 ## Map
 
-<div align="center"> <img src="pics//SoWkIImgAStDuUBAp2j9BKfBJ4vLy4q.png"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/java/SoWkIImgAStDuUBAp2j9BKfBJ4vLy4q.png"/> </div>
 
 - TreeMap：基于红黑树实现。
 
