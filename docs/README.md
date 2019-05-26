@@ -2,7 +2,7 @@
 
 ## ☕️ Java
 
-- [Java 基础]()
+- [Java 基础](notes/Java-目录.md#java-基础)
 - [Java 虚拟机]()
 - [Java 并发]()
 - [Java 容器]()
