@@ -1,10 +1,12 @@
+本项目对 Java 学习中的一些问题进行了整理、分类。
+
 ## ☕️ Java
 
-- [Java 基础]()<br>
-- [Java 虚拟机]()<br>
-- [Java 并发]()<br>
-- [Java 容器]()<br>
-- [Java IO]()<br>
+- [Java 基础]()
+- [Java 虚拟机]()
+- [Java 并发]()
+- [Java 容器]()
+- [Java IO]()
 - [JavaWeb]()
 
 ## 👫 面向对象
@@ -71,35 +73,8 @@
 
 ## 📝 操作系统
 
-- [操作系统基础](_contents/操作系统-目录.md#操作系统基础)
-
-<details>
-	<summary><strong>第一部分 操作系统基础<strong></summary>
-	<ul>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/00%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0.md">第一节 操作系统概述</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/01%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86.md">第二节 进程管理</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/02%E6%AD%BB%E9%94%81.md">第三节 死锁</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/03%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.md">第四节 内存管理</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/04%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86.md">第五节 设备管理</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/05%E9%93%BE%E6%8E%A5.md">第六节 链接</a></li>
-	</ul>
-</details>
-
-<details>
-	<summary><strong>第二部分 Linux<strong></summary>
-	<ul>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/06%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E4%BB%A5%E5%8F%8A%E6%A6%82%E5%BF%B5.md">第一节 常用操作以及概念</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/07%E7%A3%81%E7%9B%98.md">第二节 磁盘</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/08%E5%88%86%E5%8C%BA.md">第三节 分区</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/09%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.md">第四节 文件系统</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/10%E6%96%87%E4%BB%B6.md">第五节 文件</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/11%E5%8E%8B%E7%BC%A9%E4%B8%8E%E6%89%93%E5%8C%85.md">第六节 压缩与打包</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/12Bash.md">第七节 Bash</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/13%E7%AE%A1%E9%81%93%E6%8C%87%E4%BB%A4.md">第八节 管道指令</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/14%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.md">第九节 正则表达式</a></li>
-		<li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/Operation_System/15%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86.md">第十节 进程管理</a></li>
-	</ul>
-</details>
+- [操作系统基础](_contents/操作系统-目录.md#操作系统基础)<br>
+- []()
 
 ## ☁️ 网络
 

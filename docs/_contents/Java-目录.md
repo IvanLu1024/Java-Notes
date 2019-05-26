@@ -2,7 +2,7 @@
 
 ### Java 基础
 
-- [](../notes/)
+- [](../notes/Java/JavaBasics)
 
 ### Java 虚拟机
 
