@@ -3,17 +3,23 @@
 ## ☕️ Java
 
 - [Java 基础](notes/Java-目录.md#java-基础)
-- [Java 虚拟机]()
-- [Java 并发]()
-- [Java 容器]()
-- [Java IO]()
-- [JavaWeb]()
+- [Java 虚拟机](notes/Java-目录.md#java-虚拟机)
+- [Java 并发](notes/Java-目录.md#java-并发)
+- [Java 容器](notes/Java-目录.md#java-容器)
+- [Java IO](notes/Java-目录.md#java-io)
+- [JavaWeb](notes/Java-目录.md#javaweb)
 
 ## 👫 面向对象
 
 - [面向对象]()
 
 ## ✏️ 算法
+
+- [算法和数据结构]()
+- [排序算法]()
+- [LeetCode 题解]()
+
+
 
 <details>
 	<summary><strong>算法和数据结构<strong></summary>
@@ -37,8 +43,6 @@
         <li><a href="https://github.com/DuHouAn/Java-Notes/blob/master/DataStructureNotes/notes/17拓扑排序.md">第十七节 拓扑排序</a></li>
 	</ul>
 </details>
-
-
 
 <details>
 	<summary><strong>算法思想<strong></summary>
@@ -73,10 +77,14 @@
 
 ## 📝 操作系统
 
-- [操作系统基础](_contents/操作系统-目录.md#操作系统基础)<br>
-- []()
+- [操作系统基础]()
+- [Linux]()
 
 ## ☁️ 网络
+
+- []()
+- []()
+- []()
 
 <details>
 	<summary><strong>第一部分 计算机网路<strong></summary>
