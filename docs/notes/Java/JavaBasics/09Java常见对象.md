@@ -1,18 +1,5 @@
-<!-- GFM-TOC -->
-* [十、Java常见对象](#十Java常见对象)
-    * [Arrays](#Arrays)
-    * [BigDemical](#BigDemical)
-    * [BigInteger](#BigInteger)
-    * [Calendar](#Calendar)
-    * [Character](#Character)
-    * [Data_DateFormat](#Data_DateFormat)
-    * [Integer](#Integer)
-    * [Object](#Object)
-    * [Scanner](#Scanner)
-    * [String](#String)
-    * [StringBuffer](#StringBuffer)
-<!-- GFM-TOC -->
 # 十、Java常见对象
+
 ## Arrays
 Arrays:针对数组进行操作的工具类。
 
@@ -235,7 +222,7 @@ public class BigIntegerDemo2 {
     }
 }
 ```
- 
+
 ## Calendar
 Calendar为特定瞬间与一组诸如 YEAR、MONTH、DAY_OF_MONTH、HOUR 等日历字段之间的转换提供了一些方法，
 并为操作日历字段（例如获得下星期的日期）提供了一些方法。
@@ -325,7 +312,7 @@ public class CalendarTest {
 ## Character
 Character 类在对象中包装一个基本类型 char 的值.此外，该类提供了几种方法，
 以确定字符的类别（小写字母，数字，等等），并将字符从大写转换成小写，反之亦然。
- 
+
 - Character常用方法：
 ```java
 Character(char value) //构造方法
@@ -506,7 +493,7 @@ SimpleDateFormat(String pattern) //给定的模式
 ```
 
 这个模式字符串该如何写呢? 通过查看API，我们就找到了对应的模式:
- 
+
 | 中文说明 | 模式字符 |
 | :--: | :--: |
 | 年 | y |
@@ -1022,7 +1009,7 @@ equals:比较引用类型，默认也是比较地址值是否相同
 String类重写了equals()方法，比较的是内容是否相同。
 
 > String s = new String(“hello”)和String s = “hello”的区别？
- 
+
 前者会创建2个对象，后者创建1个对象。更具体的说，前者会创建2个或者1个对象，后者会创建1个或者0个对象。
 
 - **String类的判断功能**：
