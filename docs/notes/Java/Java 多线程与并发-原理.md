@@ -1,12 +1,3 @@
----
-title: Java 多线程与并发-原理
-date: 2018-09-08 14:42:57
-cover: true
-tags: [Java 基础]
-categories : [计算机面试]
-summary: Java 并发编程高级应用及 Java 并发原理总结
----
-
 ## 一、Java 内存模型
 
 Java 内存模型（即 Java Memory Model，简称 JMM）试图屏蔽各种硬件和操作系统的内存访问差异，以实现让 Java 程序在各种平台下都能达到一致的内存访问效果。
