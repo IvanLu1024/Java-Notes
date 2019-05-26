@@ -1,17 +1,3 @@
-<!-- GFM-TOC -->
-* [七、NIO](#七nio)
-    * [流与块](#流与块)
-    * [通道与缓冲区](#通道与缓冲区)
-    * [缓冲区状态变量](#缓冲区状态变量)
-    * [文件 NIO 实例](#文件-nio-实例)
-    * [选择器](#选择器)
-    * [套接字 NIO 实例](#套接字-nio-实例)
-    * [内存映射文件](#内存映射文件)
-    * [NIO与IO对比](#NIO与IO对比)
-    * [Path](#Path)
-    * [Files](#Files)
-<!-- GFM-TOC -->
-
 # 七、NIO
 
 新的输入/输出 (NIO) 库是在 JDK 1.4 中引入的，弥补了原来的 I/O 的不足，提供了高速的、面向块的 I/O。
@@ -79,23 +65,23 @@ I/O 包和 NIO 已经很好地集成了，java.io.\* 已经以 NIO 为基础重�
 
 ① 新建一个大小为 8 个字节的缓冲区，此时 position 为 0，而 limit = capacity = 8。capacity 变量不会改变，下面的讨论会忽略它。
 
-<div align="center"> <img src="pics//1bea398f-17a7-4f67-a90b-9e2d243eaa9a.png"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/java/1bea398f-17a7-4f67-a90b-9e2d243eaa9a.png"/> </div><br>
 
 ② 从输入通道中读取 5 个字节数据写入缓冲区中，此时 position 为 5，limit 保持不变。
 
-<div align="center"> <img src="pics//80804f52-8815-4096-b506-48eef3eed5c6.png"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/java/80804f52-8815-4096-b506-48eef3eed5c6.png"/> </div><br>
 
 ③ 在将缓冲区的数据写到输出通道之前，需要先调用 flip() 方法，这个方法将 limit 设置为当前 position，并将 position 设置为 0。
 
-<div align="center"> <img src="pics//952e06bd-5a65-4cab-82e4-dd1536462f38.png"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/java/952e06bd-5a65-4cab-82e4-dd1536462f38.png"/> </div><br>
 
 ④ 从缓冲区中取 4 个字节到输出缓冲中，此时 position 设为 4。
 
-<div align="center"> <img src="pics//b5bdcbe2-b958-4aef-9151-6ad963cb28b4.png"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/java/b5bdcbe2-b958-4aef-9151-6ad963cb28b4.png"/> </div><br>
 
 ⑤ 最后需要调用 clear() 方法来清空缓冲区，此时 position 和 limit 都被设置为最初位置。
 
-<div align="center"> <img src="pics//67bf5487-c45d-49b6-b9c0-a058d8c68902.png"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/java/67bf5487-c45d-49b6-b9c0-a058d8c68902.png"/> </div><br>
 
 ## 文件 NIO 实例
 ### FileChannel的使用
@@ -441,7 +427,7 @@ NIO 实现了 IO 多路复用中的 Reactor 模型，一个线程 Thread 使用�
 应该注意的是，只有套接字 Channel 才能配置为非阻塞，而 FileChannel 不能，
 为 FileChannel 配置非阻塞也没有意义。
 
-<div align="center"> <img src="pics//4d930e22-f493-49ae-8dff-ea21cd6895dc.png"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/java/4d930e22-f493-49ae-8dff-ea21cd6895dc.png"/> </div><br>
 
 使用Selector的优点：
 
@@ -653,7 +639,7 @@ public class PathDemo {
     }
 }
 ```
- 
+
 ### File和Path之间的转换，File和URI之间的转换
 ```java
 public class PathDemo2 {
@@ -673,7 +659,7 @@ demo5.txt
 demo5.txt
 file:///F:/Java_Review/05Java/JavaIO/demo5.txt
 ```
-    
+
 ### 获取Path的相关信息
 ```java
 public class PathDemo3 {
@@ -701,11 +687,11 @@ public class PathDemo3 {
 是否是以路径demo3开头：true
 该路径的字符串形式：demo3\test3.txt
 ```
-    
+
 ### 移除Path中的冗余项
 
 \\ .表示的是当前目录
-    
+​    
 \\ ..表示父目录或者说是上一级目录
 
 normalize() : 返回一个路径，该路径是取出冗余项的路径。
