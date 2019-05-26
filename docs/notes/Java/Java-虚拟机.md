@@ -1,12 +1,3 @@
----
-title: Java-虚拟机
-date: 2019-05-04 21:10:56
-cover: true
-tags: [Java 基础]
-categories : [计算机面试]
-summary: Java 虚拟机原理（借花献佛）
----
-
 ## 一、运行时数据区域
 
 <div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/JVM/5778d113-8e13-4c53-b5bf-801e58080b97.png" width="400px"> </div>
