@@ -531,13 +531,13 @@ A需要依赖 Connection才能正常运行，而这个Connection是由Spring注�
 Spring IOC的初始化过程，整个脉络很庞大，初始化的过程主要就是**读取XML资源**，并**解析**，
 最终**注册到Bean Factory中**。
 
-<div align="center"><img src="pics\\01_1.png"/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/spring/01_1.png"/></div>
 
 ### 注入依赖
 当完成初始化IOC容器后，如果Bean没有设置lazy-init(延迟加载)属性，那么Bean的实例就会在初始化IOC完成之后，及时地进行**初始化**。
 初始化时会**创建实例**，然后根据配置利用反射对实例进行进一步操作，具体流程如下所示：
 
-<div align="center"><img src="pics\\01_2.png"/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/spring/01_2.png"/></div>
 
 ### getBean方法的代码逻辑
 

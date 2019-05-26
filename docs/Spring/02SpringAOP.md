@@ -42,7 +42,7 @@ AOP底层原理就是**代理机制**。
 
 - 示例：
 
-<div align="center"><img src="pics\\02_1.png" width="800"/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/spring/02_1.png" width="800"/></div>
 
 ## AOP的底层实现
 ### JDK动态代理

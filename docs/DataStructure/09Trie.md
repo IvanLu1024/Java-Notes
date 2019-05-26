@@ -11,11 +11,11 @@
 ## 什么是Trie
 - Trie字典树/前缀树的直观感受
 
-<div align="center"><img src="pics//trie//trie_1.png" width="600"/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/dataStructure/trie//trie_1.png" width="600"/></div>
 
 - Trie只用来处理字符串
 
-<div align="center"><img src="pics//trie//trie_2.png" width="600"/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/dataStructure/trie//trie_2.png" width="600"/></div>
 
 其中蓝色就是单词结尾节点。
 

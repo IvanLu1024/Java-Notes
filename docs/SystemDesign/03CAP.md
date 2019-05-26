@@ -10,7 +10,7 @@
 
 分布式系统不可能同时满足一致性（C：Consistency）、可用性（A：Availability）和分区容忍性（P：Partition Tolerance），最多只能同时满足其中两项。
 
-<div align="center"> <img src="pics//f1109d04-3c67-48a3-9963-2c475f94e175.jpg"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/systemDesign/f1109d04-3c67-48a3-9963-2c475f94e175.jpg"/> </div><br>
 
 ## 一致性
 
@@ -39,4 +39,4 @@
 - 为了保证一致性（CP），不能访问未同步完成的节点，也就失去了部分可用性；
 - 为了保证可用性（AP），允许读取所有节点的数据，但是数据可能不一致。
 
-<div align="center"> <img src="pics//0b587744-c0a8-46f2-8d72-e8f070d67b4b.jpg"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/systemDesign/0b587744-c0a8-46f2-8d72-e8f070d67b4b.jpg"/> </div><br>
