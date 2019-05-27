@@ -1,6 +1,6 @@
 本项目对 Java 学习中的一些问题进行了整理、分类。仅作学习交流用。
 
-本项目对应 WebSite : https://duhouan.github.io/Java-#/
+本项目对应 WebSite :https://duhouan.github.io/Java-Notes/#/
 
 ## ☕️ Java
 
