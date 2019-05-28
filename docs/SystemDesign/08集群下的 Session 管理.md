@@ -17,7 +17,7 @@
 
 - 当服务器宕机时，将丢失该服务器上的所有 Session。
 
-<div align="center"> <img src="pics//MultiNode-StickySessions.jpg"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/systemDesign/MultiNode-StickySessions.jpg"/> </div><br>
 
 ## Session Replication
 
@@ -28,7 +28,7 @@
 - 占用过多内存；
 - 同步过程占用网络带宽以及服务器处理器时间。
 
-<div align="center"> <img src="pics//MultiNode-SessionReplication.jpg"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/systemDesign/MultiNode-SessionReplication.jpg"/> </div><br>
 
 ## Session Server
 
@@ -42,7 +42,7 @@
 
 - 需要去实现存取 Session 的代码。
 
-<div align="center"> <img src="pics//MultiNode-SpringSession.jpg"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/systemDesign/MultiNode-SpringSession.jpg"/> </div><br>
 
 参考：
 

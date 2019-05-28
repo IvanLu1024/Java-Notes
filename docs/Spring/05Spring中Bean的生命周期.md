@@ -406,7 +406,7 @@ Spring Bean的生命周期
 如果Bean在配置文件中的定义包含destroy-method属性，执行指定的方法。
 
 
-<div align="center"><img src="pics\\05_1.jpg" width=""/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/spring/05_1.jpg" width=""/></div>
 
 
 很多时候我们并不会真的去实现上面说描述的那些接口，

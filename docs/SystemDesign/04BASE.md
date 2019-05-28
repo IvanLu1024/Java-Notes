@@ -11,7 +11,7 @@ BASE 是基本可用（Basically Available）、软状态（Soft State）和最�
 
 BASE 理论是对 CAP 中一致性和可用性权衡的结果，它的核心思想是：即使无法做到强一致性，但每个应用都可以根据自身业务特点，采用适当的方式来使系统达到最终一致性。
 
-<div align="center"> <img src="pics//bc603930-d74d-4499-a3e7-2d740fc07f33.png"/> </div><br>
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/systemDesign/bc603930-d74d-4499-a3e7-2d740fc07f33.png"/> </div><br>
 
 ## 基本可用
 

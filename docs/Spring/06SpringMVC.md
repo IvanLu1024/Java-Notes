@@ -10,7 +10,7 @@
 
 MVC 的原理图：
 
-<div align="center"><img src="pics\\06_1.jpg"/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/spring/06_1.jpg"/></div>
 
 - Model(模型端)
 
@@ -88,7 +88,7 @@ SpringMVC 框架是以请求为驱动，围绕 Servlet 设计，
 
 原理图如下：
 
-<div align="center"><img src="pics\\06_2.jpg"/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/spring/06_2.jpg"/></div>
 
 **流程说明**：
 

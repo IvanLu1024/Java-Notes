@@ -352,11 +352,11 @@ BeanDefinition，从字面意思上翻译成中文就是 “Bean 的定义”。
 我们可以知道这台电脑是不是用了牙膏厂的 CPU，BOOM 厂的固态硬盘等。
 透过配置清单，我们也就可大致评估出这台电脑的性能。
 
-<div align="center"><img src="pics\\03_1.png" width="400"/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/spring/03_1.png" width="400"/></div>
 
 具体实现中，BeanDefinition 和 xml 有如下对应：
 
-<div align="center"><img src="pics\\03_2.png" width="600"/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/spring/03_2.png" width="600"/></div>
 
 ```java
 /**
@@ -743,11 +743,11 @@ BeanFactory 具有**延迟实例化 Bean 的特性**，也就是等外部程序�
 
 Spring中Bean的实例化过程：
 
-<div align="center"><img src="pics\\03_3.png" width="600"/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/spring/03_3.png" width="600"/></div>
 
 我们这里进行了简化：
 
-<div align="center"><img src="pics\\03_4.png" width="200"/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/spring/03_4.png" width="200"/></div>
 
 简化后的实例化流程如下：
 
@@ -1080,7 +1080,7 @@ public class JDKDynamicAopProxy extends AbstractAopProxy implements InvocationHa
 
 JDKDynamicAopProxy的getProxy()方法中的执行流程：
 
-<div align="center"><img src="pics\\03_5.png" width="200"/></div>
+<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/spring/03_5.png" width="200"/></div>
 
 - 测试：
 
