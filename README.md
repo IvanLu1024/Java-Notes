@@ -66,6 +66,7 @@
 - [后端面试进阶指南](https://xiaozhuanlan.com/CyC2018)
 - [Java面试进阶指南](https://xiaozhuanlan.com/javainterview)
 - [收藏的文章](docs/收藏的文章.md)
+- [面试题整理](docs/面试题整理.md)
 
 # :heart: 致谢
 
@@ -79,4 +80,8 @@
 
 - [玩儿转算法面试 - 课程官方代码仓](https://github.com/liuyubobobo/Play-with-Algorithm-Interview)
 - [玩儿转数据结构 - 课程官方代码仓](https://github.com/liuyubobobo/Play-with-Data-Structures)
+- [MySQL数据库架构设计与优化](https://coding.imooc.com/class/79.html)
+- [Java并发编程入门与高并发面试](https://coding.imooc.com/class/195.html)
+- [JavaGuide](https://github.com/Snailclimb/JavaGuide)
+- [3y](https://github.com/ZhongFuCheng3y/3y)
 - [CS-Notes](https://github.com/CyC2018/CS-Notes)
