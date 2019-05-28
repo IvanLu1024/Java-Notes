@@ -1,3 +1,5 @@
+[J.U.C脑图](http://naotu.baidu.com/file/3d30df5bdf3a5d94e823d20051b29b1b?token=152d47622570684c)
+
 ## 一、Java 内存模型
 
 Java 内存模型（即 Java Memory Model，简称 JMM）试图屏蔽各种硬件和操作系统的内存访问差异，以实现让 Java 程序在各种平台下都能达到一致的内存访问效果。
@@ -3672,4 +3674,4 @@ public static void main(String[] args) {
 - [并发编程面试必备：AQS 原理与 AQS 同步组件总结](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/Multithread/AQS.md)
 - [Java 并发知识总结](https://github.com/CL0610/Java-concurrency)
 - [CS-Notes Java并发](https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/Java%20%E5%B9%B6%E5%8F%91.md)
-- 《 Java 并发编程的艺术》
+- [《 Java 并发编程的艺术》](<https://book.douban.com/subject/26591326/>)
