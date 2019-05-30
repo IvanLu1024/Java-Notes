@@ -415,7 +415,7 @@ public static void copyFile6(String srcFile,String destFile) throws IOException 
 
 NIO 常常被叫做非阻塞 IO，主要是因为 NIO 在网络通信中的非阻塞特性被广泛使用。
 
-NIO 实现了 IO 多路复用中的 Reactor 模型，一个线程 Thread 使用一个选择器 Selector 通过**轮询的方式**
+NIO 实现了 IO 多路复用中的 **Reactor 模型**，一个线程 Thread 使用一个选择器 Selector 通过**轮询的方式**
 去监听多个通道 Channel 上的事件，从而让一个线程就可以处理多个事件。
 
 通过配置监听的通道 Channel 为**非阻塞**，那么当 Channel 上的 IO 事件还未到达时，
@@ -516,6 +516,64 @@ while (true) {
     }
 }
 ```
+
+## Reactor 模型
+
+我们知道，在我们使用传统方法进行网络IO操作的时候，需要使用一个线程监听IO事件，当事件到达之后，创建一个线程去处理接收到的IO事件，这种模型需要创建大量的线程，会极大的浪费内存等资源。
+
+这种情况下，有人提出了Reactor模式，在Reactor中，拆分为不同的小线程或者子过程，这些被拆分的小线程和子过程对应的是handler，每一种handler都会处理一种事件（event）。这个需要一个全局的管理者selector，向channel注册感兴趣的事件，selector不断在channel中监测是否有该事件发生，如果没有，那么主线程会被阻塞，否则会调用相应的事件处理函数来处理。这些事件典型的有连接、读取、写入，我们需要为这些事件分别提供处理器，事件到达后分发到处理器中就可以返回处理后面的事件，吞吐量能够极大的提高。其中定义了以下三种角色：
+
+- Reactor：负责将IO事件分派给指定的处理器（Handler）
+- Acceptor：负责处理新的连接，并将请求移交给Reactor
+- Handler：负责读写的处理器
+
+### 单Reactor单线程模型
+
+这是最基本的单Reactor单线程模型。其中Reactor线程，负责多路复用socket，有新连接到来触发事件之后，交由Acceptor进行处理，有IO读写事件之后交给hanlder 处理。
+
+Acceptor主要任务就是构建handler ，在获取到和client相关的SocketChannel之后 ，绑定到相应的hanlder上，对应的SocketChannel有读写事件之后，基于reactor 分发,hanlder就可以处理了（所有的IO事件都绑定到selector上，有Reactor分发）。
+
+该模型 适用于处理器链中业务处理组件能快速完成的场景。不过，这种单线程模型不能充分利用多核资源，所以实际使用的不多。
+
+<div align="center"> <img src="https://gitee.com/IvanLu1024/picts/raw/4fbd0077b25d57c1aef8fa99b537b309d8037e8f/blog/java/io/2_1-simplereactor.png"/> </div>
+
+
+
+### 单Reactor多线程模型
+
+相对于第一种单线程的模式来说，在处理业务逻辑，也就是获取到IO的读写事件之后，交由**线程池**来处理，这样可以减小主reactor的性能开销，从而更专注的做事件分发工作了，从而提升整个应用的吞吐量。
+
+<div align="center"> <img src="https://gitee.com/IvanLu1024/picts/raw/4fbd0077b25d57c1aef8fa99b537b309d8037e8f/blog/java/io/2_3-threadpollreactor.png"/> </div>
+
+
+
+### 多Reactor多线程模型
+
+第三种模型比起第二种模型，是将Reactor分成两部分：
+
+- mainReactor：负责监听server socket，用来**处理新连接的建立**，将建立的socketChannel指定注册给subReactor；
+- subReactor：维护自己的selector, accept会将连接交给它来处理，读写（read、send）网络数据，对于业务逻辑的处理，将其扔给线程池中的worker来处理。
+
+在该模型中，mainReactor 主要是用来处理网络IO 连接建立操作，通常一个线程就可以处理，而subReactor主要做和建立起来的socket做数据交互和事件业务处理操作，它的个数上一般是和CPU个数等同，一个subReactor对应一个线程处理。
+
+此种模型中，每个模块的工作更加专一，耦合度更低，性能和稳定性也大量的提升，支持的可并发客户端数量可达到上百万级别。关于此种模型的应用，目前有很多优秀的框架已经应用，比如Netty。
+
+<div align="center"> <img src="https://gitee.com/IvanLu1024/picts/raw/4fbd0077b25d57c1aef8fa99b537b309d8037e8f/blog/java/io/2_4-mainsubreactor.png"/> </div>
+
+### 优缺点
+
+**优点：**
+
+1. 响应快，不必为单个同步时间所阻塞，虽然Reactor本身依然是同步的
+2. 编程相对简单，可以最大程度的避免复杂的多线程及同步问题，并且避免了多线程/进程的切换开销
+3. 可扩展性，可以方便的通过增加Reactor实例个数来充分利用CPU资源
+4. 可复用性，reactor框架本身与具体事件处理逻辑无关，具有很高的复用性
+
+**缺点：**
+
+1. 相比传统的简单模型，Reactor增加了一定的复杂性，因而有一定的门槛，并且不易于调试
+2. Reactor模式需要底层的Synchronous Event Demultiplexer支持，比如Java中的Selector支持，操作系统的select系统调用支持，如果要自己实现Synchronous Event Demultiplexer可能不会有那么高效
+3. Reactor模式在IO读写数据时还是在同一个线程中实现的，即使使用多个Reactor机制的情况下，那些共享一个Reactor的Channel如果出现一个长时间的数据读写，会影响这个Reactor中其他Channel的相应时间，比如在大文件传输时，IO操作就会影响其他Client的相应时间，因而对这种操作，使用传统的Thread-Per-Connection或许是一个更好的选择，或则此时使用Proactor模式
 
 ## 套接字 NIO 实例
 
@@ -868,3 +926,7 @@ public class FilesDemo7 {
 ```html
 paths:[a.txt, test2.txt, test.txt, test3.txt]
 ```
+
+# 参考资料
+
+- https://juejin.im/post/5b4570cce51d451984695a9b
