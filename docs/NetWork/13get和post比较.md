@@ -10,11 +10,13 @@
 
 # 九、GET 和 POST 比较
 
-## 作用
+## Http报文层面：
+
+### 作用
 
 GET 用于获取资源，而 POST 用于传输实体主体。
 
-## 参数
+### 参数
 
 GET 和 POST 的请求都能使用额外的参数，但是 GET 的参数是以查询字符串出现在 URL 中，而 POST 的参数存储在实体主体中。不能因为 POST 参数存储在实体主体中就认为它的安全性更高，因为照样可以通过一些抓包工具（Fiddler）查看。
 
@@ -30,7 +32,9 @@ Host: w3schools.com
 name1=value1&name2=value2
 ```
 
-## 安全
+## 数据库层面：
+
+### 安全性
 
 安全的 HTTP 方法不会改变服务器状态，也就是说它只是可读的。
 
@@ -40,7 +44,7 @@ GET 方法是安全的，而 POST 却不是，因为 POST 的目的是传送实�
 
 不安全的方法除了 POST 之外还有 PUT、DELETE。
 
-## 幂等性
+### 幂等性
 
 幂等的 HTTP 方法，同样的请求被执行一次与连续执行多次的效果是一样的，服务器的状态也是一样的。换句话说就是，幂等方法不应该具有副作用（统计用途除外）。
 
@@ -73,7 +77,9 @@ DELETE /idX/delete HTTP/1.1   -> Returns 404 as it just got deleted
 DELETE /idX/delete HTTP/1.1   -> Returns 404
 ```
 
-## 可缓存
+## 其他层面：
+
+### 可缓存
 
 如果要对响应进行缓存，需要满足以下条件：
 
@@ -81,7 +87,7 @@ DELETE /idX/delete HTTP/1.1   -> Returns 404
 - 响应报文的状态码是可缓存的，包括：200, 203, 204, 206, 300, 301, 404, 405, 410, 414, and 501。
 - 响应报文的 Cache-Control 首部字段没有指定不进行缓存。
 
-## XMLHttpRequest
+### XMLHttpRequest
 
 为了阐述 POST 和 GET 的另一个区别，需要先了解 XMLHttpRequest：
 
