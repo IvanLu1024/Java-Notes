@@ -187,16 +187,6 @@ public class CycleWait implements Runnable{
         }
         value = "we have data now";
     }
-
-    public static void main(String[] args) {
-        CycleWait cycleWait = new CycleWait();
-        Thread t = new Thread(cycleWait);
-        t.start();
-
-        System.out.println("value:"+cycleWait.value); 
-        //输出结果：
-        //value:null
-    }
 }
 ```
 
@@ -234,7 +224,7 @@ public static void main(String[] args) {
         CycleWait cycleWait = new CycleWait();
         Thread t = new Thread(cycleWait);
         t.start();
-		t.join();
+		t.join(); //阻塞当前线程以等待子线程执行完毕
         System.out.println("value:"+cycleWait.value); 
         //输出结果：
         //value:we have data now
@@ -333,9 +323,11 @@ public class CycleWait3 implements Callable<String>{
 
 包含了操作系统线程状态中的 Running 和 Ready。
 
+调用 `start()` 方法后开始运行，线程这时候处于 Ready 状态。可运行状态的线程获得了 CPU 时间片后就处于 Running 状态。
+
 > **阻塞（Blocked）**
 
-等待获取一个**排它锁**，如果其线程释放了锁就会结束此状态。
+等待获取一个**排它锁**，如果其他线程释放了锁就会结束此状态。
 
 > **无限期等待（Waiting）**
 
@@ -561,7 +553,8 @@ public class InterruptExample {
             public void run() {
                 int i = 0;
                 try {
-                    //在正常运行任务时，经常检查本线程的中断标志位，如果被设置了中断标志就自行停止线程
+                    //在正常运行任务时，经常检查本线程的中断标志位，
+                    //如果被设置了中断标志就自行停止线程
                     while (!Thread.currentThread().isInterrupted()) {
                         Thread.sleep(100); // 休眠100ms
                         i++;
@@ -748,7 +741,7 @@ after
 
 > **wait() 和 sleep() 的区别**
 
-基本的差别：
+基本差别：
 
 - wait() 是 Object 的方法，而 sleep() 是 Thread 的静态方法；
 - sleep() 方法可以在任何地方使用，而 wait() 方法只能在 synchronized 块或者同步方法中使用；
@@ -849,7 +842,7 @@ thread B is done
 
 - 锁池（EntryList）
 
-假设线程 A 已经拥有了**某个对象的锁**，而其他线程 B、C 想要调用这个对象的同步方法（或者同步代码块），由于 B 、C 线程在进入对象的同步方法（或者同步代码块）之前必须先获得该对象锁的拥有权，而恰巧该对象的锁目前正在被线程 A 所占用，此时 B 、C 线程就会被阻塞，进入一个地方去等待锁的释放，这个地方便是该对象的锁池。
+假设线程 A 已经拥有了**某个对象的锁**，而其他线程 B、C 想要调用这个对象的同步方法（或者同步代码块），由于 B 、C 线程在进入对象的同步方法（或者同步代码块）之前必须先获得该对象锁的拥有权，而恰巧该对象的锁目前正在被线程 A 所占用，此时 B 、C 线程就会被阻塞，进入一个地方去**等待锁的释放**，这个地方便是该对象的锁池。
 
 - 等待池（WaitSet）
 
