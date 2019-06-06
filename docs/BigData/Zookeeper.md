@@ -201,6 +201,15 @@ ZAB 协议两种基本的模式：崩溃恢复和消息广播。
 
 当集群中已经有过半的 Follower 服务器完成了和 Leader 服务器的状态同步，那么整个服务框架就可以进人**消息广播模式**了。当一台同样遵守 ZAB 协议的服务器启动后加人到集群中时，如果此时集群中已经存在一个 Leader 服务器在负责进行消息广播，那么新加入的服务器就会自觉地进入数据恢复模式：找到 Leader 所在的服务器，并与其进行数据同步，然后一起参与到消息广播流程中去。正如上文介绍中所说的，**Zookeeper 设计成只允许唯一的一个 Leader 服务器来进行事务请求的处理**。Leader 服务器在接收到客户端的事务请求后，会生成对应的事务提案并发起一轮广播协议；如果集群中的其他机器接收到客户端的事务请求，那么这些非 Leader 服务器会首先将这个事务请求转发给 Leader 服务器。
 
+### Zookeeper 的功能
+
+- 统一配置管理
+- 统一命名管理
+- 分布式锁
+- 集群管理
+
+> 补充资料： <https://segmentfault.com/a/1190000018876282>
+
 ## 参考资料
 
 - [zookeeper-application-scenarios](https://github.com/doocs/advanced-java/blob/master/docs/distributed-system/zookeeper-application-scenarios.md)
