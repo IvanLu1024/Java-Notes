@@ -1,14 +1,6 @@
-<!-- GFM-TOC -->
-* [四、Object 通用方法](#四object-通用方法)
-    * [概览](#概览)
-    * [equals()](#equals)
-    * [hashCode()](#hashcode)
-    * [toString()](#tostring)
-    * [clone()](#clone)
-<!-- GFM-TOC -->
 # 四、Object 通用方法
 
-## 概览
+Object 类中的方法一览：
 
 ```java
 
@@ -68,7 +60,7 @@ x.equals(y) == x.equals(y); // true
 
 Ⅴ 与 null 的比较
 
-对任何不是 null 的对象 x 调用 x.equals(null) 结果都为 false
+对任何**不是 null 的对象** x 调用 x.equals(null) 结果都为 false
 
 ```java
 x.equals(null); // false;
@@ -108,11 +100,16 @@ public class EqualExample {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;  //检查是否为同一个对象的引用，如果是直接返回 true；
+        if (o == null || getClass() != o.getClass()){
+            //检查是否是同一个类型，如果不是，直接返回 false
+            return false;
+        }
 
+        // 将 Object 对象进行转型
         EqualExample that = (EqualExample) o;
 
+        // 判断每个关键域是否相等。
         if (x != that.x) return false;
         if (y != that.y) return false;
         return z == that.z;
@@ -159,7 +156,7 @@ public int hashCode() {
 }
 ```
 
-了解：IDEA中 Alt+Insert 快捷键就可以快速生成hashCode()和equals()方法。
+了解：IDEA中 Alt+Insert 快捷键就可以快速生成 hashCode() 和 equals() 方法。
 
 ## toString()
 
@@ -187,10 +184,9 @@ ToStringExample@4554617c
 
 ## clone()
 
-**1. cloneable** 
+**1. Cloneable** 
 
-clone() 是 Object 的 **protected 方法**，它不是 public，
-一个类不显式去重写 clone()，其它类就不能直接去调用该类实例的 clone() 方法。
+clone() 是 Object 的 **protected 方法**，它不是 public，一个类不显式去重写 clone()，其它类就不能直接去调用该类实例的 clone() 方法。
 
 ```java
 public class CloneExample {
@@ -201,7 +197,8 @@ public class CloneExample {
 
 ```java
 CloneExample e1 = new CloneExample();
-// CloneExample e2 = e1.clone(); // 'clone()' has protected access in 'java.lang.Object'
+// CloneExample e2 = e1.clone(); 
+// 'clone()' has protected access in 'java.lang.Object'
 ```
 
 重写 clone() 得到以下实现：
@@ -211,6 +208,7 @@ public class CloneExample {
     private int a;
     private int b;
 
+    // CloneExample 默认继承 Object
     @Override
     public CloneExample clone() throws CloneNotSupportedException {
         return (CloneExample)super.clone();
@@ -233,7 +231,7 @@ java.lang.CloneNotSupportedException: CloneExample
 
 以上抛出了 CloneNotSupportedException，这是因为 CloneExample 没有实现 Cloneable 接口。
 
-应该注意的是，clone() 方法并不是 Cloneable 接口的方法，而是 Object 的一个 protected 方法。
+应该注意的是，**clone() 方法并不是 Cloneable 接口的方法，而是 Object 的一个 protected 方法**。
 
 **Cloneable 接口只是规定，如果一个类没有实现 Cloneable 接口又调用了 clone() 方法，就会抛出 CloneNotSupportedException**。
 
@@ -281,6 +279,7 @@ public class ShallowCloneExample implements Cloneable {
 ```
 
 ```java
+// 拷贝对象和原始对象的引用类型引用同一个对象。
 ShallowCloneExample e1 = new ShallowCloneExample();
 ShallowCloneExample e2 = null;
 try {
@@ -289,6 +288,7 @@ try {
     e.printStackTrace();
 }
 e1.set(2, 222);
+System.out.println(e1.get(2)); // 222
 System.out.println(e2.get(2)); // 222
 ```
 
@@ -319,6 +319,7 @@ public class DeepCloneExample implements Cloneable {
     @Override
     protected DeepCloneExample clone() throws CloneNotSupportedException {
         DeepCloneExample result = (DeepCloneExample) super.clone();
+        // 创建新对象
         result.arr = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
             result.arr[i] = arr[i];
@@ -351,14 +352,14 @@ public class CloneConstructorExample {
 
     private int[] arr;
 
-    public CloneConstructorExample() {
+    public CloneConstructorExample() { //构造函数
         arr = new int[10];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = i;
         }
     }
 
-    public CloneConstructorExample(CloneConstructorExample original) {
+    public CloneConstructorExample(CloneConstructorExample original) { // 拷贝构造函数
         arr = new int[original.arr.length];
         for (int i = 0; i < original.arr.length; i++) {
             arr[i] = original.arr[i];

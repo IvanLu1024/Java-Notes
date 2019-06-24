@@ -61,5 +61,11 @@
 
 - [后端面试进阶指南](https://xiaozhuanlan.com/CyC2018)
 - [Java面试进阶指南](https://xiaozhuanlan.com/javainterview)
-- [收藏的文章](docs/收藏的文章.md)
-- [面试题整理](docs/面试题整理.md)
+- [收藏的文章](./收藏的文章.md)
+- [面试题整理](./面试题整理.md)
+
+## 📖 参考资料
+
+- [参考书籍](./参考书籍.md)
+- [参考 Github 仓库](./参考仓库.md)
+- [慕课网教程](./慕课网.md)
