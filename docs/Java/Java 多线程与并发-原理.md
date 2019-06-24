@@ -358,13 +358,13 @@ public class SyncBlockAndMethod {
 
 ![](https://gitee.com/duhouan/ImagePro/raw/master/pics/concurrent/c_6.png)
 
-synchronized 修饰的方法并没有 monitorenter 指令和 monitorexit 指令，取得代之的确实是 **ACC_SYNCHRONIZED  标识**，该标识指明了该方法是一个同步方法，JVM 通过该 ACC_SYNCHRONIZED 访问标志来辨别一个方法是否声明为同步方法，从而执行相应的同步调用。
+synchronized 修饰的方法并没有 monitorenter 指令和 monitorexit 指令，取得代之的是 **ACC_SYNCHRONIZED  标识**，该标识指明了该方法是一个同步方法，JVM 通过该 ACC_SYNCHRONIZED 访问标志来辨别一个方法是否声明为同步方法，从而执行相应的同步调用。
 
 ### JDK1.6 之后的锁优化
 
 JDK1.6 对锁的实现引入了大量的优化，如自旋锁、适应性自旋锁、锁消除、锁粗化、偏向锁、轻量级锁等**技术**来减少锁操作的开销。
 
-JDK 1.6 引入了偏向锁和轻量级锁，从而让锁拥有了四个**状态**：无锁状态（unlocked）、偏向锁状态（biasble）、轻量级锁状态（lightweight locked）和重量级锁状态（inflated）。他们会随着竞争的激烈而逐渐升级。注意**锁可以升级不可降级**，这种策略是为了提高获得锁和释放锁的效率。
+JDK 1.6 引入了偏向锁和轻量级锁，从而让锁拥有了四个**状态**：无锁状态（unlocked）、偏向锁状态（biasable）、轻量级锁状态（lightweight locked）和重量级锁状态（inflated）。他们会随着竞争的激烈而逐渐升级。注意**锁可以升级不可降级**，这种策略是为了提高获得锁和释放锁的效率。
 
 以下是 HotSpot 虚拟机对象头的内存布局，这些数据被称为 Mark Word。其中 tag bits 对应了五个状态，这些状态在右侧的 state 表格中给出。除了 marked for gc 状态，其它四个状态已经在前面介绍过了。
 
@@ -404,13 +404,23 @@ public static String concatString(String s1, String s2, String s3) {
 }
 ```
 
-每个 append() 方法中都有一个同步块。虚拟机观察变量 sb，很快就会发现它的动态作用域被限制在 concatString() 方法内部。也就是说，sb 的所有引用永远不会逃逸到 concatString() 方法之外，其他线程无法访问到它，因此可以进行消除。
+每个 append() 方法中都有一个同步块。虚拟机观察变量 sb，很快就会发现它的动态作用域被限制在concatString() 方法内部。也就是说，sb 的所有引用永远不会逃逸到 concatString() 方法之外，其他线程无法访问到它，因此可以进行消除。
 
 #### 锁粗化
 
 如果一系列的连续操作都对同一个对象反复加锁和解锁，频繁的加锁操作就会导致性能损耗。
 
 上一节的示例代码中连续的 append() 方法就属于这类情况。如果虚拟机探测到由这样的一串零碎的操作都对同一个对象加锁，将会把加锁的范围扩展（粗化）到整个操作序列的外部。对于上一节的示例代码就是扩展到第一个 append() 操作之前直至最后一个 append() 操作之后，这样只需要加锁一次就可以了。
+
+#### 偏向锁
+
+偏向锁的思想是偏向于让第一个获取锁对象的线程，这个线程在之后获取该锁就不再需要进行同步操作，甚至连 CAS 操作也不再需要。
+
+当锁对象第一次被线程获得的时候，进入偏向状态，标记为 1 01。同时使用 CAS 操作将线程 ID 记录到 Mark Word 中，如果 CAS 操作成功，这个线程以后每次进入这个锁相关的同步块就不需要再进行任何同步操作。
+
+当有另外一个线程去尝试获取这个锁对象时，偏向状态就宣告结束，此时撤销偏向（Revoke Bias）后恢复到未锁定状态或者轻量级锁状态。
+
+<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/pics/concurrent/390c913b-5f31-444f-bbdb-2b88b688e7ce.jpg" width="600"/> </div>
 
 #### 轻量级锁
 
@@ -432,7 +442,7 @@ public static String concatString(String s1, String s2, String s3) {
 
 <div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/pics/concurrent/baaa681f-7c52-4198-a5ae-303b9386cf47.png" width="400"/> </div>
 
-（5）如果这个更新失败了，虚拟机首先会检查对象的 Mark Word 是否只想当前线程的栈帧：
+（5）如果这个更新失败了，虚拟机首先会检查对象的 Mark Word 是否指向当前线程的栈帧：
 
 - 如果是就说明当前线程已经有这个对象的锁，你就可以直接进入同步块执行。
 - 否则说明多个线程竞争锁，轻量级锁就要膨胀为重量级锁，锁标志的状态值变为 "01" ，Mark Word 中存储的就是指向重量级锁（互斥量）的指针，后面等待锁的线程也要进入阻塞状态。
@@ -443,22 +453,12 @@ public static String concatString(String s1, String s2, String s3) {
 
 （2）如果替换成功，整个同步过程就完成了。
 
-（3）如果替换失败，说明有其他线程尝试获取该锁（此时锁已膨胀），那就需要在释放锁的同事，唤醒被挂起的线程。
+（3）如果替换失败，说明有其他线程尝试获取该锁（此时锁已膨胀），那就需要在释放锁的同时，唤醒被挂起的线程。
 
 > **锁的内存语义**
 
 - 当线程释放锁时，Java 内存模型会把该线程对应的本地内存中的共享变量刷新到主内存中；
 - 当线程获取锁时，Java 内存模型会把该线程对应的本地内存置为无效，从而使得被监视器保护的临界区代码必须从主内存中读取共享变量。
-
-#### 偏向锁
-
-偏向锁的思想是偏向于让第一个获取锁对象的线程，这个线程在之后获取该锁就不再需要进行同步操作，甚至连 CAS 操作也不再需要。
-
-当锁对象第一次被线程获得的时候，进入偏向状态，标记为 1 01。同时使用 CAS 操作将线程 ID 记录到 Mark Word 中，如果 CAS 操作成功，这个线程以后每次进入这个锁相关的同步块就不需要再进行任何同步操作。
-
-当有另外一个线程去尝试获取这个锁对象时，偏向状态就宣告结束，此时撤销偏向（Revoke Bias）后恢复到未锁定状态或者轻量级锁状态。
-
-<div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/pics/concurrent/390c913b-5f31-444f-bbdb-2b88b688e7ce.jpg" width="600"/> </div>
 
 #### 小结
 
@@ -517,7 +517,7 @@ public class VolatileExample {
 
 - 黑色的代表根据程序顺序规则推导出来
 - 红色的是根据 volatile 变量规则推导出来的
-- 蓝色的就是根据传递性规则推导出来的。这里的 2 happen-before 3，同样根据 happens-before 规则，我们可以知道操作 2 执行结果对操作 3 来说是可见的，也就是说当线程 A 将 volatile 变量 flag 更改为 true 后线程B就能够迅速感知。
+- 蓝色的就是根据传递性规则推导出来的。这里的 2 happen-before 3，同样根据 happens-before 规则，我们可以知道操作 2 执行结果对操作 3 来说是可见的，也就是说当线程 A 将 volatile 变量 flag 更改为 true 后线程B 就能够迅速感知。
 
 ### volatile 的内存语义
 
@@ -1115,7 +1115,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
 
 锁和同步器很好的隔离了使用者和实现者所需关注的领域。
 
-AQS使用**模板方法设计模式**，它**将一些方法开放给子类进行重写**， 而同步器给同步组件所提供模板方法又会重新调用被子类所重写的方法。比如，AQS 中需要重写的方法 tryAcquire：
+AQS 使用**模板方法设计模式**，它**将一些方法开放给子类进行重写**， 而同步器给同步组件所提供模板方法又会重新调用被子类所重写的方法。比如，AQS 中需要重写的方法 tryAcquire：
 
 ```java
 protected boolean tryAcquire(int arg) {
@@ -1750,7 +1750,7 @@ private void doReleaseShared() {
 }
 ```
 
-跟独占式锁释放过程有点不同，在共享式锁的释放过程中， 对于能够支持多个线程同时访问的并发组件，必须**保证多个线程能够安全的释放同步状态**， 这里采用的 CAS 保证，当 CAS 操作失败continue，在下一次循环中进行重试。
+跟独占式锁释放过程有点不同，在共享式锁的释放过程中， 对于能够支持多个线程同时访问的并发组件，必须**保证多个线程能够安全的释放同步状态**， 这里采用的 CAS 保证，当 CAS 操作失败 continue，在下一次循环中进行重试。
 
 > **可中断式和超时等待获取共享锁**
 
@@ -1767,7 +1767,7 @@ ReentrantLock 重入锁，是**实现 Lock 接口的一个类**，也是在实�
 - 第一个问题：在线程获取锁的时候，如果已经获取锁的线程是当前线程的话则直接再次获取成功
 - 第二个问题：由于锁会被获取 n 次，那么只有锁在被释放同样的 n 次之后，该锁才算是完全释放成功
 
-ReentrantLock是怎样实现的（以非公平锁为例）。
+ReentrantLock 是怎样实现的（以非公平锁为例）。
 
 针对第一个问题，判断当前线程能否获得锁，核心方法为 nonfairTryAcquire()：
 
@@ -2935,7 +2935,7 @@ Thread Name: 9 formatter: yy-M-d ah:mm
 - RUNNING：能接受新提交的任务，并且也能够处理阻塞队列中的任务
 - SHUTDOWN：不再接受新提交的任务，但可以处理存量任务
 - STOP：不再接受新提交的任务，也不处理存量任务
-- TIDYING：所欲的任务都已终止
+- TIDYING：所有的任务都已终止
 - TERMINATED：terminated() 方法执行完后进入该状态
 
 状态转换图：
@@ -2972,15 +2972,13 @@ executor.execute();
 
 支持 Future 和定期执行任务。
 
-
-
 ### ThreadPoolExecutor
 
 ThreadPoolExecutor 继承自 AbstractExecutorService，也是实现了 ExecutorService 接口。
 
 #### 线程池的工作原理
 
-当一个并发任务提交给线程池，线程池分配线程去执行任务的过程如下图所示：
+当并发任务提交给线程池，线程池分配线程去执行任务的过程如下图所示：
 
 ![](https://gitee.com/duhouan/ImagePro/raw/master/pics/concurrent/c_18.png)
 
@@ -3028,6 +3026,12 @@ ThreadPoolExecutor(int corePoolSize,
 #### ctl 相关方法
 
 ```java
+// ctl 将状态值和有效线程数合二为一
+private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
+
+private static final int COUNT_BITS = Integer.SIZE - 3; // Integer.SIZE
+private static final int CAPACITY   = (1 << COUNT_BITS) - 1;
+
 private static int runStateOf(int c)     { //获取运行状态
     return c & ~CAPACITY; 
 } 
@@ -3079,8 +3083,6 @@ public void execute(Runnable command) {
 4、如果运行的线程数量大于等于 maximumPoolSize ，这时如果 workQueue 已经满了，则通过 handler 所指定的策略来处理任务。
 
 ![](https://gitee.com/duhouan/ImagePro/raw/master/pics/concurrent/c_21.png)
-
-
 
 #### 工作线程的生命周期
 
