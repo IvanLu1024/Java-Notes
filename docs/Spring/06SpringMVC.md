@@ -25,16 +25,6 @@ MVC 的原理图：
 一般 Controller 在 Model 和 View 之间起到了沟通的作用，处理用户在 View 上的输入，并转发给 Model 来更改Model 状态值。
 这样 Model 和 View 两者之间可以做到**松散耦合**，甚至可以彼此不知道对方，而由Controller连接起这两个部分。也在前言里提到，MVC 用到了策略模式，这是**因为 View 用一个特定的 Controller 的实例来实现一个特定的响应策略**，更换不同的Controller，可以改变 View 对用户输入的响应。
 
-## MVC 中涉及到的设计模式
-
-利用**"观察者"**让控制器 (Controller) 和视图 (View) 可以随最新的状态改变而改变。
-
-视图 (View) 和控制器 (Controller) 则实现了**"策略模式"**，控制器是视图的行为。 
-
-### [观察者模式](https://duhouan.github.io/Java-Notes/#/./OO/02行为型?id=_7-观察者（observer）)
-
-### [策略模式](https://duhouan.github.io/Java-Notes/#/./OO/02行为型?id=_9-策略（strategy）)
-
 ## SpringMVC
 
 SpringMVC 是一种基于 Java，实现了 Web MVC 设计模式，请求驱动类型的轻量级 Web 框架。优点如下：
@@ -45,7 +35,7 @@ SpringMVC 是一种基于 Java，实现了 Web MVC 设计模式，请求驱动�
 - 支持各种请求资源的映射策略；
 - 易扩展。
 
-除了观察者模式和策略模式外，涉及到的设计模式有：[适配器模式](https://duhouan.github.io/Java-Notes/#/./OO/03结构型?id=_1-适配器（adapter）)和[责任链模式](https://duhouan.github.io/Java-Notes/#/./OO/02行为型?id=_1-责任链（chain-of-responsibility）)。
+涉及到的设计模式有：[适配器模式](https://duhouan.github.io/Java-Notes/#/./OO/03结构型?id=_1-适配器（adapter）)和[责任链模式](https://duhouan.github.io/Java-Notes/#/./OO/02行为型?id=_1-责任链（chain-of-responsibility）)。
 
 ### 使用
 
