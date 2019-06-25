@@ -1,12 +1,6 @@
-<!-- GFM-TOC -->
-* [SpringMVC](#SpringMVC)
-   * [MVC设计模式](#MVC设计模式)
-   * [SpringMVC框架](#SpringMVC框架)
-<!-- GFM-TOC -->
-
 # SpringMVC
 
-## MVC设计模式
+## MVC(Model-View-Controller)
 
 MVC 的原理图：
 
@@ -14,39 +8,35 @@ MVC 的原理图：
 
 - Model(模型端)
 
-Model 封装的是数据源和所有基于对这些数据的操作。
-在一个组件中，Model往往表示组件的状态和操作这些状态的方法，往往是一系列的公开方法。
-通过这些公开方法，便可以取得模型端的所有功能。
- 
-在这些公开方法中，有些是取值方法，让系统其他部分可以得到模型端的内部状态参数，
-其他的改值方法则允许外部修改模型端的内部状态。
-模型端还必须有方法登记视图，以便在模型端的内部状态发生变化时，可以通知视图端。
-我们可以自己定义一个Subject接口来提供登记和通知视图所需的接口或者继承 Java.util.Observable类，让父类完成这件事。
+**Model 封装的是数据源和所有基于对这些数据的操作**。
+
+在一个组件中，Model 往往表示组件的状态和操作这些状态的方法，往往是一系列的公开方法。 通过这些公开方法，便可以取得 Model 的所有功能。
+
+在这些公开方法中，有些是**取值方法**，让系统其他部分可以得到模型端的内部状态参数， 其他的**改值方法**则允许外部修改模型端的内部状态。 模型端还必须有方法**登记视图**，以便在模型端的内部状态发生变化时，可以通知视图端。
 
 - View(视图端)
 
-View封装的是对数据源Model的一种显示。
-一个模型可以由多个视图，并且可以在需要的时候动态地登记上所需的视图。
-而一个视图理论上也可以同不同的模型关联起来。
+**View 封装的是对数据源 Model 的一种显示**。
+一个模型可以有多个视图，并且可以在需要的时候动态地登记上所需的视图。而一个视图理论上也可以和不同的模型关联起来。
 
 - Controller(控制器端)
 
-封装的是外界作用于模型的操作。通常，这些操作会转发到模型上，
-并调用模型中相应的一个或者多个方法(这个方法就是前面在介绍模型的时候说的改值方法)。
-一般Controller在Model和View之间起到了沟通的作用，处理用户在View上的输入，并转发给Model来更改其状态值。
-这样 Model 和 View 两者之间可以做到松散耦合，甚至可以彼此不知道对方，而由Controller连接起这两个部分。也在前言里提到，MVC用到了策略模式，这是因为View用一个特定的Controller的实例来实现一个特定的响应策略，更换不同的Controller，可以改变View对用户输入的响应。
+**封装的是外界作用于 Model 的操作。**通常，这些操作会转发到模型上，并调用模型中相应的一个或者多个方法(这个方法就是前面在介绍模型的时候说的改值方法)。
+一般 Controller 在 Model 和 View 之间起到了沟通的作用，处理用户在 View 上的输入，并转发给 Model 来更改Model 状态值。
+这样 Model 和 View 两者之间可以做到**松散耦合**，甚至可以彼此不知道对方，而由Controller连接起这两个部分。也在前言里提到，MVC 用到了策略模式，这是**因为 View 用一个特定的 Controller 的实例来实现一个特定的响应策略**，更换不同的Controller，可以改变 View 对用户输入的响应。
 
-MVC(Model-View-Controller)：
-利用"观察者"让控制器和视图可以随最新的状态改变而更新。
-另一方面，视图和控制器则实现了"策略模式"。控制器是视图的行为。
+## MVC 中涉及到的设计模式
+
+利用**"观察者"**让控制器 (Controller) 和视图 (View) 可以随最新的状态改变而改变。
+
+视图 (View) 和控制器 (Controller) 则实现了**"策略模式"**，控制器是视图的行为。 
+
+### [观察者模式](https://duhouan.github.io/Java-Notes/#/./OO/02行为型?id=_7-观察者（observer）)
+
+### [策略模式](https://duhouan.github.io/Java-Notes/#/./OO/02行为型?id=_9-策略（strategy）)
 
 
-- [观察者模式](https://github.com/DuHouAn/Java/blob/master/Object_Oriented/notes/02%E8%A1%8C%E4%B8%BA%E5%9E%8B.md#7-%E8%A7%82%E5%AF%9F%E8%80%85observer)
-
-- [策略模式](https://github.com/DuHouAn/Java/blob/master/Object_Oriented/notes/02%E8%A1%8C%E4%B8%BA%E5%9E%8B.md#9-%E7%AD%96%E7%95%A5strategy)
-
-
-## SpringMVC框架
+## SpringMVC 框架
 
 SpringMVC 框架是以请求为驱动，围绕 Servlet 设计，
 将请求发给控制器，然后通过模型对象，分派器来展示请求结果视图。
