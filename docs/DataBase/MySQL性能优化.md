@@ -79,6 +79,19 @@ Explain 用来分析 SELECT 查询语句，开发人员可以通过分析 Explai
 - id：标明 sql 执行顺序（id 越大，越先执行）
 - select_type : 查询类型，有简单查询、联合查询、子查询等
 - type：MySQL 找到需要的数据行的方式。从最好到最差的链接类型为 const、eq_ref、ref、fulltext、ref_or_null、index_merge、unique_subquery、index_subquery、range、  **index 和 ALL **。
+
+> `const`: 针对主键或唯一索引的等值查询扫描, 最多只返回一行数据。 const 查询速度非常快, 因为它仅仅读取一次即可。
+>
+> `eq_ref`: 此类型通常出现在多表的 join 查询, 表示对于前表的每一个结果, 都只能匹配到后表的一行结果。并且查询的比较操作通常是 `=`, 查询效率较高。
+>
+> `ref`: 此类型通常出现在多表的 join 查询, 针对于非唯一或非主键索引, 或者是使用了 `最左前缀` 规则索引的查询。
+>
+> `range`: 表示使用索引范围查询, 通过索引字段范围获取表中部分数据记录. 这个类型通常出现在 =, <>, >, >=, <, <=, IS NULL, <=>, BETWEEN, IN() 操作中。
+>
+> `index`: 表示全索引扫描(full index scan), 和 ALL 类型类似, 只不过 ALL 类型是全表扫描, 而 index 类型则仅仅扫描所有的索引, 而不扫描数据。
+>
+> `ALL`: 表示全表扫描, 这个类型的查询是性能最差的查询之一。通常来说, 我们的查询不应该出现 ALL 类型的查询。
+
 - key ：使用的索引。如果为 NULL，则没有使用索引。
 - key_len：使用索引的长度。在不损失精度的条件下，长度越短越好。
 - ref：显示索引的哪一列被使用了，如果可能的话是一个常数
@@ -88,7 +101,7 @@ Explain 用来分析 SELECT 查询语句，开发人员可以通过分析 Explai
 | Extra 值        | 说明                                                         |
 | --------------- | ------------------------------------------------------------ |
 | Using filesort  | 表示 MySQL 会对结果使用一个**外部索引排序**，不是从表里 按索引次序读到相关内容，可能在内存或磁盘上进行排序。 MySQL 中无法利用索引完成的排序操作称为“文件排序”。 |
-| Using temporary | 表示 MySQL 在对查询结果排序时使用临时表。 常见于排序 order by 和分组查询 group by。 |
+| Using temporary | 表示 MySQL 在对查询结果排序时使用**临时表**。 常见于排序 order by 和分组查询 group by。 |
 
 注意：当 Extra 的值为  Using filesort 或者 Using temporary  查询是需要优化的。
 
@@ -275,7 +288,7 @@ order by film_id limit 50,5; # 从第 1 条记录开始读取 5 条记录
   select * form payment where customer_id = 584 and staff_id = 2;
   ```
 
-### 索引优化 SQL 的方法
+### 索引优化的方式
 
 #### 重复索引
 
@@ -501,3 +514,7 @@ Windows 中导入数据库：
 source C:\Users\18351\Desktop\MYSQL 性能优化\sakila-db\sakila-schema.sql
 
 source C:\Users\18351\Desktop\MYSQL 性能优化\sakila-db\sakila-data.sql
+
+# 参考资料
+
+- [MySQL 性能优化神器 Explain 使用分析](https://segmentfault.com/a/1190000008131735)
