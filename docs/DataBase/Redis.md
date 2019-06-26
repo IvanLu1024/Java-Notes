@@ -1301,3 +1301,4 @@ min-slaves-max-lag 10
 - [面试必备：什么是一致性Hash算法？](https://zhuanlan.zhihu.com/p/34985026)
 - [redis缓存与数据库一致性问题解决](https://blog.csdn.net/qq_27384769/article/details/79499373)
 - [面试前必知Redis面试题—缓存雪崩+穿透+缓存与数据库双写一致问题](https://www.jianshu.com/p/09eb2babf175)
+- [高性能网站设计之缓存更新的套路](https://blog.csdn.net/tTU1EvLDeLFq5btqiK/article/details/78693323)
