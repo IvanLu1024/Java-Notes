@@ -465,6 +465,8 @@ System.out.println("40=i5+i6   " + (40 == i5 + i6)); //输出 40=i5+i6 true
 
 ## 五、垃圾收集
 
+[垃圾回收的脑图](http://naotu.baidu.com/file/1eb8ce88025d3d160c2efbf03c7b62b5?token=64d1a334774221b1)
+
 垃圾收集主要是针对堆和方法区进行。程序计数器、虚拟机栈和本地方法栈这三个区域属于线程私有的，只存在于线程的生命周期内，线程结束之后就会消失，因此不需要对这三个区域进行垃圾回收。
 
 ### 判断一个对象是否可被回收
@@ -533,6 +535,13 @@ Java 虚拟机使用该算法来判断对象是否可被回收，GC Roots 一般
 类似 C++ 的析构函数，用于关闭外部资源。但是 try-finally 等方式可以做得更好，并且该方法运行代价很高，不确定性大，无法保证各个对象的调用顺序，因此最好不要使用。
 
 当一个对象可被回收时，如果需要执行该对象的 finalize() 方法，那么就有可能在该方法中让对象重新被引用，从而实现自救。自救只能进行一次，如果回收的对象之前调用了 finalize() 方法自救，后面回收时不会再调用该方法。
+
+> Object 的finalize()方法的作用是否与C++的析构函数作用相同？
+
+- 与C++的析构函数不同，析构函数调用确定，而finalize()方法是不确定的；
+- 当垃圾回收器要宣告一个对象死亡时，至少要经历两次标记过程。如果对象在进行可达性分析以后，没有与GC Root直接相连接的引用量，就会被第一次标记，并且判断是否执行finalize()方法；如果这个对象覆盖了finalize()方法，并且未被引用，就会被放置于F-Queue队列，稍后由虚拟机创建的一个低优先级的finalize()线程去执行触发finalize()方法；
+- 由于线程的优先级比较低，执行过程随时可能会被终止；
+- 给予对象最后一次重生的机会
 
 ### 引用类型
 
@@ -604,7 +613,7 @@ obj = null;
 | 弱引用   | 在垃圾回收的时候 | 对象缓存       | GC运行后终止      |
 | 虚引用   | Unknown          | 标记、哨兵     | Unknown           |
 
-> 引用队列（ReferenceQueue）：当GC（垃圾回收线程）准备回收一个对象时，如果发现它还仅有软引用(或弱引用，或虚引用)指向它，就会在回收该对象之前，把这个软引用（或弱引用，或虚引用）加入到与之关联的引用队列（ReferenceQueue）中。如果一个软引用（或弱引用，或虚引用）对象本身在引用队列中，就说明该引用对象所指向的对象被回收了。无实际的存储结构，存储逻辑依赖于内部节点之间的关系来表达。存储关联的且被GC的软引用，弱引用以及虚引用
+> 引用队列（ReferenceQueue）：当GC（垃圾回收线程）准备回收一个对象时，如果发现它还仅有软引用(或弱引用，或虚引用)指向它，就会在回收该对象之前，把这个软引用（或弱引用，或虚引用）加入到与之关联的引用队列（ReferenceQueue）中。**如果一个软引用（或弱引用，或虚引用）对象本身在引用队列中，就说明该引用对象所指向的对象被回收了**。无实际的存储结构，存储逻辑依赖于内部节点之间的关系来表达。
 
 ### 垃圾收集算法
 
@@ -785,6 +794,8 @@ G1 把堆划分成多个大小相等的独立区域（Region），新生代和�
 
 ## 六、内存分配与回收策略
 
+[内存回收脑图](http://naotu.baidu.com/file/488e2f0745f7cfff1b03eb1c3d81fe3e?token=df2309819db31dde)
+
 ### Minor GC 和 Full GC
 
 - Minor GC：回收新生代，因为新生代对象存活时间很短，因此 Minor GC 会频繁执行，执行的速度一般也会比较快。
@@ -858,19 +869,6 @@ G1 把堆划分成多个大小相等的独立区域（Region），新生代和�
 | -XX:SurvivorRatio        | Eden和Survivor的比值，默认为8:1                |
 | -XX:NewRatio             | 老年代和年轻代内存大小的比例                   |
 | -XX:MaxTenuringThreshold | 对象从年轻代晋升到老年代经过的GC次数的最大阈值 |
-
-### 常见GC相关面试题
-
-Object 的finalize()方法的作用是否与C++的析构函数作用相同
-
-- 与C++的析构函数不同，析构函数调用确定，而finalize()方法是不确定的；
-- 当垃圾回收器要宣告一个对象死亡时，至少要经历两次标记过程。如果对象在进行可达性分析以后，没有与GC Root直接相连接的引用量，就会被第一次标记，并且判断是否执行finalize()方法；如果这个对象覆盖了finalize()方法，并且未被引用，就会被放置于F-Queue队列，稍后由虚拟机创建的一个低优先级的finalize()线程去执行触发finalize()方法；
-- 由于线程的优先级比较低，执行过程随时可能会被终止；
-- 给予对象最后一次重生的机会
-
-
-
-
 
 ## 七、类加载机制
 
@@ -1066,6 +1064,8 @@ System.out.println(ConstClass.HELLOWORLD);
 
 使得 Java 类随着它的类加载器一起具有一种带有优先级的层次关系，从而使得基础类得到统一。
 
+可以避免多份同样的字节码的加载
+
 例如 java.lang.Object 存放在 rt.jar 中，如果编写另外一个 java.lang.Object 并放到 ClassPath 中，程序可以编译通过。由于双亲委派模型的存在，所以在 rt.jar 中的 Object 比在 ClassPath 中的 Object 优先级更高，这是因为 rt.jar 中的 Object 使用的是启动类加载器，而 ClassPath 中的 Object 使用的是应用程序类加载器。rt.jar 中的 Object 优先级更高，那么程序中所有的 Object 都是这个 Object。
 
 #### 3. 实现
@@ -1083,13 +1083,14 @@ public abstract class ClassLoader {
 
     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
         synchronized (getClassLoadingLock(name)) {
-            // First, check if the class has already been loaded
+            // 首先，自底向上地检查请求的类是否已经被加载过
             Class<?> c = findLoadedClass(name);
             if (c == null) {
                 try {
                     if (parent != null) {
                         c = parent.loadClass(name, false);
                     } else {
+                        //自顶向下尝试加载该类
                         c = findBootstrapClassOrNull(name);
                     }
                 } catch (ClassNotFoundException e) {
@@ -1098,8 +1099,7 @@ public abstract class ClassLoader {
                 }
 
                 if (c == null) {
-                    // If still not found, then invoke findClass in order
-                    // to find the class.
+                    // 在父加载器中无法加载再尝试自己加载
                     c = findClass(name);
                 }
             }
