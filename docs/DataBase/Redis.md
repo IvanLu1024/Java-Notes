@@ -339,7 +339,9 @@ List 是一个双向链表，可以通过 lpush 和 rpop 写入和读取消息
 
 在分布式场景下，无法使用单机环境下的锁来对多个节点上的进程进行同步。
 
-可以使用 Redis 自带的 SETNX 命令实现分布式锁，除此之外，还可以使用官方提供的 RedLock 分布式锁实现。
+- 单节点：可以使用 Redis 自带的 SETNX 或SET命令实现分布式锁。
+
+- 多节点：[RedLock模型](https://www.jianshu.com/p/fba7dd6dcef5)，具有安全性、避免死锁和容错性的特性。
 
 ### 其它
 
