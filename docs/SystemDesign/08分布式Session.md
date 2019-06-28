@@ -9,7 +9,7 @@
 
 一个用户的 Session 信息如果存储在一个服务器上，那么当负载均衡器把用户的下一个请求转发到另一个服务器，由于服务器没有用户的 Session 信息，那么该用户就需要重新进行登录等操作。
 
-## Sticky Session
+## 粘性 Seesion（Sticky Session）
 
 需要配置负载均衡器，使得一个用户的所有请求都路由到同一个服务器，这样就可以把用户的 Session 存放在该服务器中。
 
@@ -19,7 +19,7 @@
 
 <div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/systemDesign/MultiNode-StickySessions.jpg"/> </div><br>
 
-## Session Replication
+## Session 广播（Session Replication）
 
 在服务器之间进行 Session 同步操作，每个服务器都有所有用户的 Session 信息，因此用户可以向任何一个服务器进行请求。
 
@@ -30,7 +30,7 @@
 
 <div align="center"> <img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/systemDesign/MultiNode-SessionReplication.jpg"/> </div><br>
 
-## Session Server
+## 缓存集中式管理（Session Server）
 
 使用一个单独的服务器存储 Session 数据，可以使用传统的 MySQL，也使用 Redis 或者 Memcached 这种内存型数据库。
 
