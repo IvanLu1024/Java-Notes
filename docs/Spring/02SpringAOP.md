@@ -6,10 +6,10 @@
     * [Spring的AspectJ的AOP](#Spring的AspectJ的AOP)
 <!-- GFM-TOC -->
 
-# SpringAOP
+# Spring AOP
 
-## SpringAOP概述
-### 什么是AOP
+## AOP 概述
+### 什么是 AOP
 AOP(面向切面编程,Aspect Oriented Programing)。
 
 AOP采取**横向抽取**机制，取代了传统纵向继承体系重复性代码（性能监视、事务管理、安全检查、缓存）
@@ -21,11 +21,7 @@ AspectJ扩展了Java语言，提供了一个专门的编译器，在编译时提
 
 AOP底层原理就是**代理机制**。
 
-> 关注点分离：不同的问题交给不同部分去解决
-
-### Spring的AOP代理
-- JDK动态代理:对实现了接口的类生成代理
-- CGLib代理机制:对类生成代理
+> 关注点分离：不同的问题交给不同部分去解决。
 
 ### AOP的术语
 
@@ -36,16 +32,29 @@ AOP底层原理就是**代理机制**。
 | Advice(通知/增强) | 所谓通知是指拦截到Joinpoint之后所要做的事情就是**通知**。通知分为前置通知,后置通知,异常通知,最终通知,环绕通知(切面要完成的功能) |
 | Introduction(引介) | 引介是一种**特殊的通知**在不修改类代码的前提下, Introduction可以在运行期为类动态地添加一些方法或Field |
 | Target(目标对象) | 代理的目标对象 |
-| Weaving(织入) | 是指把增强应用到目标对象来创建新的代理对象的过程。有三种织入方式： Spring采用**动态代理织入**，而AspectJ采用**编译期织入**和**类装载期织入** |
+| Weaving(织入) | 是指把增强应用到目标对象来创建新的代理对象的过程。<br>有三种织入方式： Spring采用**动态代理织入**，而AspectJ采用**编译期织入**和**类装载期织入** |
 | Proxy（代理）| 一个类被AOP织入增强后，就产生一个结果代理类 |
 | Aspect(切面) | 是切入点和通知（/引介）的结合 |
 
-- 示例：
+- 示例：在 IUserDao() 中
 
-<div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/spring/02_1.png" width="800"/></div>
+  ```java
+  public interface IUserDao {
+      void add();
+      void delete();
+      void update();
+      void search();
+  }
+  // IUserDao 被增强的对象，就是 Target(目标对象)
+  // add()、delete()、update() 和 search() 都是 JoinPoint(连接点) 
+  // 这里要对 add() 和 update() JoinPoint 进行拦截，则 add() 和 update() 就是 Pointcut(切入点)
+  // Advice 指的是要增强的代码，也就是代码的增强
+  // Weaving：指的是把增强(Advice)应用到目标对象(Target)创建新的代理对象得人过程
+  // Aspect：是切入点和通知的结合，在 add 或 delete 方法上应用增强
+  ```
 
-## AOP的底层实现
-### JDK动态代理
+## AOP 的底层实现
+### JDK 动态代理
 JDK动态代理:对**实现了接口的类**生成代理
 
 ```java
@@ -131,7 +140,7 @@ public class JdkProxyDemo {
 结束事务
 ```
 
-### Cglib动态代理
+### Cglib 动态代理
 以**继承的方式**动态生成目标类的代理。
 
 CGLIB(Code Generation Library)是一个开源项目！
@@ -215,21 +224,11 @@ Spring框架中：
 
 - **如果类实现了接口,就使用JDK的动态代理生成代理对象**
 - **如果这个类没有实现任何接口,使用CGLIB生成代理对象**
+- **可以通过配置文件指定对接口使用 CGLIB 生成代理对象**
 
+## Spring 中的 AOP
 
-### 相关阅读
-
-- [代理设计模式](https://github.com/DuHouAn/Java/blob/master/Object_Oriented/notes/03%E7%BB%93%E6%9E%84%E5%9E%8B.md#7-%E4%BB%A3%E7%90%86proxy)
-
-Spring中代理模式的实现：
-
-- 真实实现类的逻辑包含在getBean方法中；
-- getBean方法返回的实际上是Proxy的实例；
-- Proxy实例是Spring 采用JDK Proxy或CGLIB动态生成的。
-
-## Spring中的AOP
-
-### Spring中通知
+### Spring 中通知
 Spring中的通知Advice其实是指“增强代码”。
 
 | 通知类型 | 全类名 | 说明 |
@@ -241,7 +240,7 @@ Spring中的通知Advice其实是指“增强代码”。
 | 引介通知 | org.springframework.aop.IntroductionInterceptor | 在目标类中添加一些新的方法和属性 |
 
 
-### Spring中切面类型
+### Spring 中切面类型
 Advisor : Spring中传统切面。
 - Advisor:一个切点和一个通知组合。
 - Aspect:多个切点和多个通知组合。
@@ -250,7 +249,7 @@ Advisor : 代表一般切面，Advice本身就是一个切面，对目标类所�
 PointcutAdvisor : 代表具有切点的切面，可以指定拦截目标类哪些方法(带有切点的切面,针对某个方法进行拦截)
 IntroductionAdvisor : 代表引介切面，针对引介通知而使用切面（不要求掌握）
 
-### Spring的AOP的开发
+### Spring 的 AOP 的开发
 
 #### 1. 不带有切点的切面(针对所有方法的增强)
 > 第一步:导入相应jar包
@@ -608,9 +607,9 @@ public class SpringTest {
 - 自动代理基于后处理Bean。**在Bean的生成过程中,就产生了代理对象**,把代理对象返回。
 生成的Bean已经是代理对象。
 
-## Spring的AspectJ的AOP
+## Spring 的 AspectJ 的 AOP
 
-### 基于XML
+### 基于 XML
 > 第一步:编写被增强的类
 
 UserDao
