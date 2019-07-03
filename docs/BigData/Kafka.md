@@ -144,31 +144,7 @@ LEO（Log End Offset）是所有的副本都会有的一个 offset 标记，它�
 Producers 往 Brokers 中指定的 Topic 写消息，Consumers 从 Brokers 里面拉去指定 Topic 的消息，然后进行业务处理。
 图中有两个 Topic，Topic-0 有两个 Partition，Topic-1 有一个 Partition，三副本备份。可以看到 Consumer-Group-1 中的 Consumer-2 没有分到 Partition 处理，这是有可能出现的。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//===============================================
-
-Kafka 工作流程：
+#### Kafka 工作流程
 
 生产者会根据业务逻辑产生消息，之后根据路由规则将消息发送到指定分区的 Leader 副本所在的 Broker 上。在Kafka 服务端接收到消息后，会将消息追加到 Log 中保存，之后 Follower 副本会与 Leader 副本进行同步，当 ISR集合中所有副本都完成了此消息的同步后，则 Leader 副本的 HW 会增加，并向生产者返回响应。
 
@@ -283,7 +259,32 @@ Kafka将数据以日志的形式保存在磁盘中。
 
 - 每一个 log 文件中又分为多个 segment。
 
-## 七、Kafka 的分布式实现
+## 七、Kafka 的高可用
+
+#### 高可用如何实现？
+
+Kafka 0.8 以后，提供了 HA 机制，就是 replica（复制品） 副本机制。每个 partition 的数据都会同步到其它机器上，形成自己的多个 replica 副本。所有 replica 会选举一个 leader 出来，那么生产和消费都跟这个 leader 打交道，然后其他 replica 就是 follower。写的时候，leader 会负责把数据同步到所有 follower 上去，读的时候就直接读 leader 上的数据即可。只能读写 leader？很简单，**要是你可以随意读写每个 follower，那么就要 care 数据一致性的问题**，系统复杂度太高，很容易出问题。Kafka 会均匀地将一个 partition 的所有 replica 分布在不同的机器上，这样才可以提高容错性。
+
+这样就算某个broker宕机，该broker上面的partition也不会丢失，因为其他broker上都有副本，这样Kafka就具有了高可用性。如果这个宕机的 broker 上面有某个 partition 的 leader，那么此时会从 follower 中**重新选举**一个新的 leader 出来，大家继续读写那个新的 leader 即可。这就有所谓的高可用性了。
+
+#### 那么如何选举leader呢？
+
+最简单最直观的方案是，所有Follower都在Zookeeper上设置一个Watch，一旦Leader宕机，其对应的ephemeral znode会自动删除，此时所有Follower都尝试创建该节点，而创建成功者（Zookeeper保证只有一个能创建成功）即是新的Leader，其它Replica即为Follower。
+
+**写数据**的时候，生产者就写 leader，然后 leader 将数据落地写本地磁盘，接着其他 follower 自己主动从 leader 来 pull 数据。一旦所有 follower 同步好数据了，就会发送 ack 给 leader，leader 收到所有 follower 的 ack 之后，就会返回写成功的消息给生产者。（当然，这只是其中一种模式，还可以适当调整这个行为）
+
+**消费**的时候，只会从 leader 去读，但是只有当一个消息已经被所有 follower 都同步成功返回 ack 的时候，这个消息才会被消费者读到。
+
+#### 如何处理所有Replica都不工作？
+
+　　上文提到，在ISR中至少有一个follower时，Kafka可以确保已经commit的数据不丢失，但如果某个Partition的所有Replica都宕机了，就无法保证数据不丢失了。这种情况下有两种可行的方案：
+
+- 等待ISR中的任一个Replica“活”过来，并且选它作为Leader
+- 选择第一个“活”过来的Replica（不一定是ISR中的）作为Leader
+
+　　这就需要在可用性和一致性当中作出一个简单的折衷。如果一定要等待ISR中的Replica“活”过来，那不可用的时间就可能会相对较长。而且如果ISR中的所有Replica都无法“活”过来了，或者数据都丢失了，这个Partition将永远不可用。选择第一个“活”过来的Replica作为Leader，而这个Replica不是ISR中的Replica，那即使它并不保证已经包含了所有已commit的消息，它也会成为Leader而作为consumer的数据源（前文有说明，所有读写都由Leader完成）。Kafka0.8.*使用了第二种方式。根据Kafka的文档，在以后的版本中，Kafka支持用户通过配置选择这两种方式中的一种，从而根据不同的使用场景选择高可用性还是强一致性。
+
+## 八、Kafka 的分布式实现
 
 <div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/kafka/k_6.png"/></div>
 
