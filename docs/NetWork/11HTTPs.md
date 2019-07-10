@@ -72,6 +72,14 @@ HTTP 也提供了 MD5 报文摘要功能，但不是安全的。例如报文内�
 
 HTTPs 的报文摘要功能之所以安全，是因为它结合了加密和认证这两个操作。试想一下，加密之后的报文，遭到篡改之后，也很难重新计算报文摘要，因为无法轻易获取明文。
 
+## 连接建立过程
+
+HTTPs的连接建立过程比较复杂，大致情况如下图所示：
+
+<div align="center">
+    <img src="https://gitee.com/IvanLu1024/picts/raw/60f8e9a3d2b791f43ae73a72163c48c99b9f020f/blog/network/https.png"/>
+</div>
+
 ## HTTPs 的缺点
 
 - 因为需要进行加密解密等过程，因此速度会更慢；
