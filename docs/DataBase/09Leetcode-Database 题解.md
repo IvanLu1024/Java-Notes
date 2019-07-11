@@ -1,27 +1,8 @@
-<!-- GFM-TOC -->
-* [595. Big Countries](#595-big-countries)
-* [627. Swap Salary](#627-swap-salary)
-* [620. Not Boring Movies](#620-not-boring-movies)
-* [596. Classes More Than 5 Students](#596-classes-more-than-5-students)
-* [182. Duplicate Emails](#182-duplicate-emails)
-* [196. Delete Duplicate Emails](#196-delete-duplicate-emails)
-* [175. Combine Two Tables](#175-combine-two-tables)
-* [181. Employees Earning More Than Their Managers](#181-employees-earning-more-than-their-managers)
-* [183. Customers Who Never Order](#183-customers-who-never-order)
-* [184. Department Highest Salary](#184-department-highest-salary)
-* [176. Second Highest Salary](#176-second-highest-salary)
-* [177. Nth Highest Salary](#177-nth-highest-salary)
-* [178. Rank Scores](#178-rank-scores)
-* [180. Consecutive Numbers](#180-consecutive-numbers)
-* [626. Exchange Seats](#626-exchange-seats)
-<!-- GFM-TOC -->
+# 1、大的国家(595)
 
+[595. 大的国家](https://leetcode-cn.com/problems/big-countries/)
 
-# 595. Big Countries
-
-https://leetcode.com/problems/big-countries/description/
-
-## Description
+- 问题描述
 
 ```html
 +-----------------+------------+------------+--------------+---------------+
@@ -46,7 +27,7 @@ https://leetcode.com/problems/big-countries/description/
 +--------------+-------------+--------------+
 ```
 
-## SQL Schema
+- SQL  Schema
 
 ```sql
 DROP TABLE
@@ -62,24 +43,22 @@ VALUES
     ( 'Angola', 'Africa', '1246700', '20609294', '1009900000' );
 ```
 
-## Solution
+- 解题
 
 ```sql
-SELECT name,
-    population,
-    area
-FROM
-    World
-WHERE
-    area > 3000000
-    OR population > 25000000;
+# 思路：
+# 1、根据样例，我们知道。查询字段是 name population 和 area
+# 2、查询条件是 area > 3000000 || population > 25000000
+SELECT name,population,area
+FROM World 
+WHERE area > 3000000 || population > 25000000;
 ```
 
-# 627. Swap Salary
+#  2、交换工资(627)
 
-https://leetcode.com/problems/swap-salary/description/
+[627. 交换工资](https://leetcode-cn.com/problems/swap-salary/)
 
-## Description
+- 问题描述
 
 ```html
 | id | name | sex | salary |
@@ -101,7 +80,7 @@ https://leetcode.com/problems/swap-salary/description/
 | 4  | D    | m   | 500    |
 ```
 
-## SQL Schema
+- SQL Schema
 
 ```sql
 DROP TABLE
@@ -116,18 +95,22 @@ VALUES
     ( '4', 'D', 'f', '500' );
 ```
 
-## Solution
+- 解题
 
 ```sql
-UPDATE salary
-SET sex = CHAR ( ASCII(sex) ^ ASCII( 'm' ) ^ ASCII( 'f' ) );
+# 思路：
+# l、利用位运算：比如若 x^b^a = a，则判断 x=b
+# 2、利用 ASCII 函数将字符转换为数值进行运算，然后再利用 CHAR 函数将数值转换为字符
+UPDATE 
+salary
+SET sex = CHAR(ASCII(sex)^ASCII('m')^ASCII('f'));
 ```
 
-# 620. Not Boring Movies
+# 3、有趣的电影(62)
 
-https://leetcode.com/problems/not-boring-movies/description/
+[620. 有趣的电影](https://leetcode-cn.com/problems/not-boring-movies/)
 
-## Description
+- 问题描述
 
 
 ```html
@@ -153,7 +136,7 @@ https://leetcode.com/problems/not-boring-movies/description/
 +---------+-----------+--------------+-----------+
 ```
 
-## SQL Schema
+- SQL Schema
 
 ```sql
 DROP TABLE
@@ -169,25 +152,23 @@ VALUES
     ( 5, 'House card', 'Interesting', 9.1 );
 ```
 
-## Solution
+- 解题
 
 ```sql
-SELECT
-    *
-FROM
-    cinema
-WHERE
-    id % 2 = 1
-    AND description != 'boring'
-ORDER BY
-    rating DESC;
+#思路：
+#1、观察测试用例的查询结果，我们知道，其实查询的是所有的字段
+#2、id 为奇数，则查询条件为 id % 2 = 1
+SELECT id,movie,description,rating
+FROM cinema
+WHERE id%2=1 AND description != 'boring'
+ORDER BY rating DESC;
 ```
 
-# 596. Classes More Than 5 Students
+# 4、超过5名学生的课(596)
 
-https://leetcode.com/problems/classes-more-than-5-students/description/
+[596. 超过5名学生的课](https://leetcode-cn.com/problems/classes-more-than-5-students/)
 
-## Description
+- 问题描述
 
 ```html
 +---------+------------+
@@ -215,7 +196,7 @@ https://leetcode.com/problems/classes-more-than-5-students/description/
 +---------+
 ```
 
-## SQL Schema
+- SQL Schema
 
 ```sql
 DROP TABLE
@@ -235,24 +216,23 @@ VALUES
     ( 'I', 'Math' );
 ```
 
-## Solution
+- 解答
 
 ```sql
-SELECT
-    class
-FROM
-    courses
-GROUP BY
-    class
-HAVING
-    count( DISTINCT student ) >= 5;
+# 思路：
+# 1、很显然要按照 class 进行分组
+# 2、然后按照分组后的 class 来统计学生的人数
+SELECT class
+FROM courses
+GROUP BY class
+HAVING COUNT( DISTINCT student) >= 5;
 ```
 
-# 182. Duplicate Emails
+# 5、查找重复的电子邮箱(182)
 
-https://leetcode.com/problems/duplicate-emails/description/
+[182. 查找重复的电子邮箱](https://leetcode-cn.com/problems/duplicate-emails/)
 
-## Description
+- 问题描述
 
 邮件地址表：
 
@@ -276,7 +256,7 @@ https://leetcode.com/problems/duplicate-emails/description/
 +---------+
 ```
 
-## SQL Schema
+- SQL Schema
 
 ```sql
 DROP TABLE
@@ -290,24 +270,23 @@ VALUES
     ( 3, 'a@b.com' );
 ```
 
-## Solution
+- 解题
 
 ```sql
-SELECT
-    Email
-FROM
-    Person
-GROUP BY
-    Email
-HAVING
-    COUNT( * ) >= 2;
+# 思路：与 596 题类似
+# 1、按照 mail 进行分组
+# 2、统计出现次数 >=2 就是重复的邮件
+SELECT Email
+FROM Person
+GROUP BY EMAIL
+HAVING COUNT(id) >= 2;
 ```
 
-# 196. Delete Duplicate Emails
+# *6、删除重复的电子邮箱(196)
 
 https://leetcode.com/problems/delete-duplicate-emails/description/
 
-## Description
+- 问题描述
 
 邮件地址表：
 
@@ -332,15 +311,14 @@ https://leetcode.com/problems/delete-duplicate-emails/description/
 +----+------------------+
 ```
 
-## SQL Schema
+- SQL Schema
 
 与 182 相同。
 
-## Solution
-
-连接：
+- 解题：
 
 ```sql
+# 思路一：将一张表看成两张表来进行操作
 DELETE p1
 FROM
     Person p1,
@@ -350,7 +328,20 @@ WHERE
     AND p1.Id > p2.Id
 ```
 
-子查询：
+```sql
+# 思路二：
+# 第一步：根据 email 进行分组，获取 email 对应的最小 id，一个 email 对应一个最小的 id
+SELECT min( id ) AS id FROM Person GROUP BY email;
+
+# 第二步：删除不在该 id 集合中的数据
+DELETE
+FROM
+    Person
+WHERE
+    id NOT IN ( SELECT id FROM ( SELECT min( id ) AS id FROM Person GROUP BY email ) AS m );
+# 应该注意的是上述解法额外嵌套了一个 SELECT 语句。
+# 如果不这么做，会出现错误：You can't specify target table 'Person' for update in FROM clause。
+```
 
 ```sql
 DELETE
@@ -358,25 +349,16 @@ FROM
     Person
 WHERE
     id NOT IN ( SELECT id FROM ( SELECT min( id ) AS id FROM Person GROUP BY email ) AS m );
-```
-
-应该注意的是上述解法额外嵌套了一个 SELECT 语句，如果不这么做，会出现错误：You can't specify target table 'Person' for update in FROM clause。以下演示了这种错误解法。
-
-```sql
-DELETE
-FROM
-    Person
-WHERE
-    id NOT IN ( SELECT min( id ) AS id FROM Person GROUP BY email );
+# 发生 You can't specify target table 'Person' for update in FROM clause。
 ```
 
 参考：[pMySQL Error 1093 - Can't specify target table for update in FROM clause](https://stackoverflow.com/questions/45494/mysql-error-1093-cant-specify-target-table-for-update-in-from-clause)
 
-# 175. Combine Two Tables
+# 7、组合两个表(175)
 
 https://leetcode.com/problems/combine-two-tables/description/
 
-## Description
+- 问题描述：
 
 Person 表：
 
@@ -407,7 +389,7 @@ AddressId is the primary key column for this table.
 
 查找 FirstName, LastName, City, State 数据，而不管一个用户有没有填地址信息。
 
-## SQL Schema
+- SQL Schema
 
 ```sql
 DROP TABLE
@@ -426,27 +408,35 @@ VALUES
     ( 1, 2, 'New York City', 'New York' );
 ```
 
-## Solution
-
-使用左外连接。
+- 解题：
 
 ```sql
-SELECT
-    FirstName,
-    LastName,
-    City,
-    State
-FROM
-    Person P
-    LEFT JOIN Address A
-    ON P.PersonId = A.PersonId;
+# 思路：左外连接
+SELECT p.FirstName,p.LastName,a.City,a.State
+FROM Person p
+LEFT JOIN Address a 
+ON p.PersonId=a.PersonId;
 ```
 
-# 181. Employees Earning More Than Their Managers
+- 扩展：
+
+  * 内连接：返回两张表的交集部分。
+
+  <div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/database/leetcode_1.png"/></div>
+
+  * 左连接：
+
+  <div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/database/leetcode_2.png"/></div>
+
+  * 右连接：
+
+  <div align="center"><img src="https://gitee.com/duhouan/ImagePro/raw/master/java-notes/database/leetcode_3.png"/></div>
+
+# *8、超过经理收入的员工(181)
 
 https://leetcode.com/problems/employees-earning-more-than-their-managers/description/
 
-## Description
+- 问题描述：
 
 Employee 表：
 
@@ -463,7 +453,7 @@ Employee 表：
 
 查找薪资大于其经理薪资的员工信息。
 
-## SQL Schema
+- SQL Schema
 
 ```sql
 DROP TABLE
@@ -478,23 +468,45 @@ VALUES
     ( 4, 'Max', 90000, NULL );
 ```
 
-## Solution
+- 解题：
 
 ```sql
-SELECT
-    E1.NAME AS Employee
-FROM
-    Employee E1
-    INNER JOIN Employee E2
-    ON E1.ManagerId = E2.Id
-    AND E1.Salary > E2.Salary;
+# 思路：Employee e1 INNER JOIN Employee e2 ON e1.managerid = e2.id 比如
+
++----+-------+--------+-----------+
+| Id | Name  | Salary | ManagerId |
++----+-------+--------+-----------+
+| 1  | Joe   | 70000  | 3         |
+| 2  | Henry | 80000  | 4         |
+| 3  | Sam   | 60000  | NULL      |
+| 4  | Max   | 90000  | NULL      |
++----+-------+--------+-----------+
+
+根据 e1.managerid = e2.id 条件进行内连接后，得到
+
++----+-------+--------+-----------+-------+--------+-----------+
+| Id | Name  | Salary | ManagerId | Name  | Salary | ManagerId |
++----+-------+--------+-----------+-------+--------+-----------+
+| 1  | Joe   | 70000  | 3         | Sam   | 60000  | NULL      |
+| 2  | Henry | 80000  | 4         | Max   | 90000  | NULL      |
++----+-------+--------+-----------+-------+--------+-----------+
 ```
 
-# 183. Customers Who Never Order
+```sql
+SELECT 
+	e1.name AS Employee # 注意：这里的 Employee 是给该字段起的别名，实际上查找的是姓名
+FROM 
+	Employee e1
+	INNER JOIN Employee e2
+	ON e1.managerid = e2.id
+	AND e1.salary > e2.salary;
+```
+
+# 9、从不订购的客户(183)
 
 https://leetcode.com/problems/customers-who-never-order/description/
 
-## Description
+- 问题描述：
 
 Curstomers 表：
 
@@ -531,7 +543,7 @@ Orders 表：
 +-----------+
 ```
 
-## SQL Schema
+- SQL Schema
 
 ```sql
 DROP TABLE
@@ -554,37 +566,34 @@ VALUES
     ( 2, 1 );
 ```
 
-## Solution
-
-左外链接
+- 解答
 
 ```sql
+# 解法一：左外连接
 SELECT
-    C.Name AS Customers
+    c.Name AS Customers
 FROM
-    Customers C
-    LEFT JOIN Orders O
-    ON C.Id = O.CustomerId
+    Customers c
+    LEFT JOIN Orders o
+    ON c.Id = o.CustomerId
 WHERE
-    O.CustomerId IS NULL;
+    o.CustomerId IS NULL;
 ```
 
-子查询
-
 ```sql
-SELECT
-    Name AS Customers
-FROM
+# 解法二：子查询方式
+SELECT Name AS Customers
+FROM 
     Customers
-WHERE
-    Id NOT IN ( SELECT CustomerId FROM Orders );
+WHERE 
+    Id NOT IN (SELECT CustomerId  FROM Orders);
 ```
 
-# 184. Department Highest Salary
+# *10、部门工资最高的员工(184)
 
 https://leetcode.com/problems/department-highest-salary/description/
 
-## Description
+- 问题描述：
 
 Employee 表：
 
@@ -621,7 +630,7 @@ Department 表：
 +------------+----------+--------+
 ```
 
-## SQL Schema
+- SQL Schema
 
 ```sql
 DROP TABLE IF EXISTS Employee;
@@ -640,32 +649,42 @@ VALUES
     ( 2, 'Sales' );
 ```
 
-## Solution
-
-创建一个临时表，包含了部门员工的最大薪资。可以对部门进行分组，然后使用 MAX() 汇总函数取得最大薪资。
-
-之后使用连接找到一个部门中薪资等于临时表中最大薪资的员工。
+- 解题:
 
 ```sql
-SELECT
-    D.NAME Department,
-    E.NAME Employee,
-    E.Salary
-FROM
-    Employee E,
-    Department D,
-    ( SELECT DepartmentId, MAX( Salary ) Salary FROM Employee GROUP BY DepartmentId ) M
-WHERE
-    E.DepartmentId = D.Id
-    AND E.DepartmentId = M.DepartmentId
-    AND E.Salary = M.Salary;
+# 创建一个临时表，包含了部门员工的最大薪资。
+# 可以对部门进行分组，然后使用 MAX() 汇总函数取得最大薪资。
+
+SELECT DepartmentId, MAX( Salary ) Salary FROM Employee GROUP BY DepartmentId;
+
+# 结果：
++--------------+--------+
+| DepartmentId | Salary |
++--------------+--------+
+|            1 |  90000 |
+|            2 |  80000 |
++--------------+--------+
 ```
 
-# 176. Second Highest Salary
+使用连接找到一个部门中薪资等于临时表中最大薪资的员工。
+
+```sql
+SELECT d.name as Department,  e.name as Employee, m.Salary 
+FROM 
+	Employee e,
+	Department d,
+	(SELECT DepartmentId, MAX( Salary ) Salary FROM Employee GROUP BY DepartmentId) m
+WHERE 
+		e.DepartmentId=d.Id
+    AND e.DepartmentId=m.DepartmentId
+    AND e.Salary=m.Salary;
+```
+
+# 11、第二高的薪水(176)
 
 https://leetcode.com/problems/second-highest-salary/description/
 
-## Description
+- 问题描述：
 
 ```html
 +----+--------+
@@ -689,7 +708,7 @@ https://leetcode.com/problems/second-highest-salary/description/
 
 没有找到返回 null 而不是不返回数据。
 
-## SQL Schema
+- SQL Schema
 
 ```sql
 DROP TABLE
@@ -703,41 +722,54 @@ VALUES
     ( 3, 300 );
 ```
 
-## Solution
-
-为了在没有查找到数据时返回 null，需要在查询结果外面再套一层 SELECT。
+- 解题：
 
 ```sql
+# 查询所有 salary 按照降序排列
+SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC;
+```
+
+```sql
+# 要获取第二高的的薪水，就是获取第二个元素，
+# 使用  limit start,count; start:开始查询的位置，count 是查询多少条语句
+SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC LIMIT 1,1;
+```
+
+```sql
+# 为了在没有查找到数据时返回 null，需要在查询结果外面再套一层 SELECT。
 SELECT
     ( SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC LIMIT 1, 1 ) SecondHighestSalary;
 ```
 
-# 177. Nth Highest Salary
+# 12、第N高的薪水(177)
 
-## Description
+[177. 第N高的薪水](https://leetcode-cn.com/problems/nth-highest-salary/)
+
+- 问题描述：
 
 查找工资第 N 高的员工。
 
-## SQL Schema
+- SQL Schema
 
 同 176。
 
-## Solution
+- 解题：
 
 ```sql
+# 思路：其实与 176题目类似
 CREATE FUNCTION getNthHighestSalary ( N INT ) RETURNS INT BEGIN
 
-SET N = N - 1;
+SET N = N - 1; #注意 LIMIT 的 start 是从 0 开始的,第 N 实际上是第 (N-1)
 RETURN ( SELECT ( SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC LIMIT N, 1 ) );
 
 END
 ```
 
-# 178. Rank Scores
+# 13、分数排名(178)
 
 https://leetcode.com/problems/rank-scores/description/
 
-## Description
+- 问题描述：
 
 得分表：
 
@@ -769,7 +801,7 @@ https://leetcode.com/problems/rank-scores/description/
 +-------+------+
 ```
 
-## SQL Schema
+- SQL Schema
 
 ```sql
 DROP TABLE
@@ -786,9 +818,11 @@ VALUES
     ( 6, 3.65 );
 ```
 
-## Solution
+- 解题：
 
 ```sql
+#思路：关键在于如何统计 Rank 
+#这里使用同一张表进行内连接，注意连接的条件 S1.score <= S2.score 就是为了方便统计 Rank
 SELECT
     S1.score,
     COUNT( DISTINCT S2.score ) Rank
@@ -802,11 +836,9 @@ ORDER BY
     S1.score DESC;
 ```
 
-# 180. Consecutive Numbers
+# *14、连续出现的数字（180）
 
-https://leetcode.com/problems/consecutive-numbers/description/
-
-## Description
+- 问题描述：
 
 数字表：
 
@@ -834,7 +866,7 @@ https://leetcode.com/problems/consecutive-numbers/description/
 +-----------------+
 ```
 
-## SQL Schema
+- SQL Schema
 
 ```sql
 DROP TABLE
@@ -852,26 +884,55 @@ VALUES
     ( 7, 2 );
 ```
 
-## Solution
+- 解题
+
+- 
 
 ```sql
-SELECT
-    DISTINCT L1.num ConsecutiveNums
+# 思路：要求是连续出现 3 次，可使用 3 张该表
+SELECT L1.Num ConsecutiveNums
 FROM
-    Logs L1,
-    Logs L2,
-    Logs L3
-WHERE L1.id = l2.id - 1
-    AND L2.id = L3.id - 1
-    AND L1.num = L2.num
-    AND l2.num = l3.num;
+	Logs L1,
+	Logs L2,
+	Logs L3
+WHERE
+	L1.Id = L2.Id-1
+	AND L2.ID = L3.Id-1
+	AND L1.Num = L2.Num
+  AND L2.Num = L3.Num;
+# 判断条件 Id 是不相同的，但是 Num 是相同的，并且 Id 是连续变化的
 ```
 
-# 626. Exchange Seats
+```sql
+# 由于要求是至少出现 3 次，所以需要 DISTINCT 进行去重
+SELECT DISTINCT L1.Num ConsecutiveNums
+FROM
+	Logs L1,
+	Logs L2,
+	Logs L3
+WHERE
+	L1.Id = L2.Id-1
+	AND L2.ID = L3.Id-1
+	AND L1.Num = L2.Num
+  AND L2.Num = L3.Num;
+```
+
+```sql
+# 另外一种写法
+SELECT DISTINCT L1.Num ConsecutiveNums 
+FROM 
+	Logs L1
+	LEFT JOIN Logs L2 ON L1.Id = L2.Id-1
+	LEFT JOIN Logs L3 ON L1.Id = L3.Id-2
+WHERE L1.Num = L2.Num 
+	AND L2.Num = L3.Num;
+```
+
+# 15、换座位(626)(了解)
 
 https://leetcode.com/problems/exchange-seats/description/
 
-## Description
+- 问题描述：
 
 seat 表存储着座位对应的学生。
 
@@ -901,7 +962,7 @@ seat 表存储着座位对应的学生。
 +---------+---------+
 ```
 
-## SQL Schema
+- SQL Schema
 
 ```sql
 DROP TABLE
@@ -917,7 +978,7 @@ VALUES
     ( '5', 'Jeames' );
 ```
 
-## Solution
+- 解题：
 
 使用多个 union。
 
