@@ -360,6 +360,20 @@ public class SyncBlockAndMethod {
 
 synchronized 修饰的方法并没有 monitorenter 指令和 monitorexit 指令，取得代之的是 **ACC_SYNCHRONIZED  标识**，该标识指明了该方法是一个同步方法，JVM 通过该 ACC_SYNCHRONIZED 访问标志来辨别一个方法是否声明为同步方法，从而执行相应的同步调用。
 
+### synchronized的可重入性
+
+如果一个获取锁的线程调用其它的synchronized修饰的方法，会发生什么？
+
+从设计上讲，当一个线程请求一个由其他线程持有的对象锁时，该线程会阻塞。当线程请求自己持有的对象锁时，如果该线程是重入锁，请求就会成功，否则阻塞。
+
+我们回来看synchronized，synchronized拥有强制原子性的内部锁机制，是一个可重入锁。因此，在一个线程使用synchronized方法时调用该对象另一个synchronized方法，即一个线程得到一个对象锁后再次请求该对象锁，是**永远可以拿到锁的**。
+
+在 Java 内部，同一个线程调用自己类中其他synchronized方法/块时不会阻碍该线程的执行，**同一个线程对同一个对象锁是可重入的，同一个线程可以获取同一把锁多次，也就是可以多次重入**。原因是 Java 中线程获得对象锁的操作是以**线程为单位**的，而不是以调用为单位的。
+
+### synchronized可重入锁的实现
+
+每个锁关联一个线程持有者和一个计数器。当计数器为0时表示该锁没有被任何线程持有，那么任何线程都都可能获得该锁而调用相应方法。当一个线程请求成功后，JVM会记下持有锁的线程，并将计数器计为1。此时其他线程请求该锁，则必须等待。而该持有锁的线程如果再次请求这个锁，就可以再次拿到这个锁，同时计数器会递增。当线程退出一个synchronized方法/块时，计数器会递减，如果计数器为0则释放该锁。
+
 ### JDK1.6 之后的锁优化
 
 JDK1.6 对锁的实现引入了大量的优化，如自旋锁、适应性自旋锁、锁消除、锁粗化、偏向锁、轻量级锁等**技术**来减少锁操作的开销。
@@ -3677,3 +3691,4 @@ public static void main(String[] args) {
 - [Java 并发知识总结](https://github.com/CL0610/Java-concurrency)
 - [CS-Notes Java并发](https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/Java%20%E5%B9%B6%E5%8F%91.md)
 - [《 Java 并发编程的艺术》](<https://book.douban.com/subject/26591326/>)
+- [Java多线程：synchronized的可重入性](https://www.cnblogs.com/cielosun/p/6684775.html)
