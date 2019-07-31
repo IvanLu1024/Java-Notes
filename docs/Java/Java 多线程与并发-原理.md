@@ -323,6 +323,12 @@ public class Singleton {
 
 考虑下面的实现，也就是只使用了一个 if 语句。 在 `uniqueInstance == null` 的情况下，如果两个线程都执行了 if 语句，那么两个线程都会进入 if 语句块内。虽然在 if 语句块内有加锁操作，但是两个线程都会执行 `uniqueInstance = new Singleton();` 这条语句，只是先后的问题，那么就会进行两次实例化。
 
+### 锁的内存语义
+
+- 锁的释放-获取遵循Happens-before
+- 当线程释放锁的时候，JMM会把该线程对应的工作内存中的共享变量刷新到主内存中
+- 当线程获取锁的时候，JMM会把该线程对应的工作内存中的共享变量置为无效
+
 ### synchronized 原理
 
 ```java

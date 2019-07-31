@@ -600,7 +600,7 @@ public class SpringTest {
 }
 ```
 
-### 区分基于ProxyFattoryBean的代理与自动代理区别?
+### 区分基于ProxyFactoryBean的代理与自动代理区别?
 
 - ProxyFactoryBean:先有被代理对象,将被代理对象传入到代理类中生成代理。
 

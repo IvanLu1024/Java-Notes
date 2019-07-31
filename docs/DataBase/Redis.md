@@ -1,5 +1,7 @@
 ## 一、概述
 
+[Redis脑图](http://naotu.baidu.com/file/b2cc07d1dabb080eac294567c31bbe04?token=6dcf94de0168d614)
+
 Redis 是速度非常快的非关系型（NoSQL）内存键值数据库，可以存储键和五种不同类型的值之间的映射。
 
 键的类型只能为字符串，值支持五种数据类型：字符串、列表、集合、散列表、有序集合。

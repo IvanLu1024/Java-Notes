@@ -48,3 +48,14 @@ http://host:port/path/参数值
 ## @ResponseBody
 
 该注解用于将 Controller 中方法返回的对象，通过适当的 HttpMessageConverter 转换为指定的格式后，写入到 Response 对象的 body s数据区。 
+
+## @Autowired和@Resource的区别
+
+1. @Autowired与@Resource都可以用来装配bean，也都可以写在字段上，或写在setter方法上。 
+2. @Autowired默认按**类型**装配（这个注解是属业spring的），默认情况下必须要求依赖对象必须存在，如果要允许null 值，可以设置它的required属性为false。
+3. @Resource（这个注解属于J2EE的），默认按照**名称**进行装配，名称可以通过name属性进行指定， 如果没有指定name属性，当注解写在字段上时，默认取字段名进行按照名称查找，如果注解写在setter方法上默认取属性名进行装配。 当找不到与名称匹配的bean时才按照类型进行装配。但是需要注意的是，如果name属性一旦指定，就只会按照名称进行装配。这个注解是属于J2EE的，减少了与spring的耦合。
+
+# 参考资料
+
+- https://blog.csdn.net/u011067360/article/details/38873755 
+
